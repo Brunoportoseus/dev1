@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa do Marceneiro — Puxadores Premium</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+  }
+
+  .post-wrapper {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .post {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    background: #0A0A0A;
+  }
+
+  /* Borda interna dourado/bronze */
+  .post::before {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(180, 140, 60, 0.35);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* =====================
+     AREA HERO (75%)
+     ===================== */
+  .hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1080px;
+    height: 810px;
+    background: radial-gradient(ellipse at 50% 0%, #1e1a14 0%, #111008 45%, #0A0A0A 100%);
+    overflow: hidden;
+  }
+
+  /* Textura de linhas finas de fundo */
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 38px,
+        rgba(255,255,255,0.6) 38px,
+        rgba(255,255,255,0.6) 39px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 38px,
+        rgba(255,255,255,0.6) 38px,
+        rgba(255,255,255,0.6) 39px
+      );
+  }
+
+  /* Luz de produto vindo do topo */
+  .hero-light {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 600px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(220, 200, 160, 0.11) 0%, transparent 68%);
+    pointer-events: none;
+  }
+
+  /* Arco decorativo sutil atrás do produto */
+  .hero-arc {
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 640px;
+    border-radius: 50%;
+    border: 1px solid rgba(180, 140, 60, 0.10);
+    pointer-events: none;
+  }
+  .hero-arc-2 {
+    position: absolute;
+    top: 220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(180, 140, 60, 0.07);
+    pointer-events: none;
+  }
+
+  /* Tagline */
+  .tagline-wrap {
+    position: absolute;
+    top: 88px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+  }
+
+  .tagline-eyebrow {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    color: rgba(255, 140, 0, 0.75);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .tagline-main {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 44px;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .tagline-line {
+    width: 48px;
+    height: 1px;
+    background: rgba(255, 140, 0, 0.6);
+    margin: 20px auto 0;
+  }
+
+  /* Produto SVG centralizado */
+  .product-area {
+    position: absolute;
+    top: 220px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+  }
+
+  /* Sombra sob o produto */
+  .product-shadow {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 420px;
+    height: 32px;
+    background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.7) 0%, transparent 70%);
+  }
+
+  /* Texto de apoio */
+  .support-text {
+    position: absolute;
+    bottom: 56px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .support-text p {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.42);
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+  }
+
+  /* =====================
+     DIVISOR LARANJA
+     ===================== */
+  .divider {
+    position: absolute;
+    top: 810px;
+    left: 0;
+    width: 1080px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #FF8C00 20%, #FF8C00 80%, transparent 100%);
+    z-index: 6;
+  }
+
+  /* =====================
+     AREA LOGO (25%)
+     ===================== */
+  .logo-bar {
+    position: absolute;
+    top: 812px;
+    left: 0;
+    width: 1080px;
+    height: 268px;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+
+  /* Linha bronze interna no rodapé */
+  .logo-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid rgba(180, 140, 60, 0.2);
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 1100px) {
+    .post-wrapper {
+      transform: scale(0.85);
+      transform-origin: top center;
+    }
+  }
+  @media screen and (max-width: 920px) {
+    .post-wrapper {
+      transform: scale(0.7);
+      transform-origin: top center;
+    }
+  }
+  @media screen and (max-width: 760px) {
+    .post-wrapper {
+      transform: scale(0.5);
+      transform-origin: top center;
+    }
+  }
+
+  @media print {
+    html, body {
+      background: white;
+    }
+    .post-wrapper {
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="post-wrapper">
+<div class="post">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-lines"></div>
+    <div class="hero-light"></div>
+    <div class="hero-arc"></div>
+    <div class="hero-arc-2"></div>
+
+    <!-- Tagline -->
+    <div class="tagline-wrap">
+      <span class="tagline-eyebrow">Hardware para marcenaria</span>
+      <span class="tagline-main">Elegância em cada detalhe</span>
+      <div class="tagline-line"></div>
+    </div>
+
+    <!-- Puxador SVG -->
+    <div class="product-area">
+      <div class="product-shadow"></div>
+      <svg width="680" height="340" viewBox="0 0 680 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Gradiente corpo principal - inox escovado -->
+          <linearGradient id="handleBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#E8E8E8"/>
+            <stop offset="8%"   stop-color="#F5F5F5"/>
+            <stop offset="18%"  stop-color="#CDCDCD"/>
+            <stop offset="32%"  stop-color="#B8B8B8"/>
+            <stop offset="50%"  stop-color="#D2D2D2"/>
+            <stop offset="65%"  stop-color="#A8A8A8"/>
+            <stop offset="80%"  stop-color="#C5C5C5"/>
+            <stop offset="92%"  stop-color="#8A8A8A"/>
+            <stop offset="100%" stop-color="#707070"/>
+          </linearGradient>
+
+          <!-- Reflexo highlight -->
+          <linearGradient id="handleHighlight" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="rgba(255,255,255,0.9)"/>
+            <stop offset="40%" stop-color="rgba(255,255,255,0.3)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </linearGradient>
+
+          <!-- Gradiente base/suporte -->
+          <linearGradient id="baseGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"   stop-color="#C0C0C0"/>
+            <stop offset="30%"  stop-color="#9A9A9A"/>
+            <stop offset="70%"  stop-color="#7A7A7A"/>
+            <stop offset="100%" stop-color="#5A5A5A"/>
+          </linearGradient>
+
+          <!-- Gradiente topo base (plano horizontal) -->
+          <linearGradient id="baseTop" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="#DCDCDC"/>
+            <stop offset="100%" stop-color="#B0B0B0"/>
+          </linearGradient>
+
+          <!-- Gradiente escovado - faixas finas horizontais no corpo -->
+          <pattern id="brushed" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse">
+            <rect width="1" height="4" fill="none"/>
+            <line x1="0" y1="1" x2="680" y2="1" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
+            <line x1="0" y1="3" x2="680" y2="3" stroke="rgba(0,0,0,0.05)" stroke-width="0.6"/>
+          </pattern>
+
+          <!-- Sombra interna barra -->
+          <linearGradient id="innerShadow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(0,0,0,0.4)"/>
+            <stop offset="20%" stop-color="rgba(0,0,0,0)"/>
+            <stop offset="80%" stop-color="rgba(0,0,0,0)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0.5)"/>
+          </linearGradient>
+
+          <!-- Reflexo ambiental laranja sutil (marca) -->
+          <radialGradient id="ambientOrange" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"  stop-color="rgba(255,140,0,0.08)"/>
+            <stop offset="100%" stop-color="rgba(255,140,0,0)"/>
+          </radialGradient>
+
+          <!-- Sombra projetada pelo puxador -->
+          <radialGradient id="castShadow" cx="50%" cy="20%" r="60%">
+            <stop offset="0%"  stop-color="rgba(0,0,0,0.55)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+
+          <!-- clip para arredondar o corpo -->
+          <clipPath id="bodyClip">
+            <rect x="60" y="100" width="560" height="80" rx="40" ry="40"/>
+          </clipPath>
+
+          <!-- Filtro blur para brilho suave -->
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <filter id="softShadow" x="-10%" y="-10%" width="120%" height="150%">
+            <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="rgba(0,0,0,0.8)"/>
+          </filter>
+        </defs>
+
+        <!-- Perspectiva: o puxador está levemente inclinado (transform no grupo) -->
+        <g transform="translate(0, 20) skewX(-2) skewY(0.8)">
+
+          <!-- Sombra projetada no fundo -->
+          <ellipse cx="340" cy="295" rx="310" ry="22" fill="url(#castShadow)" opacity="0.7"/>
+
+          <!-- ======= BASE ESQUERDA ======= -->
+          <!-- Plano frontal -->
+          <g filter="url(#softShadow)">
+            <rect x="72" y="148" width="64" height="52" rx="6" fill="url(#baseGrad)"/>
+            <!-- topo em perspectiva -->
+            <path d="M72,148 L136,148 L130,128 L78,128 Z" fill="url(#baseTop)"/>
+            <!-- lateral direita escura -->
+            <path d="M136,148 L136,200 L130,192 L130,128 Z" fill="rgba(0,0,0,0.35)"/>
+            <!-- Furo do parafuso - detalhe realista -->
+            <circle cx="104" cy="174" r="7" fill="#1A1A1A"/>
+            <circle cx="104" cy="174" r="5" fill="#111"/>
+            <circle cx="104" cy="174" r="3.5" fill="url(#baseGrad)"/>
+            <circle cx="104" cy="174" r="1.5" fill="#333"/>
+            <!-- Ranhura da cabeça do parafuso -->
+            <line x1="101.5" y1="174" x2="106.5" y2="174" stroke="#555" stroke-width="1"/>
+          </g>
+
+          <!-- ======= BASE DIREITA ======= -->
+          <g filter="url(#softShadow)">
+            <rect x="544" y="148" width="64" height="52" rx="6" fill="url(#baseGrad)"/>
+            <path d="M544,148 L608,148 L602,128 L550,128 Z" fill="url(#baseTop)"/>
+            <path d="M608,148 L608,200 L602,192 L602,128 Z" fill="rgba(0,0,0,0.35)"/>
+            <circle cx="576" cy="174" r="7" fill="#1A1A1A"/>
+            <circle cx="576" cy="174" r="5" fill="#111"/>
+            <circle cx="576" cy="174" r="3.5" fill="url(#baseGrad)"/>
+            <circle cx="576" cy="174" r="1.5" fill="#333"/>
+            <line x1="573.5" y1="174" x2="578.5" y2="174" stroke="#555" stroke-width="1"/>
+          </g>
+
+          <!-- ======= BARRA PRINCIPAL ======= -->
+          <!-- Corpo externo com sombra -->
+          <rect x="58" y="99" width="564" height="82" rx="41" fill="rgba(0,0,0,0.5)" filter="url(#softShadow)"/>
+
+          <!-- Corpo principal -->
+          <rect x="60" y="100" width="560" height="80" rx="40" fill="url(#handleBody)"/>
+
+          <!-- Textura escovada sobre o corpo -->
+          <rect x="60" y="100" width="560" height="80" rx="40" fill="url(#brushed)" clip-path="url(#bodyClip)"/>
+
+          <!-- Reflexo ambiental laranja sutil (assinatura da marca) -->
+          <rect x="60" y="100" width="560" height="80" rx="40" fill="url(#ambientOrange)" clip-path="url(#bodyClip)" opacity="0.6"/>
+
+          <!-- Sombra interna (profundidade) -->
+          <rect x="60" y="100" width="560" height="80" rx="40" fill="url(#innerShadow)" clip-path="url(#bodyClip)"/>
+
+          <!-- Highlight linha superior (brilho especular) -->
+          <rect x="90" y="104" width="500" height="24" rx="12"
+                fill="url(#handleHighlight)" clip-path="url(#bodyClip)" opacity="0.85"/>
+
+          <!-- Segundo highlight menor, deslocado (reflexo assimétrico) -->
+          <rect x="160" y="108" width="240" height="8" rx="4"
+                fill="rgba(255,255,255,0.55)" clip-path="url(#bodyClip)"/>
+
+          <!-- Reflexo inferior sutil -->
+          <ellipse cx="340" cy="172" rx="220" ry="6"
+                   fill="rgba(255,255,255,0.08)" clip-path="url(#bodyClip)"/>
+
+          <!-- Tampa esquerda da barra (face da extremidade) -->
+          <ellipse cx="62" cy="140" rx="8" ry="40"
+                   fill="url(#baseGrad)" opacity="0.7"/>
+          <ellipse cx="62" cy="140" rx="5" ry="36"
+                   fill="rgba(80,80,80,0.6)"/>
+
+          <!-- Tampa direita da barra -->
+          <ellipse cx="618" cy="140" rx="8" ry="40"
+                   fill="url(#baseGrad)" opacity="0.5"/>
+
+          <!-- Linha central fina (detalhe de torneamento) -->
+          <line x1="100" y1="140" x2="580" y2="140"
+                stroke="rgba(255,255,255,0.12)" stroke-width="1"
+                clip-path="url(#bodyClip)"/>
+
+        </g>
+
+        <!-- Reflexo especular no chão (efeito de superfície espelhada) -->
+        <g transform="translate(0, 322) scale(1, -0.18) translate(0, -322)" opacity="0.18">
+          <g transform="translate(0, 20) skewX(-2) skewY(0.8)">
+            <rect x="60" y="100" width="560" height="80" rx="40" fill="url(#handleBody)"/>
+          </g>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- Texto de apoio -->
+    <div class="support-text">
+      <p>Puxadores premium para móveis planejados</p>
+    </div>
+  </div>
+
+  <!-- DIVISOR LARANJA -->
+  <div class="divider"></div>
+
+  <!-- LOGO BAR -->
+  <div class="logo-bar">
+    <!-- Logo SVG inline da Casa do Marceneiro -->
+    <svg width="560" height="160" viewBox="0 0 560 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Gradiente chama externa - laranja para vermelho -->
+        <radialGradient id="flameOuter" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#FF8C00"/>
+          <stop offset="60%" stop-color="#E06000"/>
+          <stop offset="100%" stop-color="#CC2200"/>
+        </radialGradient>
+
+        <!-- Gradiente círculo interno laranja -->
+        <radialGradient id="circleInner" cx="38%" cy="38%" r="55%">
+          <stop offset="0%"  stop-color="#FFA020"/>
+          <stop offset="50%" stop-color="#FF8C00"/>
+          <stop offset="100%" stop-color="#CC5500"/>
+        </radialGradient>
+
+        <!-- Gradiente vermelho C espiral -->
+        <radialGradient id="spiralRed" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#DD3300"/>
+          <stop offset="100%" stop-color="#AA1500"/>
+        </radialGradient>
+
+        <filter id="iconGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- ===== BLOCO DE TEXTO ===== -->
+      <!-- "CASA" -->
+      <text
+        x="30"
+        y="70"
+        font-family="Impact, 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif"
+        font-size="76"
+        font-weight="900"
+        font-style="normal"
+        fill="#FFFFFF"
+        letter-spacing="-1"
+        text-rendering="geometricPrecision"
+      >CASA</text>
+
+      <!-- "do" menor -->
+      <text
+        x="36"
+        y="100"
+        font-family="Impact, 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif"
+        font-size="28"
+        font-weight="400"
+        fill="#CCCCCC"
+        letter-spacing="6"
+      >do</text>
+
+      <!-- "MARCENEIRO" -->
+      <text
+        x="30"
+        y="140"
+        font-family="Impact, 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif"
+        font-size="56"
+        font-weight="900"
+        fill="#FFFFFF"
+        letter-spacing="-0.5"
+        text-rendering="geometricPrecision"
+      >MARCENEIRO</text>
+
+      <!-- "Desde 1986" -->
+      <text
+        x="410"
+        y="158"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="14"
+        font-style="italic"
+        fill="rgba(255,255,255,0.65)"
+        letter-spacing="0.5"
+      >Desde 1986</text>
+
+      <!-- ===== ÍCONE — C CHAMA ===== -->
+      <!-- Posicionado à direita do bloco de texto -->
+
+      <!-- Espiral/chama externa — arco vermelho crescente em volta -->
+      <g transform="translate(468, 80)" filter="url(#iconGlow)">
+
+        <!-- Camada de chama 1: arco externo esquerdo/superior (espiral) -->
+        <path
+          d="M -46 12
+             A 48 48 0 1 1 18 52
+             L 12 40
+             A 36 36 0 1 0 -34 10
+             Z"
+          fill="url(#spiralRed)"
+          opacity="0.92"
+        />
+
+        <!-- Camada de chama 2: prolongamento inferior para criar espiral -->
+        <path
+          d="M 18 52
+             C 30 64, 38 70, 30 80
+             C 20 90, -10 82, -28 60
+             L -18 50
+             C -4 66, 14 72, 20 65
+             C 26 58, 20 50, 14 43
+             Z"
+          fill="#CC2200"
+          opacity="0.85"
+        />
+
+        <!-- Ponta da chama superior — forma orgânica -->
+        <path
+          d="M -34 10
+             C -42 -8, -28 -28, -10 -36
+             C -18 -20, -22 -8, -16 4
+             Z"
+          fill="#BB1A00"
+          opacity="0.8"
+        />
+
+        <!-- Círculo laranja central -->
+        <circle cx="0" cy="0" r="34" fill="url(#circleInner)"/>
+
+        <!-- C vermelho interno no círculo -->
+        <!-- Arco principal do C -->
+        <path
+          d="M 18 -16
+             A 22 22 0 1 0 18 16
+             L 10 10
+             A 14 14 0 1 1 10 -10
+             Z"
+          fill="#CC2200"
+        />
+
+        <!-- Reflexo sutil no ícone para dar volume -->
+        <circle cx="-8" cy="-8" r="12" fill="rgba(255,200,100,0.18)"/>
+      </g>
+
+    </svg>
+  </div>
+
+</div><!-- /post -->
+</div><!-- /post-wrapper -->
+
+</body>
+</html>
