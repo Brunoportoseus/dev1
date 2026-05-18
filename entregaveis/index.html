@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Consultoria especializada para prefeituras do Paraná criarem o Fundo Municipal de Esporte (FME) e destravarem o repasse do Fundo Estadual do Esporte — programa O Esporte Que Queremos.">
+<title>Consultoria FME · Destrave a verba estadual de esporte do seu município | Paraná</title>
+<style>
+  :root{
+    --verde:#1b8a5a;--verde-esc:#0f5c3a;--azul:#1f4e79;--azul-cl:#eaf2fb;
+    --amarelo:#f4b400;--cinza:#5b6770;--cinza-cl:#f5f7f9;--borda:#dce3e9;
+    --txt:#1d2733;--branco:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--txt);
+    line-height:1.6;background:var(--branco)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;background:var(--amarelo);color:#3a2c00;font-weight:700;
+    padding:14px 30px;border-radius:8px;font-size:15px;border:0;cursor:pointer;
+    transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(244,180,0,.35)}
+  .btn.ghost{background:transparent;color:var(--branco);border:2px solid rgba(255,255,255,.6)}
+  .btn.ghost:hover{box-shadow:none;border-color:var(--branco)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(15,92,58,.97);
+    backdrop-filter:blur(4px)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px}
+  nav .brand{color:#fff;font-weight:800;font-size:18px;letter-spacing:.3px}
+  nav .brand span{color:var(--amarelo)}
+  nav ul{display:flex;gap:26px;list-style:none}
+  nav ul a{color:#dff0e7;font-size:14px}
+  nav ul a:hover{color:#fff}
+  nav .cta{background:var(--amarelo);color:#3a2c00;padding:9px 18px;border-radius:7px;
+    font-weight:700;font-size:14px}
+  @media(max-width:780px){nav ul{display:none}}
+
+  /* HERO */
+  header.hero{background:linear-gradient(135deg,var(--verde-esc),var(--verde) 70%);
+    color:#fff;padding:84px 0 96px}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.16);
+    padding:6px 16px;border-radius:20px;font-size:12px;letter-spacing:1.5px;
+    text-transform:uppercase;margin-bottom:22px}
+  .hero h1{font-size:42px;line-height:1.18;max-width:860px;font-weight:800}
+  .hero h1 em{color:var(--amarelo);font-style:normal}
+  .hero p.sub{font-size:19px;opacity:.95;max-width:680px;margin:22px 0 34px}
+  .hero .actions{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .legalbase{margin-top:34px;font-size:13px;opacity:.8}
+  @media(max-width:780px){.hero h1{font-size:30px}.hero p.sub{font-size:17px}}
+
+  section{padding:72px 0}
+  section.alt{background:var(--cinza-cl)}
+  h2.title{font-size:30px;color:var(--azul);text-align:center;font-weight:800}
+  p.lead{text-align:center;color:var(--cinza);max-width:680px;margin:14px auto 46px;
+    font-size:17px}
+
+  .grid{display:grid;gap:22px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:880px){.g3,.g4,.g2{grid-template-columns:1fr}}
+
+  .card{background:#fff;border:1px solid var(--borda);border-radius:12px;
+    padding:26px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .card h3{color:var(--verde-esc);font-size:18px;margin-bottom:8px}
+  .card p,.card li{font-size:14.5px;color:#43505b}
+  .card .ic{width:44px;height:44px;border-radius:10px;background:var(--azul-cl);
+    color:var(--azul);display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:18px;margin-bottom:14px}
+
+  .problem{background:linear-gradient(135deg,#7a1f1f,#a83232);color:#fff}
+  .problem h2.title{color:#fff}.problem p.lead{color:#f3d6d6}
+  .problem .card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+  .problem .card h3{color:#ffd9d9}.problem .card p{color:#f6e3e3}
+
+  /* STEPS */
+  .steps{counter-reset:s;display:grid;gap:18px;grid-template-columns:repeat(5,1fr)}
+  .steps .st{background:#fff;border:2px solid var(--verde);border-radius:12px;
+    padding:22px 16px;position:relative}
+  .steps .st::before{counter-increment:s;content:counter(s);position:absolute;
+    top:-16px;left:16px;background:var(--verde);color:#fff;width:32px;height:32px;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:800}
+  .steps .st h4{margin:12px 0 6px;color:var(--verde-esc);font-size:15px}
+  .steps .st p{font-size:13px;color:#48535c}
+  @media(max-width:880px){.steps{grid-template-columns:1fr}}
+
+  /* PRICING */
+  .price{display:grid;gap:22px;grid-template-columns:repeat(3,1fr)}
+  @media(max-width:880px){.price{grid-template-columns:1fr}}
+  .plan{background:#fff;border:1px solid var(--borda);border-radius:14px;
+    padding:30px 26px;display:flex;flex-direction:column}
+  .plan.featured{border:2px solid var(--amarelo);box-shadow:0 10px 30px rgba(244,180,0,.18)}
+  .plan .badge{align-self:flex-start;background:var(--amarelo);color:#3a2c00;
+    font-size:12px;font-weight:700;padding:4px 12px;border-radius:14px;margin-bottom:14px}
+  .plan h3{font-size:21px;color:var(--azul)}
+  .plan .desc{font-size:14px;color:var(--cinza);margin:6px 0 18px;min-height:42px}
+  .plan ul{list-style:none;margin-bottom:24px}
+  .plan ul li{font-size:14px;padding:7px 0 7px 26px;position:relative;
+    border-bottom:1px solid var(--cinza-cl)}
+  .plan ul li::before{content:"\2713";position:absolute;left:0;color:var(--verde);
+    font-weight:800}
+  .plan .btn{margin-top:auto;text-align:center}
+
+  /* WHY / squad */
+  .why .card{display:flex;gap:16px;align-items:flex-start}
+  .why .card .ic{flex:none}
+
+  /* CHECKLIST */
+  .check{columns:2;column-gap:40px}
+  @media(max-width:780px){.check{columns:1}}
+  .check div{break-inside:avoid;padding:9px 0 9px 30px;position:relative;
+    font-size:14.5px;border-bottom:1px solid var(--borda)}
+  .check div::before{content:"\25A1";position:absolute;left:0;color:var(--verde);
+    font-size:18px;line-height:1.3}
+
+  /* FAQ */
+  details{background:#fff;border:1px solid var(--borda);border-radius:10px;
+    padding:16px 20px;margin-bottom:12px}
+  details summary{font-weight:700;cursor:pointer;color:var(--azul);font-size:15.5px}
+  details p{margin-top:10px;font-size:14.5px;color:#43505b}
+
+  /* CTA */
+  .cta-final{background:linear-gradient(135deg,var(--azul),#16395c);color:#fff;
+    text-align:center}
+  .cta-final h2{font-size:30px;font-weight:800}
+  .cta-final p{opacity:.9;margin:14px auto 30px;max-width:600px;font-size:17px}
+  .contact{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;
+    margin-top:26px;font-size:15px;opacity:.95}
+
+  footer{background:#0c1722;color:#90a2b2;font-size:12.5px;padding:34px 0;
+    line-height:1.7}
+  footer strong{color:#cfdce7}
+  .mark{background:#fff4cf;color:#7a5b00;padding:1px 6px;border-radius:4px;
+    font-size:.92em;font-weight:600}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Consultoria <span>FME</span> · Paraná</div>
+    <ul>
+      <li><a href="#problema">O problema</a></li>
+      <li><a href="#solucao">Solução</a></li>
+      <li><a href="#etapas">Como funciona</a></li>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#faq">Dúvidas</a></li>
+    </ul>
+    <a href="#contato" class="cta">Falar com a consultoria</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Programa O Esporte Que Queremos · Governo do Paraná</span>
+    <h1>Seu município está deixando de receber a <em>verba estadual de esporte</em>?</h1>
+    <p class="sub">Estruturamos o Fundo Municipal de Esporte (FME) da sua
+    prefeitura — do diagnóstico ao anteprojeto de lei — com segurança jurídica
+    e prazo previsível, para destravar o repasse do Fundo Estadual do Esporte (FEE/PR).</p>
+    <div class="actions">
+      <a href="#contato" class="btn">Solicitar diagnóstico gratuito</a>
+      <a href="#etapas" class="btn ghost">Ver como funciona</a>
+    </div>
+    <p class="legalbase">Base legal: CF/1988 art. 217 · Lei nº 9.615/1998 art. 56 ·
+    Lei nº 4.320/1964 · Lei nº 21.405/2023 (FEE/PR) · Lei nº 14.597/2023 (SINESP)</p>
+  </div>
+</header>
+
+<!-- PROBLEMA -->
+<section id="problema" class="problem">
+  <div class="wrap">
+    <h2 class="title">O recurso existe — mas ele não chega sozinho</h2>
+    <p class="lead">A Lei nº 21.405/2023 criou o repasse automático fundo a fundo
+    do Estado para os municípios. Sem a estrutura legal, o dinheiro fica parado.</p>
+    <div class="grid g3">
+      <div class="card"><h3>Verba bloqueada</h3><p>Sem Fundo Municipal de Esporte
+      instituído por lei, o município simplesmente não acessa o repasse estadual.</p></div>
+      <div class="card"><h3>Equipe sobrecarregada</h3><p>A maioria das prefeituras
+      não tem corpo jurídico-esportivo para produzir minuta, quadros e dossiê no
+      padrão exigido.</p></div>
+      <div class="card"><h3>Risco de retrabalho</h3><p>Documento fora do padrão
+      volta da Secretaria, trava na Câmara ou é questionado pelo Tribunal de Contas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUCAO -->
+<section id="solucao">
+  <div class="wrap">
+    <h2 class="title">A solução: consultoria especializada ponta a ponta</h2>
+    <p class="lead">Entregamos todo o pacote burocrático que torna a prefeitura
+    apta ao repasse — conduzido por uma squad jurídica multidisciplinar.</p>
+    <div class="grid g4">
+      <div class="card"><div class="ic">1</div><h3>Diagnóstico</h3><p>Mapa de
+      aptidão do município frente às 3 condições da Lei 21.405/2023 (semáforo).</p></div>
+      <div class="card"><div class="ic">2</div><h3>Instrumentos</h3><p>Quadros 1 e 2,
+      minuta de lei do FME (5 capítulos) e justificativa técnica.</p></div>
+      <div class="card"><div class="ic">3</div><h3>Dossiê de entrega</h3><p>Modelo
+      oficial preenchido para a Secretaria de Estado do Esporte.</p></div>
+      <div class="card"><div class="ic">4</div><h3>Acompanhamento</h3><p>Suporte na
+      tramitação da Câmara, sanção e primeiro Plano de Ação e Aplicação.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ETAPAS -->
+<section id="etapas" class="alt">
+  <div class="wrap">
+    <h2 class="title">Como funciona — 5 etapas</h2>
+    <p class="lead">Metodologia espelhada no processo oficial do programa
+    O Esporte Que Queremos.</p>
+    <div class="steps">
+      <div class="st"><h4>Comissão Interna</h4><p>Sistematização de receitas,
+      despesas, gestão e controle (Quadro 1).</p></div>
+      <div class="st"><h4>Debate</h4><p>Consulta à comunidade e registro das
+      contribuições (Quadro 2).</p></div>
+      <div class="st"><h4>Anteprojeto de Lei</h4><p>Minuta + justificativa e
+      dossiê de entrega ao Estado.</p></div>
+      <div class="st"><h4>Câmara Municipal</h4><p>Tramitação, emendas e aprovação
+      do texto.</p></div>
+      <div class="st"><h4>Lei Sancionada</h4><p>Sanção, publicação e habilitação
+      ao repasse do FEE/PR.</p></div>
+    </div>
+    <p class="lead" style="margin-top:40px;margin-bottom:0">
+    <strong>Entrega ao Estado vai até a etapa 3</strong> (anteprojeto). As etapas
+    4 e 5 são prerrogativa do município — e nós damos suporte nelas.</p>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section id="planos">
+  <div class="wrap">
+    <h2 class="title">Planos de contratação</h2>
+    <p class="lead">Escopo fechado e previsível. Valores definidos sob proposta,
+    conforme porte do município e enquadramento na Lei nº 14.133/2021.</p>
+    <div class="price">
+      <div class="plan">
+        <span class="badge">Express</span>
+        <h3>Anteprojeto + Entrega</h3>
+        <p class="desc">Para municípios que já têm Conselho e querem agilidade.</p>
+        <ul>
+          <li>Minuta de lei do FME</li>
+          <li>Justificativa técnica</li>
+          <li>Dossiê de entrega ao OEQQ</li>
+          <li>Prazo: 3 a 4 semanas</li>
+        </ul>
+        <a href="#contato" class="btn">Pedir proposta</a>
+      </div>
+      <div class="plan featured">
+        <span class="badge">Mais contratado</span>
+        <h3>Completo</h3>
+        <p class="desc">Do diagnóstico ao acompanhamento na Câmara.</p>
+        <ul>
+          <li>Diagnóstico de aptidão</li>
+          <li>Comissão Interna + Debate público</li>
+          <li>Anteprojeto + dossiê</li>
+          <li>Acompanhamento legislativo</li>
+          <li>Prazo: 6 a 8 semanas</li>
+        </ul>
+        <a href="#contato" class="btn">Pedir proposta</a>
+      </div>
+      <div class="plan">
+        <span class="badge">Estrutural</span>
+        <h3>FME + Conselho + Plano</h3>
+        <p class="desc">Pacote completo para municípios que partem do zero.</p>
+        <ul>
+          <li>Tudo do plano Completo</li>
+          <li>Minuta do Conselho Municipal de Esporte</li>
+          <li>Apoio ao Plano Decenal</li>
+          <li>Retainer anual opcional</li>
+          <li>Prazo: 8 a 12 semanas</li>
+        </ul>
+        <a href="#contato" class="btn">Pedir proposta</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="squad" class="alt why">
+  <div class="wrap">
+    <h2 class="title">Por que a nossa Squad Legal</h2>
+    <p class="lead">Minutas que sobrevivem à tramitação na Câmara e ao crivo do
+    Tribunal de Contas.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ic">D</div><div><h3>Direito Público</h3>
+        <p>Especialistas em Direito Administrativo e Municipal, Lei 4.320/64,
+        LRF e Lei 14.133/2021.</p></div></div>
+      <div class="card"><div class="ic">C</div><div><h3>Constitucional + Civil</h3>
+        <p>Competência municipal (art. 30 e 217 CF) e técnica redacional/obrigacional
+        da minuta.</p></div></div>
+      <div class="card"><div class="ic">R</div><div><h3>Compliance e Riscos</h3>
+        <p>Controle, prestação de contas, LGPD na consulta pública e parecer de
+        fundamentação.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <div class="wrap">
+    <h2 class="title">O que sua prefeitura precisa ter</h2>
+    <p class="lead">Checklist de habilitação ao repasse. Nós cuidamos de cada item.</p>
+    <div class="check">
+      <div>Conselho Municipal de Esporte paritário em funcionamento</div>
+      <div>Fundo Municipal de Esporte instituído por lei</div>
+      <div>Plano Decenal Municipal de Esporte elaborado</div>
+      <div>Previsão de recursos próprios ao FME (LOA/LDO/PPA)</div>
+      <div>Comissão interna instituída (ata) + Quadro 1</div>
+      <div>Consulta pública realizada e registrada (Quadro 2)</div>
+      <div>Anteprojeto de lei (Cap. I a V) + justificativa</div>
+      <div>Conta bancária específica em instituição oficial</div>
+      <div>Órgão gestor (CME) e executor (secretaria) definidos</div>
+      <div>Critérios de controle e prestação de contas</div>
+      <div>Dossiê no modelo oficial enviado ao Estado</div>
+      <div>Lei aprovada, sancionada e publicada no Diário Oficial</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="alt">
+  <div class="wrap">
+    <h2 class="title">Perguntas frequentes</h2>
+    <p class="lead">&nbsp;</p>
+    <details><summary>Precisamos esperar a lei ser sancionada para entregar ao Estado?</summary>
+      <p>Não. A entrega ao programa O Esporte Que Queremos exige apenas até o
+      anteprojeto de lei. A aprovação na Câmara e a sanção são prerrogativa do
+      município — mas são indispensáveis para o repasse efetivo do recurso.</p></details>
+    <details><summary>Nosso município já tem uma lei de FME antiga. Serve?</summary>
+      <p>Avaliamos no diagnóstico. Em geral é necessário adequar a lei à
+      Lei nº 21.405/2023 e ao Sistema Nacional do Esporte (Lei nº 14.597/2023).
+      Existe pacote específico de adequação.</p></details>
+    <details><summary>Como a prefeitura contrata a consultoria?</summary>
+      <p>Por contrato administrativo, com enquadramento na Lei nº 14.133/2021
+      conforme o valor e a singularidade do serviço. Orientamos o setor de
+      compras sobre o instrumento adequado.</p></details>
+    <details><summary>Vocês garantem a aprovação na Câmara?</summary>
+      <p>Não se garante decisão de Poder Legislativo. Entregamos o instrumento
+      tecnicamente robusto e damos suporte à tramitação; a votação é soberania
+      da Câmara Municipal.</p></details>
+    <details><summary>Qual o prazo até o município estar apto?</summary>
+      <p>De 3 a 12 semanas conforme o plano e o calendário da Câmara. O
+      diagnóstico inicial define o caminho mais curto para o seu caso.</p></details>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="contato" class="cta-final">
+  <div class="wrap">
+    <h2>Comece pelo diagnóstico gratuito</h2>
+    <p>Em uma reunião identificamos onde seu município está e o caminho mais
+    rápido para destravar a verba estadual de esporte.</p>
+    <a href="mailto:CONTATO@EXEMPLO.COM.BR?subject=Diagnóstico%20FME%20-%20Município"
+       class="btn">Agendar diagnóstico</a>
+    <div class="contact">
+      <span><strong>Responsável:</strong> <span class="mark">[PREENCHER NOME]</span></span>
+      <span><strong>E-mail:</strong> <span class="mark">[PREENCHER E-MAIL]</span></span>
+      <span><strong>Telefone/WhatsApp:</strong> <span class="mark">[PREENCHER]</span></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong>Consultoria FME · Paraná</strong> — serviço de estruturação de Fundo
+    Municipal de Esporte no âmbito do programa O Esporte Que Queremos
+    (Secretaria de Estado do Esporte do Paraná / IPIE-UFPR).<br>
+    Material informativo e de apoio à decisão. Editais, prazos e exigências
+    vigentes devem ser confirmados no portal oficial
+    <strong>esporte.pr.gov.br</strong>. Não substitui parecer jurídico assinado
+    por profissional inscrito na OAB nem manifestação da procuradoria do município.<br>
+    <span class="mark">[PREENCHER razão social / CNPJ / OAB do responsável técnico]</span>
+    &nbsp;·&nbsp; &copy; <span id="y"></span>
+  </div>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
