@@ -1,0 +1,17 @@
+{
+  "name": "assistente-fme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Assistente de IA (Tutor FME) sobre o Fundo Municipal de Esporte — programa O Esporte Que Queremos (PR)",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest"
+  },
+  "devDependencies": {
+    "wrangler": "latest"
+  }
+}

@@ -1,0 +1,2 @@
+# Copie para .dev.vars (NÃO versionar) para rodar localmente com `wrangler dev`.
+ANTHROPIC_API_KEY=coloque-sua-chave-aqui

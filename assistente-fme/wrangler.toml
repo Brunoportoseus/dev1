@@ -1,0 +1,12 @@
+name = "assistente-fme"
+main = "src/worker.js"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Modelo (opcional). Padrão no código: claude-opus-4-7.
+# Para reduzir custo em alto volume, troque para claude-haiku-4-5.
+[vars]
+MODEL = "claude-opus-4-7"
+
+# A chave da API NÃO vai aqui. Defina como segredo:
+#   npx wrangler secret put ANTHROPIC_API_KEY
