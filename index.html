@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Marceneiro × ZEN Design – Catálogo de Lançamentos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a96e;
+      --gold-light: #e8d5a3;
+      --gold-dark: #9a7940;
+      --black: #0d0d0d;
+      --dark: #1a1a1a;
+      --dark2: #252525;
+      --white: #f5f3ef;
+      --gray: #888;
+      --rose: #c4957a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1507 50%, #0d0d0d 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 30% 60%, rgba(201,169,110,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 70% 30%, rgba(201,169,110,0.05) 0%, transparent 70%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: .4rem 1.2rem;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(1.5); }
+    }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 300;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .8rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: .05em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: clamp(.75rem, 1.5vw, .85rem);
+      font-weight: 300;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      max-width: 480px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    .divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+    }
+
+    /* ── DISCOUNT BANNER ── */
+    .discount-banner {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discount-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,.04) 10px,
+        rgba(255,255,255,.04) 20px
+      );
+    }
+
+    .discount-banner .inner {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem 2rem;
+    }
+
+    .discount-tag {
+      background: var(--black);
+      color: var(--gold);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 700;
+      padding: .3rem 1rem;
+      letter-spacing: .05em;
+      border-radius: 4px;
+    }
+
+    .discount-text {
+      color: var(--black);
+      font-size: clamp(.8rem, 2vw, 1rem);
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    .discount-text strong { display: block; font-size: 1.3em; }
+
+    .countdown {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    .countdown-unit {
+      background: rgba(0,0,0,.3);
+      color: #fff;
+      text-align: center;
+      padding: .3rem .6rem;
+      border-radius: 4px;
+      min-width: 48px;
+    }
+
+    .countdown-unit .num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-unit .lbl {
+      font-size: .6rem;
+      letter-spacing: .1em;
+      opacity: .8;
+    }
+
+    .countdown-sep {
+      color: var(--black);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    /* ── PAYMENT STRIP ── */
+    .payment-strip {
+      background: var(--dark2);
+      border-top: 1px solid rgba(201,169,110,.15);
+      border-bottom: 1px solid rgba(201,169,110,.15);
+      padding: 1rem 2rem;
+    }
+
+    .payment-strip .inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .pay-item {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .75rem;
+      color: var(--gold-light);
+      letter-spacing: .05em;
+    }
+
+    .pay-item svg {
+      width: 22px; height: 22px;
+      fill: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .pay-sep {
+      width: 1px;
+      height: 24px;
+      background: rgba(201,169,110,.2);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+
+    .section-label {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .8rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .section-title em { color: var(--gold); font-style: italic; }
+
+    /* ── FLIP CARDS GRID ── */
+    .catalog-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .flip-card {
+      perspective: 1200px;
+      height: 440px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform .7s cubic-bezier(.4,.2,.2,1);
+    }
+
+    .flip-card:hover .flip-card-inner,
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* ── CARD FRONT ── */
+    .flip-card-front {
+      background: var(--dark2);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(201,169,110,.12);
+    }
+
+    .card-image-wrap {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: #1e1e1e;
+    }
+
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+
+    .flip-card:hover .card-image-wrap img {
+      transform: scale(1.04);
+    }
+
+    /* Gradient fallback para cada produto */
+    .img-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(201,169,110,.4);
+      letter-spacing: .1em;
+    }
+
+    .card-badge-new {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--gold);
+      color: var(--black);
+      font-size: .55rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: .3rem .7rem;
+      border-radius: 2rem;
+    }
+
+    .card-badge-off {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: #c0392b;
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      padding: .3rem .7rem;
+      border-radius: 2rem;
+    }
+
+    .card-info {
+      padding: 1.2rem 1.4rem;
+      background: var(--dark2);
+      border-top: 1px solid rgba(201,169,110,.1);
+    }
+
+    .card-category {
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: .3rem;
+    }
+
+    .card-code {
+      font-size: .65rem;
+      color: var(--gray);
+      letter-spacing: .1em;
+    }
+
+    .card-hint {
+      font-size: .6rem;
+      color: var(--gold);
+      letter-spacing: .1em;
+      margin-top: .5rem;
+      opacity: .7;
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+    }
+
+    /* ── CARD BACK ── */
+    .flip-card-back {
+      background: linear-gradient(160deg, #1a1507 0%, var(--dark2) 60%);
+      transform: rotateY(180deg);
+      border: 1px solid rgba(201,169,110,.25);
+      display: flex;
+      flex-direction: column;
+      padding: 1.8rem 1.6rem;
+    }
+
+    .back-category {
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+
+    .back-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+
+    .price-block {
+      margin-bottom: 1.4rem;
+    }
+
+    .price-old {
+      font-size: .75rem;
+      color: var(--gray);
+      text-decoration: line-through;
+      margin-bottom: .1rem;
+    }
+
+    .price-current {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .price-installment {
+      font-size: .7rem;
+      color: var(--gold-light);
+      margin-top: .2rem;
+      opacity: .8;
+    }
+
+    .price-pix {
+      font-size: .7rem;
+      color: #6fcf97;
+      margin-top: .15rem;
+    }
+
+    .specs-list {
+      list-style: none;
+      margin-bottom: 1.4rem;
+      flex: 1;
+    }
+
+    .specs-list li {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .7rem;
+      color: #aaa;
+      padding: .3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      letter-spacing: .03em;
+    }
+
+    .specs-list li::before {
+      content: '';
+      width: 4px; height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .colors-row {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 1.2rem;
+      align-items: center;
+    }
+
+    .color-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,.2);
+      cursor: pointer;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .color-dot:hover { transform: scale(1.3); border-color: var(--gold); }
+    .color-dot.rose  { background: radial-gradient(circle at 35% 35%, #f0c0a0, #c4957a); }
+    .color-dot.gold  { background: radial-gradient(circle at 35% 35%, #e8d5a3, #c9a96e); }
+    .color-dot.black { background: radial-gradient(circle at 35% 35%, #444, #111); }
+    .color-dot.chrome{ background: radial-gradient(circle at 35% 35%, #eee, #999); }
+    .color-dot.onix  { background: radial-gradient(circle at 35% 35%, #555, #222); }
+    .color-dot.brass { background: radial-gradient(circle at 35% 35%, #d4aa70, #a07830); }
+
+    .color-label { font-size: .6rem; color: var(--gray); letter-spacing: .08em; }
+
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      text-decoration: none;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .85rem 1.2rem;
+      border-radius: 8px;
+      transition: transform .2s, box-shadow .2s;
+      margin-bottom: .6rem;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,211,102,.25);
+    }
+
+    .btn-whatsapp svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .btn-store {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .7rem 1.2rem;
+      border-radius: 8px;
+      transition: background .2s, color .2s;
+    }
+
+    .btn-store:hover { background: var(--gold); color: var(--black); }
+
+    /* ── FINALIZADORES ── */
+    .highlight-section {
+      background: linear-gradient(180deg, var(--black) 0%, #14100a 50%, var(--black) 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .highlight-grid {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .highlight-item {
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(201,169,110,.1);
+      border-radius: 10px;
+      background: rgba(201,169,110,.03);
+      transition: border-color .3s, background .3s;
+    }
+
+    .highlight-item:hover {
+      border-color: rgba(201,169,110,.3);
+      background: rgba(201,169,110,.06);
+    }
+
+    .highlight-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .highlight-item h3 {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    .highlight-item p {
+      font-size: .72rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,169,110,.06) 0%, transparent 70%);
+    }
+
+    .cta-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-section h2 em { color: var(--gold); font-style: italic; }
+
+    .cta-section p {
+      font-size: .8rem;
+      color: var(--gray);
+      letter-spacing: .1em;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .btn-cta-wpp {
+      display: inline-flex;
+      align-items: center;
+      gap: .8rem;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.5rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 30px rgba(37,211,102,.2);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+    }
+
+    .btn-cta-wpp:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 40px rgba(37,211,102,.35);
+    }
+
+    .btn-cta-wpp svg { width: 22px; height: 22px; fill: #fff; }
+
+    .btn-cta-store {
+      display: inline-flex;
+      align-items: center;
+      gap: .8rem;
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      transition: background .25s, color .25s, transform .25s;
+      position: relative;
+      margin-left: 1rem;
+    }
+
+    .btn-cta-store:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-3px);
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid rgba(201,169,110,.1);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: .65rem;
+      color: var(--gray);
+      letter-spacing: .08em;
+      line-height: 1.8;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── FLOATING WPP ── */
+    .float-wpp {
+      position: fixed;
+      bottom: 1.8rem;
+      right: 1.8rem;
+      z-index: 999;
+      width: 58px; height: 58px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,.35);
+      text-decoration: none;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .float-wpp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 32px rgba(37,211,102,.5);
+    }
+
+    .float-wpp svg { width: 30px; height: 30px; fill: #fff; }
+
+    .float-wpp-tooltip {
+      position: absolute;
+      right: 70px;
+      white-space: nowrap;
+      background: var(--dark2);
+      color: var(--white);
+      font-size: .7rem;
+      font-weight: 500;
+      padding: .4rem .9rem;
+      border-radius: 6px;
+      border: 1px solid rgba(201,169,110,.2);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(8px);
+      transition: opacity .2s, transform .2s;
+    }
+
+    .float-wpp:hover .float-wpp-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── SWIPER-LIKE COLOR VARIANT ── */
+    .variant-nav {
+      display: flex;
+      justify-content: center;
+      gap: .4rem;
+      margin-top: .5rem;
+    }
+
+    .variant-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .variant-dot.active {
+      background: var(--gold);
+      transform: scale(1.4);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .catalog-grid { grid-template-columns: 1fr; }
+      .flip-card { height: 420px; }
+      .btn-cta-store { margin-left: 0; }
+      .hero-title { font-size: 2.8rem; }
+    }
+
+    @media (hover: none) {
+      .flip-card-inner { transition: transform .5s; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ██ HERO ██ -->
+<section class="hero">
+  <div class="hero-badge">Novidades 2024 / 2025</div>
+  <p class="brand-name">Casa Marceneiro × ZEN Design</p>
+  <h1 class="hero-title">Puxadores<br/><span>Exclusivos</span></h1>
+  <div class="divider"></div>
+  <p class="hero-sub">Detalhes que transformam móveis em obras de arte.<br/>
+    Coleção premium disponível com entrega para todo o Brasil.</p>
+  <a href="#catalogo" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--black);text-decoration:none;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 2rem;border-radius:50px;transition:transform .2s,box-shadow .2s;margin-top:1rem;"
+     onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(201,169,110,.3)'"
+     onmouseout="this.style.transform='';this.style.boxShadow=''">
+    Ver Catálogo ↓
+  </a>
+</section>
+
+<!-- ██ DISCOUNT BANNER ██ -->
+<div class="discount-banner">
+  <div class="inner">
+    <span class="discount-tag">15% OFF</span>
+    <div class="discount-text">
+      <strong>Lançamento Especial</strong>
+      Novos modelos KITTEN &amp; PAIO com desconto exclusivo de pré-lançamento
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit"><span class="num" id="cd-d">03</span><span class="lbl">Dias</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="num" id="cd-h">23</span><span class="lbl">Horas</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="num" id="cd-m">59</span><span class="lbl">Min</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="num" id="cd-s">47</span><span class="lbl">Seg</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ██ PAYMENT STRIP ██ -->
+<div class="payment-strip">
+  <div class="inner">
+    <div class="pay-item">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+      <span>Até <strong>10× sem juros</strong> no cartão</span>
+    </div>
+    <div class="pay-sep"></div>
+    <div class="pay-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      <span><strong>5% OFF</strong> no PIX à vista</span>
+    </div>
+    <div class="pay-sep"></div>
+    <div class="pay-item">
+      <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/></svg>
+      <span>Compra <strong>100% segura</strong></span>
+    </div>
+    <div class="pay-sep"></div>
+    <div class="pay-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>Entrega para <strong>todo o Brasil</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ██ CATALOG SECTION ██ -->
+<section id="catalogo">
+  <div class="section-header">
+    <p class="section-label">Coleção Completa</p>
+    <h2 class="section-title">Puxadores <em>ZEN Design</em></h2>
+    <div class="divider"></div>
+    <p style="font-size:.75rem;color:var(--gray);letter-spacing:.08em;max-width:500px;margin:0 auto;line-height:1.8;">
+      Passe o mouse sobre o produto para ver preços e detalhes.<br/>
+      Em dispositivos móveis, toque para virar o card.
+    </p>
+  </div>
+
+  <div class="catalog-grid">
+
+    <!-- 1. KITTEN 64 — NEW IN -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/kitten-rose-gold.jpg"
+              alt="Puxador Kitten Rose Gold"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #3a2010 0%, #1a0e06 100%);">KITTEN</div>
+            <span class="card-badge-new">✦ NEW IN</span>
+            <span class="card-badge-off">15% OFF</span>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Conchas · Lançamento</p>
+            <h3 class="card-name">Kitten 64</h3>
+            <p class="card-code">Cód. ZP5805 · Furação 64mm · 99,3mm</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Conchas · Lançamento 2024</p>
+          <h3 class="back-name">Kitten 64</h3>
+          <div class="price-block">
+            <p class="price-old">De R$ 99,90</p>
+            <p class="price-current">R$ 84,90</p>
+            <p class="price-installment">ou 10× de R$ 8,49 sem juros</p>
+            <p class="price-pix">✓ R$ 80,66 no PIX (5% OFF)</p>
+          </div>
+          <ul class="specs-list">
+            <li>Furação: 64mm</li>
+            <li>Comprimento: 99,3mm</li>
+            <li>Material: Zamac de alta qualidade</li>
+            <li>Design exclusivo com textura recartilhada</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Cores:</span>
+            <span class="color-dot rose" title="Rose Gold"></span>
+            <span class="color-dot gold" title="Gold"></span>
+            <span class="color-dot chrome" title="Cromo/Preto"></span>
+            <span class="color-dot black" title="Preto Fosco"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Kitten%2064%20(ZP5805).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PAIO 64 — NEW IN -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/paio-dourado.jpg"
+              alt="Puxador Paio Gold"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #2a1e05 0%, #1a1205 100%);">PAIO</div>
+            <span class="card-badge-new">✦ NEW IN</span>
+            <span class="card-badge-off">15% OFF</span>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Conchas · Lançamento</p>
+            <h3 class="card-name">Paio 64</h3>
+            <p class="card-code">Cód. ZP5426 · Furação 64mm · 120mm</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Conchas · Lançamento 2024</p>
+          <h3 class="back-name">Paio 64</h3>
+          <div class="price-block">
+            <p class="price-old">De R$ 169,90</p>
+            <p class="price-current">R$ 144,42</p>
+            <p class="price-installment">ou 10× de R$ 14,44 sem juros</p>
+            <p class="price-pix">✓ R$ 137,20 no PIX (5% OFF)</p>
+          </div>
+          <ul class="specs-list">
+            <li>Furação: 64mm</li>
+            <li>Comprimento: 120mm</li>
+            <li>Formato circular exclusivo bipartido</li>
+            <li>Superfície com textura diamantada</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Cores:</span>
+            <span class="color-dot brass" title="Ouro Escovado"></span>
+            <span class="color-dot black" title="Preto Fosco"></span>
+            <span class="color-dot chrome" title="Cromo"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Paio%2064%20(ZP5426).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. SHELL 64 -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/shell-64-rose.jpg"
+              alt="Puxador Shell 64"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #3a2010 0%, #18100a 100%);">SHELL</div>
+            <span class="card-badge-new">Novo: Ônix Escovado</span>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Conchas · Clássico</p>
+            <h3 class="card-name">Shell 64</h3>
+            <p class="card-code">Cód. ZP4318 · Furação 64mm · 90mm</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Conchas</p>
+          <h3 class="back-name">Shell 64</h3>
+          <div class="price-block">
+            <p class="price-current">R$ 94,90</p>
+            <p class="price-installment">ou 10× de R$ 9,49 sem juros</p>
+            <p class="price-pix">✓ R$ 90,16 no PIX (5% OFF)</p>
+          </div>
+          <ul class="specs-list">
+            <li>Furação: 64mm</li>
+            <li>Comprimento: 90mm · Altura: 45mm</li>
+            <li>Detalhe recartilhado no contorno</li>
+            <li>Ar nostálgico e industrial</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Cores:</span>
+            <span class="color-dot rose" title="Rose Gold"></span>
+            <span class="color-dot black" title="Preto Fosco"></span>
+            <span class="color-dot onix" title="Ônix Escovado"></span>
+            <span class="color-dot chrome" title="Cromo/Preto"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Shell%2064%20(ZP4318).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SHELL 48 -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/shell-48-rose.jpg"
+              alt="Puxador Shell 48"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #3a2010 0%, #18100a 100%);">SHELL 48</div>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Conchas · Compacto</p>
+            <h3 class="card-name">Shell 48</h3>
+            <p class="card-code">Cód. ZP4319 · Furação 48mm · 65mm</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Conchas</p>
+          <h3 class="back-name">Shell 48</h3>
+          <div class="price-block">
+            <p class="price-current">R$ 79,90</p>
+            <p class="price-installment">ou 10× de R$ 7,99 sem juros</p>
+            <p class="price-pix">✓ R$ 75,91 no PIX (5% OFF)</p>
+          </div>
+          <ul class="specs-list">
+            <li>Furação: 48mm</li>
+            <li>Comprimento: 65mm · Altura: 34mm</li>
+            <li>Detalhe recartilhado no contorno</li>
+            <li>Ideal para gavetas menores</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Cores:</span>
+            <span class="color-dot rose" title="Rose Gold"></span>
+            <span class="color-dot black" title="Preto Fosco"></span>
+            <span class="color-dot onix" title="Ônix Escovado"></span>
+            <span class="color-dot chrome" title="Cromo/Preto"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Shell%2048%20(ZP4319).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PIPE SIMÉTRICO -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/pipe-simetrico-rose.jpg"
+              alt="Puxador Pipe Simétrico"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #2a1505 0%, #160a00 100%);">PIPE</div>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Conchas · Moderno</p>
+            <h3 class="card-name">Pipe Simétrico</h3>
+            <p class="card-code">Cód. ZP5780 · Furação 120mm · 130mm</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Conchas · Estilo Provençal</p>
+          <h3 class="back-name">Pipe Simétrico</h3>
+          <div class="price-block">
+            <p class="price-current">R$ 109,90</p>
+            <p class="price-installment">ou 10× de R$ 10,99 sem juros</p>
+            <p class="price-pix">✓ R$ 104,41 no PIX (5% OFF)</p>
+          </div>
+          <ul class="specs-list">
+            <li>Furação: 120mm</li>
+            <li>Comprimento total: 130mm</li>
+            <li>Altura: 19mm · Profundidade: 33mm</li>
+            <li>Charme provençal em formas minimalistas</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Cores:</span>
+            <span class="color-dot rose" title="Rose Gold"></span>
+            <span class="color-dot black" title="Preto Fosco"></span>
+            <span class="color-dot brass" title="Dourado"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Pipe%20Sim%C3%A9trico%20(ZP5780).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. PIPE ESQUERDO + DIREITO -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/pipe-esquerdo-rose.jpg"
+              alt="Puxador Pipe Direcional"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #2a1505 0%, #160a00 100%);">PIPE DIR.</div>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Conchas · Direcional</p>
+            <h3 class="card-name">Pipe Direcional</h3>
+            <p class="card-code">ZP5780E / ZP5780D · 120mm · 130mm</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Conchas · Par Esquerdo / Direito</p>
+          <h3 class="back-name">Pipe Direcional</h3>
+          <div class="price-block">
+            <p class="price-current">R$ 109,90 <span style="font-size:.7rem;font-weight:400;color:#aaa">/ unid.</span></p>
+            <p class="price-installment">ou 10× de R$ 10,99 sem juros</p>
+            <p class="price-pix">✓ R$ 104,41 no PIX (5% OFF)</p>
+          </div>
+          <ul class="specs-list">
+            <li>Furação: 120mm</li>
+            <li>Comprimento total: 130mm</li>
+            <li>Disponível: Esquerdo (ZP5780E) e Direito (ZP5780D)</li>
+            <li>Design assimétrico exclusivo</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Cores:</span>
+            <span class="color-dot rose" title="Rose Gold"></span>
+            <span class="color-dot black" title="Preto Fosco"></span>
+            <span class="color-dot brass" title="Dourado"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Pipe%20Direcional%20(ZP5780E%2FZP5780D).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. PLYMOUTH -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/plymouth-rose.jpg"
+              alt="Puxador Plymouth"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #1a1a10 0%, #0d0d0a 100%);">PLYMOUTH</div>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Conchas · Retrô</p>
+            <h3 class="card-name">Plymouth</h3>
+            <p class="card-code">Cód. ZP5420 · Furação 80mm · 95mm</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Conchas · Retrô</p>
+          <h3 class="back-name">Plymouth</h3>
+          <div class="price-block">
+            <p class="price-current">R$ 74,90</p>
+            <p class="price-installment">ou 10× de R$ 7,49 sem juros</p>
+            <p class="price-pix">✓ R$ 71,16 no PIX (5% OFF)</p>
+          </div>
+          <ul class="specs-list">
+            <li>Furação: 80mm</li>
+            <li>Comprimento: 95mm · Altura: 29mm + 53mm</li>
+            <li>Design clássico com acabamento moderno</li>
+            <li>Versátil para diferentes estilos</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Cores:</span>
+            <span class="color-dot rose" title="Rose Gold"></span>
+            <span class="color-dot brass" title="Dourado"></span>
+            <span class="color-dot chrome" title="Cromo"></span>
+            <span class="color-dot black" title="Preto"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Plymouth%20(ZP5420).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. GARAGE -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-image-wrap">
+            <img
+              src="https://cmarceneiro.com.br/wp-content/uploads/garage-couro-preto.jpg"
+              alt="Puxador Garage Couro"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="img-fallback" style="display:none;background:radial-gradient(ellipse at 40% 30%, #1a1010 0%, #0d0505 100%);">GARAGE</div>
+          </div>
+          <div class="card-info">
+            <p class="card-category">Alças · Couro Premium</p>
+            <h3 class="card-name">Garage</h3>
+            <p class="card-code">ZP1254 / ZP1294 / ZP1295 · 3 tamanhos</p>
+            <p class="card-hint">
+              <svg style="width:10px;height:10px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              Passe o mouse para ver preços
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <p class="back-category">Alças · Couro &amp; Metal</p>
+          <h3 class="back-name">Garage</h3>
+          <div class="price-block">
+            <p class="price-current">R$ 189,90 <span style="font-size:.7rem;font-weight:400;color:#aaa">a partir de</span></p>
+            <p class="price-installment">ou 10× sem juros</p>
+            <p class="price-pix">✓ 5% OFF no PIX</p>
+          </div>
+          <ul class="specs-list">
+            <li>P (ZP1254): Furação 224mm · 270mm total</li>
+            <li>M (ZP1294): Furação 352mm · 398mm total</li>
+            <li>G (ZP1295): Furação 544mm · 590mm total</li>
+            <li>Couro ecológico com rebites metálicos</li>
+          </ul>
+          <div class="colors-row">
+            <span class="color-label">Acabamento:</span>
+            <span class="color-dot chrome" title="Cromo"></span>
+            <span class="color-dot rose" title="Rose Gold"></span>
+            <span class="color-dot black" title="Preto"></span>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Puxador%20Garage%20(couro).%20Podem%20me%20ajudar?" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Negociar no WhatsApp
+          </a>
+          <a class="btn-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">Ver na Loja Virtual →</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /catalog-grid -->
+</section>
+
+<!-- ██ HIGHLIGHTS ██ -->
+<div class="highlight-section">
+  <div class="section-label">Por que escolher ZEN Design?</div>
+  <div class="highlight-grid">
+    <div class="highlight-item">
+      <div class="highlight-icon">🏆</div>
+      <h3>Qualidade Premium</h3>
+      <p>Zamac de alta qualidade com acabamentos exclusivos. Resistência e elegância que duram décadas.</p>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-icon">✦</div>
+      <h3>Design Exclusivo</h3>
+      <p>Coleções desenvolvidas por designers especializados. Cada detalhe pensado para transformar o ambiente.</p>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-icon">🚚</div>
+      <h3>Entrega Rápida</h3>
+      <p>Estoque disponível para pronta entrega. Enviamos para todo o Brasil com rastreamento.</p>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-icon">💬</div>
+      <h3>Consultoria Grátis</h3>
+      <p>Nossa equipe especializada orienta a escolha ideal para o seu projeto de marcenaria.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ██ CTA FINAL ██ -->
+<section class="cta-section">
+  <h2>Pronto para elevar<br/>seu <em>projeto?</em></h2>
+  <p>Fale agora com nossos especialistas e garanta os melhores preços</p>
+  <div class="cta-buttons">
+    <a class="btn-cta-wpp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20conhecer%20os%20puxadores%20ZEN%20Design%20dispon%C3%ADveis%20na%20Casa%20Marceneiro.%20Podem%20me%20ajudar?" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Falar no WhatsApp
+    </a>
+    <a class="btn-cta-store" href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">
+      Acessar Loja Virtual →
+    </a>
+  </div>
+</section>
+
+<!-- ██ FOOTER ██ -->
+<footer>
+  <p>
+    <strong style="color:var(--gold-light);letter-spacing:.1em;">CASA MARCENEIRO</strong><br/>
+    Distribuidor Autorizado ZEN Design<br/>
+    <a href="https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design" target="_blank">cmarceneiro.com.br</a>
+    &nbsp;·&nbsp;
+    <a href="https://wa.me/5511999999999" target="_blank">WhatsApp</a><br/><br/>
+    Preços sujeitos a alteração sem aviso prévio. Imagens meramente ilustrativas.<br/>
+    Desconto de 15% válido para os modelos KITTEN e PAIO durante período de lançamento.
+  </p>
+</footer>
+
+<!-- ██ FLOATING WHATSAPP ██ -->
+<a class="float-wpp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20puxadores%20ZEN%20Design." target="_blank" aria-label="WhatsApp">
+  <span class="float-wpp-tooltip">Fale conosco agora!</span>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  // ── Countdown timer (72h from page load) ──
+  const end = new Date(Date.now() + 1000 * 60 * 60 * 72);
+  function tick() {
+    const diff = end - Date.now();
+    if (diff <= 0) { document.getElementById('countdown').textContent = 'Oferta encerrada'; return; }
+    const d = Math.floor(diff / 864e5);
+    const h = Math.floor((diff % 864e5) / 36e5);
+    const m = Math.floor((diff % 36e5) / 6e4);
+    const s = Math.floor((diff % 6e4) / 1e3);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ── Touch-friendly flip on mobile ──
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('touchstart', e => {
+      e.preventDefault();
+      card.classList.toggle('flipped');
+    }, { passive: false });
+  });
+</script>
+
+</body>
+</html>
