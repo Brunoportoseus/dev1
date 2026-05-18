@@ -27,10 +27,15 @@
       text-align:center;padding:2rem;position:relative;overflow:hidden;
     }
     .hero-logo{
-      max-width:280px;width:75%;margin-bottom:1.8rem;position:relative;
-      filter:drop-shadow(0 4px 24px rgba(0,0,0,.5));
+      max-width:300px;width:82%;margin-bottom:2rem;position:relative;
+      filter:drop-shadow(0 6px 28px rgba(0,0,0,.6));
     }
-    .hero-logo img{width:100%;height:auto;display:block;}
+    .hero-logo svg.logo-svg{width:100%;height:auto;display:block;border-radius:8px;}
+    .hero-logo img.logo-photo{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:contain;border-radius:8px;
+      display:none; /* fica escondida; onload a mostra */
+    }
     .hero::before{
       content:'';position:absolute;inset:0;
       background:radial-gradient(ellipse 60% 40% at 30% 60%,rgba(201,169,110,.08) 0%,transparent 70%),
@@ -101,7 +106,8 @@
     .flip-card{perspective:1400px;height:520px;cursor:pointer;}
     .flip-card-inner{
       position:relative;width:100%;height:100%;
-      transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.2,.2,1);
+      transform-style:preserve-3d;-webkit-transform-style:preserve-3d;
+      transition:transform .7s cubic-bezier(.4,.2,.2,1);
     }
     .flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
     /* hover-flip apenas em dispositivos com mouse (evita travar scroll no celular) */
@@ -109,13 +115,17 @@
       .flip-card:hover .flip-card-inner{transform:rotateY(180deg);}
     }
     .flip-card-front,.flip-card-back{
-      position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
-      border-radius:14px;overflow:hidden;
+      position:absolute;inset:0;
+      backface-visibility:hidden;-webkit-backface-visibility:hidden;
+      border-radius:14px;
+      /* clip-path em vez de overflow:hidden — overflow:hidden quebra
+         o preserve-3d no Safari/iOS e causa texto espelhado */
+      clip-path:inset(0 round 14px);-webkit-clip-path:inset(0 round 14px);
     }
 
     /* ── CARD FRONT ── */
     .flip-card-front{background:var(--dark2);display:flex;flex-direction:column;border:1px solid rgba(201,169,110,.12);}
-    .card-image-wrap{flex:1;position:relative;overflow:hidden;}
+    .card-image-wrap{flex:1;position:relative;clip-path:inset(0);}
     .card-image-wrap svg{width:100%;height:100%;display:block;}
     /* Foto real do produto: fica POR CIMA da ilustração.
        Se o arquivo não existir, onerror remove a img e a ilustração aparece. */
@@ -288,7 +298,25 @@
 <!-- ██ HERO ██ -->
 <section class="hero">
   <div class="hero-logo">
-    <img src="images/logo.png" alt="Casa do Marceneiro – Desde 1986" onerror="this.closest('.hero-logo').remove()" />
+    <!-- SVG representa o logo enquanto logo.png não é enviado -->
+    <svg class="logo-svg" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+      <rect width="320" height="180" fill="#0d0d0d" rx="8"/>
+      <!-- C circular icon -->
+      <circle cx="267" cy="52" r="44" fill="#f5821f"/>
+      <circle cx="278" cy="36" r="30" fill="#e8332a"/>
+      <circle cx="286" cy="50" r="21" fill="#0d0d0d"/>
+      <path d="M256 20 Q298 8 310 52 Q322 96 286 110" stroke="#0d0d0d" stroke-width="5" fill="none"/>
+      <!-- Texto CASA do -->
+      <text x="14" y="78" fill="#ffffff" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="34" letter-spacing="-1">CASA</text>
+      <text x="148" y="78" fill="#ffffff" font-family="Arial,sans-serif" font-weight="400" font-size="22">do</text>
+      <!-- Texto MARCENEIRO -->
+      <text x="14" y="122" fill="#ffffff" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="28" letter-spacing="-1">MARCENEIRO</text>
+      <!-- Desde 1986 -->
+      <text x="186" y="162" fill="#cccccc" font-family="Georgia,'Times New Roman',serif" font-style="italic" font-size="22">Desde 1986</text>
+    </svg>
+    <!-- Foto real: coloque logo.png na pasta images/ para ativar -->
+    <img class="logo-photo" src="images/logo.png" alt="Casa do Marceneiro"
+         onload="this.style.display='block'" onerror="this.remove()" />
   </div>
   <div class="hero-badge">Novidades 2024 / 2025</div>
   <p class="brand-name">Casa do Marceneiro × ZEN Design</p>
