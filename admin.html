@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Painel Admin — Casa do Marceneiro</title>
+  <style>
+    :root{
+      --gold:#c9a96e;--gold-light:#e8d5a3;--gold-dark:#9a7940;
+      --black:#0d0d0d;--dark:#1a1a1a;--dark2:#252525;--dark3:#2e2e2e;
+      --white:#f5f3ef;--gray:#888;--red:#c0392b;--green:#27ae60;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:system-ui,sans-serif;background:var(--black);color:var(--white);min-height:100vh;}
+
+    /* ── LOGIN ── */
+    #loginScreen{
+      display:flex;align-items:center;justify-content:center;min-height:100vh;
+      background:linear-gradient(135deg,#0d0d0d,#1a1507,#0d0d0d);
+    }
+    .login-box{
+      background:var(--dark2);border:1px solid rgba(201,169,110,.2);border-radius:16px;
+      padding:2.5rem;width:min(360px,90vw);text-align:center;
+    }
+    .login-box h1{font-size:1.2rem;font-weight:600;color:var(--gold);margin-bottom:.4rem;letter-spacing:.05em;}
+    .login-box p{font-size:.75rem;color:var(--gray);margin-bottom:1.8rem;}
+    .pin-display{
+      display:flex;gap:.5rem;justify-content:center;margin-bottom:1.5rem;
+    }
+    .pin-dot{
+      width:14px;height:14px;border-radius:50%;border:2px solid var(--gold);
+      transition:background .2s;
+    }
+    .pin-dot.filled{background:var(--gold);}
+    .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;max-width:220px;margin:0 auto;}
+    .pin-btn{
+      background:var(--dark3);border:1px solid rgba(255,255,255,.08);color:var(--white);
+      font-size:1.2rem;font-weight:500;padding:1rem;border-radius:10px;cursor:pointer;
+      transition:background .15s,border-color .15s;
+    }
+    .pin-btn:hover{background:#3a3a3a;border-color:rgba(201,169,110,.3);}
+    .pin-btn.del{font-size:.9rem;}
+    #loginError{color:var(--red);font-size:.75rem;margin-top:.8rem;height:1rem;}
+
+    /* ── ADMIN LAYOUT ── */
+    #adminPanel{display:none;}
+    .admin-header{
+      background:var(--dark2);border-bottom:1px solid rgba(201,169,110,.15);
+      padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+    }
+    .admin-header h1{font-size:1rem;font-weight:700;color:var(--gold);flex:1;letter-spacing:.05em;}
+    .hdr-btns{display:flex;gap:.5rem;flex-wrap:wrap;}
+    .btn{
+      padding:.5rem 1rem;border-radius:7px;font-size:.75rem;font-weight:600;
+      cursor:pointer;border:1px solid transparent;letter-spacing:.04em;transition:all .2s;
+    }
+    .btn-gold{background:var(--gold);color:var(--black);border-color:var(--gold);}
+    .btn-gold:hover{background:var(--gold-dark);border-color:var(--gold-dark);}
+    .btn-outline{background:transparent;color:var(--gold);border-color:var(--gold);}
+    .btn-outline:hover{background:var(--gold);color:var(--black);}
+    .btn-danger{background:transparent;color:var(--red);border-color:var(--red);}
+    .btn-danger:hover{background:var(--red);color:#fff;}
+    .btn-gray{background:var(--dark3);color:var(--gray);border-color:rgba(255,255,255,.1);}
+    .btn-gray:hover{color:var(--white);border-color:rgba(255,255,255,.3);}
+    .btn-green{background:var(--green);color:#fff;border-color:var(--green);}
+    .btn-green:hover{background:#219a52;}
+
+    .admin-body{max-width:1100px;margin:0 auto;padding:1.5rem;}
+
+    /* ── TABS ── */
+    .tabs{display:flex;gap:.4rem;margin-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:.5rem;}
+    .tab{
+      padding:.5rem 1.2rem;border-radius:7px 7px 0 0;font-size:.78rem;font-weight:600;
+      cursor:pointer;color:var(--gray);background:none;border:none;letter-spacing:.05em;
+      transition:color .2s,background .2s;
+    }
+    .tab.active{color:var(--gold);background:rgba(201,169,110,.08);}
+    .tab-content{display:none;}
+    .tab-content.active{display:block;}
+
+    /* ── TOAST ── */
+    #toast{
+      position:fixed;top:1rem;right:1rem;padding:.7rem 1.4rem;border-radius:8px;
+      font-size:.8rem;font-weight:600;z-index:9999;display:none;
+      animation:slideIn .3s ease;
+    }
+    #toast.success{background:var(--green);color:#fff;}
+    #toast.error{background:var(--red);color:#fff;}
+    @keyframes slideIn{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+
+    /* ── SETTINGS FORM ── */
+    .form-group{margin-bottom:1.2rem;}
+    .form-group label{display:block;font-size:.72rem;font-weight:600;color:var(--gold);margin-bottom:.4rem;letter-spacing:.06em;text-transform:uppercase;}
+    .form-group input,.form-group textarea,.form-group select{
+      width:100%;background:var(--dark3);border:1px solid rgba(255,255,255,.1);color:var(--white);
+      border-radius:7px;padding:.6rem .9rem;font-size:.85rem;font-family:inherit;
+      transition:border-color .2s;
+    }
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+      outline:none;border-color:var(--gold);
+    }
+    .form-group textarea{resize:vertical;min-height:80px;}
+    .form-hint{font-size:.68rem;color:var(--gray);margin-top:.3rem;}
+
+    /* ── PRODUCT LIST ── */
+    .product-list{display:grid;gap:1rem;}
+    .product-row{
+      background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:10px;
+      padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;
+    }
+    .product-row:hover{border-color:rgba(201,169,110,.2);}
+    .prod-thumb{
+      width:56px;height:56px;border-radius:8px;object-fit:cover;
+      background:var(--dark3);flex-shrink:0;border:1px solid rgba(255,255,255,.06);
+    }
+    .prod-thumb-placeholder{
+      width:56px;height:56px;border-radius:8px;background:var(--dark3);
+      flex-shrink:0;display:flex;align-items:center;justify-content:center;
+      font-size:1.4rem;border:1px solid rgba(255,255,255,.06);
+    }
+    .prod-info{flex:1;min-width:0;}
+    .prod-name{font-size:.95rem;font-weight:600;color:var(--white);margin-bottom:.2rem;}
+    .prod-meta{font-size:.7rem;color:var(--gray);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .prod-actions{display:flex;gap:.4rem;flex-shrink:0;}
+    .order-btns{display:flex;flex-direction:column;gap:.2rem;flex-shrink:0;}
+    .order-btn{
+      background:var(--dark3);border:1px solid rgba(255,255,255,.08);color:var(--gray);
+      width:26px;height:22px;border-radius:4px;cursor:pointer;font-size:.7rem;
+      display:flex;align-items:center;justify-content:center;transition:color .2s;
+    }
+    .order-btn:hover:not(:disabled){color:var(--white);}
+    .order-btn:disabled{opacity:.25;cursor:default;}
+
+    /* ── MODAL ── */
+    .modal-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;
+      display:none;align-items:center;justify-content:center;padding:1rem;
+    }
+    .modal-overlay.open{display:flex;}
+    .modal{
+      background:var(--dark2);border:1px solid rgba(201,169,110,.2);border-radius:14px;
+      width:min(680px,100%);max-height:90vh;overflow-y:auto;padding:1.8rem;position:relative;
+    }
+    .modal h2{font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:1.4rem;}
+    .modal-close{
+      position:absolute;top:1rem;right:1rem;background:none;border:none;
+      color:var(--gray);font-size:1.4rem;cursor:pointer;line-height:1;
+    }
+    .modal-close:hover{color:var(--white);}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.2rem;}
+    @media(max-width:500px){.modal-grid{grid-template-columns:1fr;}}
+    .modal-full{grid-column:1/-1;}
+    .modal-footer{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.4rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06);}
+
+    /* ── COLORS EDITOR ── */
+    .colors-editor{display:flex;flex-wrap:wrap;gap:.5rem;padding:.6rem .9rem;background:var(--dark3);border:1px solid rgba(255,255,255,.1);border-radius:7px;}
+    .color-chip{
+      display:flex;align-items:center;gap:.3rem;padding:.25rem .5rem;border-radius:20px;
+      background:rgba(255,255,255,.06);font-size:.68rem;cursor:pointer;transition:background .15s;
+    }
+    .color-chip.selected{background:rgba(201,169,110,.2);border:1px solid var(--gold);}
+    .color-chip .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+    .dot-rose{background:radial-gradient(circle at 35% 35%,#f0c0a0,#c4957a);}
+    .dot-gold{background:radial-gradient(circle at 35% 35%,#e8d5a3,#c9a96e);}
+    .dot-black{background:radial-gradient(circle at 35% 35%,#444,#111);}
+    .dot-chrome{background:radial-gradient(circle at 35% 35%,#eee,#999);}
+    .dot-onix{background:radial-gradient(circle at 35% 35%,#555,#222);}
+    .dot-brass{background:radial-gradient(circle at 35% 35%,#d4aa70,#a07830);}
+
+    /* ── INFO BOX ── */
+    .info-box{
+      background:rgba(201,169,110,.07);border:1px solid rgba(201,169,110,.2);
+      border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.4rem;
+    }
+    .info-box h3{font-size:.8rem;font-weight:700;color:var(--gold);margin-bottom:.5rem;letter-spacing:.05em;}
+    .info-box p,.info-box li{font-size:.75rem;color:var(--gray);line-height:1.7;}
+    .info-box ol,.info-box ul{padding-left:1.2rem;}
+    .info-box code{background:rgba(255,255,255,.07);padding:.1em .4em;border-radius:3px;font-family:monospace;font-size:.8em;color:var(--gold-light);}
+
+    .section-title{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+
+    .badge-changed{
+      display:inline-block;background:rgba(201,169,110,.15);color:var(--gold);
+      font-size:.6rem;font-weight:700;letter-spacing:.08em;padding:.15rem .4rem;
+      border-radius:3px;margin-left:.4rem;vertical-align:middle;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>🔐 Painel Administrativo</h1>
+    <p>Casa do Marceneiro × ZEN Design</p>
+    <div class="pin-display" id="pinDisplay">
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn" onclick="pinPress('')" style="visibility:hidden"></button>
+      <button class="pin-btn" onclick="pinPress('0')">0</button>
+      <button class="pin-btn del" onclick="pinDel()">⌫</button>
+    </div>
+    <p id="loginError"></p>
+    <p style="margin-top:1.2rem;font-size:.65rem;color:var(--gray);">PIN padrão: <strong style="color:var(--gold-light)">1234</strong></p>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <h1>⚙ Painel Admin — Catálogo ZEN Design</h1>
+    <div class="hdr-btns">
+      <button class="btn btn-gold" onclick="saveAll()">💾 Salvar Alterações</button>
+      <button class="btn btn-green" onclick="exportJSON()">⬇ Exportar JSON</button>
+      <button class="btn btn-outline" onclick="document.getElementById('importFile').click()">⬆ Importar JSON</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)"/>
+      <button class="btn btn-outline" onclick="window.open('index.html','_blank')">👁 Ver Catálogo</button>
+      <button class="btn btn-gray" onclick="logout()">Sair</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <div id="toast"></div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('products')">Produtos</button>
+      <button class="tab" onclick="showTab('settings')">Configurações</button>
+      <button class="tab" onclick="showTab('help')">Ajuda</button>
+    </div>
+
+    <!-- TAB: PRODUTOS -->
+    <div id="tab-products" class="tab-content active">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;">
+        <p class="section-title">Produtos do Catálogo <span id="changedBadge" class="badge-changed" style="display:none">alterado</span></p>
+        <button class="btn btn-gold" onclick="openNewProduct()">+ Novo Produto</button>
+      </div>
+      <div class="product-list" id="productList"></div>
+    </div>
+
+    <!-- TAB: CONFIGURAÇÕES -->
+    <div id="tab-settings" class="tab-content">
+      <p class="section-title">Configurações Globais</p>
+      <div style="max-width:540px;">
+        <div class="form-group">
+          <label>Número de WhatsApp</label>
+          <input type="text" id="cfg-wpp" placeholder="Ex: 5511999999999 (só números)" />
+          <p class="form-hint">Inclua o código do país (55) e DDD. Sem espaços, traços ou parênteses.</p>
+        </div>
+        <div class="form-group">
+          <label>URL da Loja Virtual</label>
+          <input type="text" id="cfg-store" placeholder="https://sualoja.com.br/..." />
+        </div>
+        <hr style="border-color:rgba(255,255,255,.06);margin:1.5rem 0;"/>
+        <p class="section-title">Alterar PIN de Acesso</p>
+        <div class="form-group">
+          <label>Novo PIN (4 dígitos)</label>
+          <input type="password" id="cfg-newpin" maxlength="4" placeholder="0000" style="max-width:120px;letter-spacing:.3em;text-align:center;" />
+        </div>
+        <div class="form-group">
+          <label>Confirmar Novo PIN</label>
+          <input type="password" id="cfg-confirmpin" maxlength="4" placeholder="0000" style="max-width:120px;letter-spacing:.3em;text-align:center;" />
+        </div>
+        <button class="btn btn-outline" onclick="changePin()">Salvar Novo PIN</button>
+        <hr style="border-color:rgba(255,255,255,.06);margin:1.5rem 0;"/>
+        <button class="btn btn-danger" onclick="resetAll()">⚠ Restaurar Dados Padrão</button>
+        <p class="form-hint" style="margin-top:.4rem;">Apaga todas as alterações e volta ao catálogo original.</p>
+      </div>
+    </div>
+
+    <!-- TAB: AJUDA -->
+    <div id="tab-help" class="tab-content">
+      <div class="info-box">
+        <h3>Como as alterações funcionam?</h3>
+        <p>As alterações feitas aqui ficam salvas no navegador (localStorage). Para que <strong>todos os clientes vejam</strong> as mudanças:</p>
+        <ol style="margin-top:.5rem;">
+          <li>Clique em <strong>Exportar JSON</strong> para baixar o arquivo <code>catalog-data.json</code></li>
+          <li>Acesse o repositório no GitHub</li>
+          <li>Suba o arquivo <code>catalog-data.json</code> na pasta raiz do projeto</li>
+          <li>Aguarde ~2 minutos para o site atualizar</li>
+        </ol>
+      </div>
+      <div class="info-box">
+        <h3>Como adicionar fotos dos produtos?</h3>
+        <p>No campo "Arquivo de Foto" de cada produto, coloque o nome do arquivo (ex: <code>kitten.jpg</code>). Depois:</p>
+        <ol style="margin-top:.5rem;">
+          <li>Renomeie a foto com exatamente esse nome</li>
+          <li>Acesse o GitHub → pasta <code>images/</code></li>
+          <li>Clique em <strong>Add file → Upload files</strong></li>
+          <li>Faça o upload e clique em <strong>Commit changes</strong></li>
+        </ol>
+        <p style="margin-top:.5rem;">Se a foto não for encontrada, a ilustração original aparece automaticamente.</p>
+      </div>
+      <div class="info-box">
+        <h3>Ilustrações disponíveis (svgStyle)</h3>
+        <ul style="margin-top:.3rem;">
+          <li><code>kitten</code> — Concha tipo Kitten</li>
+          <li><code>paio</code> — Circular / Paio</li>
+          <li><code>shell64</code> — Concha Shell grande</li>
+          <li><code>shell48</code> — Concha Shell pequena</li>
+          <li><code>pipeS</code> — Pipe Simétrico</li>
+          <li><code>pipeD</code> — Pipe Direcional</li>
+          <li><code>plymouth</code> — Plymouth retrô</li>
+          <li><code>garage</code> — Alça de couro</li>
+          <li><code>generic</code> — Genérico (para novos produtos)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: EDITAR PRODUTO ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h2 id="modalTitle">Editar Produto</h2>
+    <div class="modal-grid">
+      <div class="form-group">
+        <label>Nome do Produto</label>
+        <input type="text" id="f-name" placeholder="Ex: Kitten 64"/>
+      </div>
+      <div class="form-group">
+        <label>Código / Referência</label>
+        <input type="text" id="f-code" placeholder="Ex: Cód. ZP5805 · 64mm"/>
+      </div>
+      <div class="form-group">
+        <label>Categoria (frente)</label>
+        <input type="text" id="f-category" placeholder="Ex: Conchas · Lançamento"/>
+      </div>
+      <div class="form-group">
+        <label>Categoria (verso)</label>
+        <input type="text" id="f-categoryBack" placeholder="Ex: Conchas · Lançamento 2024"/>
+      </div>
+      <div class="form-group">
+        <label>Preço De (riscado) — opcional</label>
+        <input type="text" id="f-priceOld" placeholder="Ex: R$ 99,90"/>
+      </div>
+      <div class="form-group">
+        <label>Preço Atual</label>
+        <input type="text" id="f-priceCurrent" placeholder="Ex: R$ 84,90"/>
+      </div>
+      <div class="form-group">
+        <label>Parcelas no cartão</label>
+        <input type="text" id="f-priceInstallment" placeholder="Ex: ou 10× de R$ 8,49 sem juros"/>
+      </div>
+      <div class="form-group">
+        <label>PIX</label>
+        <input type="text" id="f-pricePix" placeholder="Ex: ✓ R$ 80,66 no PIX (5% OFF)"/>
+      </div>
+      <div class="form-group">
+        <label>Badge Superior Direito — opcional</label>
+        <input type="text" id="f-badgeNew" placeholder="Ex: ✦ NEW IN"/>
+      </div>
+      <div class="form-group">
+        <label>Badge Superior Esquerdo (%) — opcional</label>
+        <input type="text" id="f-badgeOff" placeholder="Ex: 15% OFF"/>
+      </div>
+      <div class="form-group">
+        <label>Arquivo de Foto</label>
+        <input type="text" id="f-imageFile" placeholder="Ex: kitten.jpg"/>
+        <p class="form-hint">Coloque o arquivo na pasta <code>images/</code> do repositório</p>
+      </div>
+      <div class="form-group">
+        <label>Ilustração (svgStyle)</label>
+        <select id="f-svgStyle">
+          <option value="kitten">kitten — Concha Kitten</option>
+          <option value="paio">paio — Circular Paio</option>
+          <option value="shell64">shell64 — Shell grande</option>
+          <option value="shell48">shell48 — Shell pequena</option>
+          <option value="pipeS">pipeS — Pipe Simétrico</option>
+          <option value="pipeD">pipeD — Pipe Direcional</option>
+          <option value="plymouth">plymouth — Plymouth</option>
+          <option value="garage">garage — Alça Garage</option>
+          <option value="generic">generic — Genérico</option>
+        </select>
+      </div>
+      <div class="form-group modal-full">
+        <label>Especificações (uma por linha)</label>
+        <textarea id="f-specs" rows="3" placeholder="Furação 64mm · Comprimento 99,3mm&#10;Zamac de alta qualidade&#10;Textura recartilhada"></textarea>
+      </div>
+      <div class="form-group modal-full">
+        <label>Mensagem WhatsApp</label>
+        <input type="text" id="f-whatsappMsg" placeholder="Ex: Olá! Tenho interesse no Puxador Kitten 64..."/>
+      </div>
+      <div class="form-group modal-full">
+        <label>Rótulo das Cores</label>
+        <input type="text" id="f-colorLabel" placeholder="Cores:"/>
+      </div>
+      <div class="form-group modal-full">
+        <label>Cores Disponíveis (clique para selecionar)</label>
+        <div class="colors-editor" id="colorsEditor">
+          <div class="color-chip" data-color="rose" onclick="toggleColor('rose')"><span class="dot dot-rose"></span>Rose</div>
+          <div class="color-chip" data-color="gold" onclick="toggleColor('gold')"><span class="dot dot-gold"></span>Gold</div>
+          <div class="color-chip" data-color="brass" onclick="toggleColor('brass')"><span class="dot dot-brass"></span>Brass</div>
+          <div class="color-chip" data-color="chrome" onclick="toggleColor('chrome')"><span class="dot dot-chrome"></span>Chrome</div>
+          <div class="color-chip" data-color="onix" onclick="toggleColor('onix')"><span class="dot dot-onix"></span>Ônix</div>
+          <div class="color-chip" data-color="black" onclick="toggleColor('black')"><span class="dot dot-black"></span>Black</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="btnDeleteProduct" onclick="deleteProduct()">Excluir Produto</button>
+      <button class="btn btn-gray" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-gold" onclick="saveProduct()">Salvar Produto</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── ESTADO ───────────────────────────────────────────────
+var products = [];
+var settings = {};
+var editingIndex = -1;
+var hasChanges = false;
+
+var DEFAULT_SETTINGS = {
+  whatsappNumber: '5511999999999',
+  storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design'
+};
+
+var DEFAULT_PRODUCTS = [
+  {id:'kitten-64',svgStyle:'kitten',badgeNew:'✦ NEW IN',badgeOff:'15% OFF',imageFile:'kitten.jpg',category:'Conchas · Lançamento',name:'Kitten 64',code:'Cód. ZP5805 · Furação 64mm · 99,3mm',categoryBack:'Conchas · Lançamento 2024',priceOld:'R$ 99,90',priceCurrent:'R$ 84,90',priceInstallment:'ou 10× de R$ 8,49 sem juros',pricePix:'✓ R$ 80,66 no PIX (5% OFF)',specs:['Furação 64mm · Comprimento 99,3mm','Zamac de alta qualidade','Textura recartilhada exclusiva'],colors:['rose','gold','chrome','black'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Kitten 64 (ZP5805). Podem me ajudar?'},
+  {id:'paio-64',svgStyle:'paio',badgeNew:'✦ NEW IN',badgeOff:'15% OFF',imageFile:'paio.jpg',category:'Conchas · Lançamento',name:'Paio 64',code:'Cód. ZP5426 · Furação 64mm · 120mm',categoryBack:'Conchas · Lançamento 2024',priceOld:'R$ 169,90',priceCurrent:'R$ 144,42',priceInstallment:'ou 10× de R$ 14,44 sem juros',pricePix:'✓ R$ 137,20 no PIX (5% OFF)',specs:['Furação 64mm · Comprimento 120mm','Formato circular bipartido exclusivo','Superfície com textura diamantada'],colors:['brass','black','chrome'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Paio 64 (ZP5426). Podem me ajudar?'},
+  {id:'shell-64',svgStyle:'shell64',badgeNew:'Novo: Ônix Escovado',imageFile:'shell-64.jpg',category:'Conchas · Clássico',name:'Shell 64',code:'Cód. ZP4318 · Furação 64mm · 90mm',categoryBack:'Conchas',priceCurrent:'R$ 94,90',priceInstallment:'ou 10× de R$ 9,49 sem juros',pricePix:'✓ R$ 90,16 no PIX (5% OFF)',specs:['Furação 64mm · 90mm × 45mm','Detalhe recartilhado no contorno','Ar nostálgico e industrial'],colors:['rose','black','onix','chrome'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Shell 64 (ZP4318). Podem me ajudar?'},
+  {id:'shell-48',svgStyle:'shell48',imageFile:'shell-48.jpg',category:'Conchas · Compacto',name:'Shell 48',code:'Cód. ZP4319 · Furação 48mm · 65mm',categoryBack:'Conchas',priceCurrent:'R$ 79,90',priceInstallment:'ou 10× de R$ 7,99 sem juros',pricePix:'✓ R$ 75,91 no PIX (5% OFF)',specs:['Furação 48mm · 65mm × 34mm','Detalhe recartilhado no contorno','Ideal para gavetas menores'],colors:['rose','black','onix','chrome'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Shell 48 (ZP4319). Podem me ajudar?'},
+  {id:'pipe-simetrico',svgStyle:'pipeS',imageFile:'pipe-simetrico.jpg',category:'Conchas · Moderno',name:'Pipe Simétrico',code:'Cód. ZP5780 · Furação 120mm · 130mm',categoryBack:'Conchas · Estilo Provençal',priceCurrent:'R$ 109,90',priceInstallment:'ou 10× de R$ 10,99 sem juros',pricePix:'✓ R$ 104,41 no PIX (5% OFF)',specs:['Furação 120mm · Comprimento 130mm','Altura 19mm · Profundidade 33mm','Charme provençal minimalista'],colors:['rose','black','brass'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Pipe Simétrico (ZP5780). Podem me ajudar?'},
+  {id:'pipe-direcional',svgStyle:'pipeD',imageFile:'pipe-direcional.jpg',category:'Conchas · Direcional',name:'Pipe Direcional',code:'ZP5780E / ZP5780D · 120mm · 130mm',categoryBack:'Conchas · Esquerdo / Direito',priceCurrent:'R$ 109,90',priceInstallment:'ou 10× de R$ 10,99 sem juros',pricePix:'✓ R$ 104,41 no PIX (5% OFF)',specs:['Furação 120mm · Comprimento 130mm','Esquerdo ZP5780E · Direito ZP5780D','Design assimétrico exclusivo'],colors:['rose','black','brass'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Pipe Direcional (ZP5780E/ZP5780D). Podem me ajudar?'},
+  {id:'plymouth',svgStyle:'plymouth',imageFile:'plymouth.jpg',category:'Conchas · Retrô',name:'Plymouth',code:'Cód. ZP5420 · Furação 80mm · 95mm',categoryBack:'Conchas · Retrô',priceCurrent:'R$ 74,90',priceInstallment:'ou 10× de R$ 7,49 sem juros',pricePix:'✓ R$ 71,16 no PIX (5% OFF)',specs:['Furação 80mm · Comprimento 95mm','Design clássico, acabamento moderno','Versátil para vários estilos'],colors:['rose','brass','chrome','black'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Plymouth (ZP5420). Podem me ajudar?'},
+  {id:'garage',svgStyle:'garage',imageFile:'garage.jpg',category:'Alças · Couro Premium',name:'Garage',code:'ZP1254 / ZP1294 / ZP1295 · 3 tamanhos',categoryBack:'Alças · Couro & Metal',priceCurrent:'R$ 189,90',priceInstallment:'ou 10× sem juros',pricePix:'✓ 5% OFF no PIX',specs:['P · ZP1254 — furação 224mm','M · ZP1294 — furação 352mm','G · ZP1295 — furação 544mm'],colors:['chrome','rose','black'],colorLabel:'Metal:',whatsappMsg:'Olá! Tenho interesse no Puxador Garage (couro). Podem me ajudar?'}
+];
+
+// ─── PIN ──────────────────────────────────────────────────
+var pinBuffer = '';
+function pinPress(digit) {
+  if (pinBuffer.length >= 4) return;
+  pinBuffer += digit;
+  updatePinDisplay();
+  if (pinBuffer.length === 4) setTimeout(checkPin, 120);
+}
+function pinDel() {
+  pinBuffer = pinBuffer.slice(0,-1);
+  updatePinDisplay();
+  document.getElementById('loginError').textContent = '';
+}
+function updatePinDisplay() {
+  var dots = document.querySelectorAll('.pin-dot');
+  dots.forEach(function(d,i){ d.classList.toggle('filled', i < pinBuffer.length); });
+}
+function checkPin() {
+  var correct = localStorage.getItem('admin_pin') || '1234';
+  if (pinBuffer === correct) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('loginError').textContent = 'PIN incorreto. Tente novamente.';
+    pinBuffer = '';
+    updatePinDisplay();
+  }
+}
+function logout() {
+  pinBuffer = '';
+  updatePinDisplay();
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('adminPanel').style.display = 'none';
+}
+
+// ─── TABS ─────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ─── DADOS ────────────────────────────────────────────────
+function loadData() {
+  try { settings = JSON.parse(localStorage.getItem('catalog_settings')) || Object.assign({},DEFAULT_SETTINGS); }
+  catch(e){ settings = Object.assign({},DEFAULT_SETTINGS); }
+  try { products = JSON.parse(localStorage.getItem('catalog_products')) || JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
+  catch(e){ products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
+
+  document.getElementById('cfg-wpp').value = settings.whatsappNumber || '';
+  document.getElementById('cfg-store').value = settings.storeUrl || '';
+  renderProductList();
+}
+
+function markChanged() {
+  hasChanges = true;
+  document.getElementById('changedBadge').style.display = '';
+}
+
+function saveAll() {
+  settings.whatsappNumber = document.getElementById('cfg-wpp').value.trim();
+  settings.storeUrl = document.getElementById('cfg-store').value.trim();
+  localStorage.setItem('catalog_settings', JSON.stringify(settings));
+  localStorage.setItem('catalog_products', JSON.stringify(products));
+  hasChanges = false;
+  document.getElementById('changedBadge').style.display = 'none';
+  toast('Alterações salvas! Exporte o JSON para publicar no site.', 'success');
+}
+
+function resetAll() {
+  if (!confirm('Tem certeza? Todas as alterações serão perdidas e o catálogo voltará ao padrão.')) return;
+  localStorage.removeItem('catalog_products');
+  localStorage.removeItem('catalog_settings');
+  loadData();
+  toast('Dados restaurados ao padrão.', 'success');
+}
+
+// ─── LISTA DE PRODUTOS ────────────────────────────────────
+function renderProductList() {
+  var list = document.getElementById('productList');
+  list.innerHTML = products.map(function(p, i){
+    var thumb = '<div class="prod-thumb-placeholder">🔩</div>';
+    return '<div class="product-row">' +
+      thumb +
+      '<div class="prod-info">' +
+        '<div class="prod-name">' + (p.name || 'Sem nome') + '</div>' +
+        '<div class="prod-meta">' + (p.code||'') + ' · ' + (p.priceCurrent||'') + ' · foto: ' + (p.imageFile||'—') + '</div>' +
+      '</div>' +
+      '<div class="order-btns">' +
+        '<button class="order-btn" ' + (i===0?'disabled':'') + ' onclick="moveProduct('+i+',-1)" title="Subir">▲</button>' +
+        '<button class="order-btn" ' + (i===products.length-1?'disabled':'') + ' onclick="moveProduct('+i+',1)" title="Descer">▼</button>' +
+      '</div>' +
+      '<div class="prod-actions">' +
+        '<button class="btn btn-outline" onclick="openEdit('+i+')">Editar</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function moveProduct(index, dir) {
+  var other = index + dir;
+  if (other < 0 || other >= products.length) return;
+  var tmp = products[index];
+  products[index] = products[other];
+  products[other] = tmp;
+  markChanged();
+  renderProductList();
+}
+
+// ─── MODAL ────────────────────────────────────────────────
+function openEdit(index) {
+  editingIndex = index;
+  var p = products[index];
+  document.getElementById('modalTitle').textContent = 'Editar: ' + (p.name || 'Produto');
+  document.getElementById('btnDeleteProduct').style.display = '';
+  fillForm(p);
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function openNewProduct() {
+  editingIndex = -1;
+  document.getElementById('modalTitle').textContent = 'Novo Produto';
+  document.getElementById('btnDeleteProduct').style.display = 'none';
+  fillForm({
+    name:'', code:'', category:'', categoryBack:'', imageFile:'novo-produto.jpg',
+    svgStyle:'generic', badgeNew:'', badgeOff:'', priceOld:'', priceCurrent:'',
+    priceInstallment:'ou 10× sem juros', pricePix:'✓ 5% OFF no PIX',
+    specs:['','',''], colors:[], colorLabel:'Cores:',
+    whatsappMsg:'Olá! Tenho interesse neste produto. Podem me ajudar?'
+  });
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function fillForm(p) {
+  document.getElementById('f-name').value = p.name || '';
+  document.getElementById('f-code').value = p.code || '';
+  document.getElementById('f-category').value = p.category || '';
+  document.getElementById('f-categoryBack').value = p.categoryBack || '';
+  document.getElementById('f-priceOld').value = p.priceOld || '';
+  document.getElementById('f-priceCurrent').value = p.priceCurrent || '';
+  document.getElementById('f-priceInstallment').value = p.priceInstallment || '';
+  document.getElementById('f-pricePix').value = p.pricePix || '';
+  document.getElementById('f-badgeNew').value = p.badgeNew || '';
+  document.getElementById('f-badgeOff').value = p.badgeOff || '';
+  document.getElementById('f-imageFile').value = p.imageFile || '';
+  document.getElementById('f-svgStyle').value = p.svgStyle || 'generic';
+  document.getElementById('f-specs').value = (p.specs || []).join('\n');
+  document.getElementById('f-whatsappMsg').value = p.whatsappMsg || '';
+  document.getElementById('f-colorLabel').value = p.colorLabel || 'Cores:';
+  // Colors
+  var selected = p.colors || [];
+  document.querySelectorAll('.color-chip').forEach(function(chip){
+    chip.classList.toggle('selected', selected.indexOf(chip.dataset.color) !== -1);
+  });
+}
+
+function toggleColor(color) {
+  var chip = document.querySelector('.color-chip[data-color="'+color+'"]');
+  chip.classList.toggle('selected');
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+function saveProduct() {
+  var name = document.getElementById('f-name').value.trim();
+  if (!name) { alert('O nome do produto é obrigatório.'); return; }
+
+  var selectedColors = [];
+  document.querySelectorAll('.color-chip.selected').forEach(function(c){ selectedColors.push(c.dataset.color); });
+
+  var p = {
+    id: editingIndex >= 0 ? products[editingIndex].id : 'prod-' + Date.now(),
+    name: name,
+    code: document.getElementById('f-code').value.trim(),
+    category: document.getElementById('f-category').value.trim(),
+    categoryBack: document.getElementById('f-categoryBack').value.trim(),
+    priceOld: document.getElementById('f-priceOld').value.trim(),
+    priceCurrent: document.getElementById('f-priceCurrent').value.trim(),
+    priceInstallment: document.getElementById('f-priceInstallment').value.trim(),
+    pricePix: document.getElementById('f-pricePix').value.trim(),
+    badgeNew: document.getElementById('f-badgeNew').value.trim(),
+    badgeOff: document.getElementById('f-badgeOff').value.trim(),
+    imageFile: document.getElementById('f-imageFile').value.trim(),
+    svgStyle: document.getElementById('f-svgStyle').value,
+    specs: document.getElementById('f-specs').value.split('\n').map(function(s){return s.trim();}).filter(Boolean),
+    whatsappMsg: document.getElementById('f-whatsappMsg').value.trim(),
+    colorLabel: document.getElementById('f-colorLabel').value.trim() || 'Cores:',
+    colors: selectedColors
+  };
+
+  if (editingIndex >= 0) {
+    products[editingIndex] = p;
+  } else {
+    products.push(p);
+  }
+  markChanged();
+  renderProductList();
+  document.getElementById('modalOverlay').classList.remove('open');
+  toast('Produto salvo! Clique em "Salvar Alterações" para confirmar.', 'success');
+}
+
+function deleteProduct() {
+  if (editingIndex < 0) return;
+  var name = products[editingIndex].name || 'este produto';
+  if (!confirm('Excluir "' + name + '"? Esta ação não pode ser desfeita.')) return;
+  products.splice(editingIndex, 1);
+  markChanged();
+  renderProductList();
+  document.getElementById('modalOverlay').classList.remove('open');
+  toast('Produto excluído.', 'success');
+}
+
+// ─── SETTINGS ─────────────────────────────────────────────
+function changePin() {
+  var np = document.getElementById('cfg-newpin').value;
+  var cp = document.getElementById('cfg-confirmpin').value;
+  if (!np || np.length !== 4 || !/^\d{4}$/.test(np)) { alert('O PIN deve ter exatamente 4 dígitos numéricos.'); return; }
+  if (np !== cp) { alert('Os PINs não coincidem.'); return; }
+  localStorage.setItem('admin_pin', np);
+  document.getElementById('cfg-newpin').value = '';
+  document.getElementById('cfg-confirmpin').value = '';
+  toast('PIN alterado com sucesso!', 'success');
+}
+
+// ─── EXPORT / IMPORT ──────────────────────────────────────
+function exportJSON() {
+  settings.whatsappNumber = document.getElementById('cfg-wpp').value.trim();
+  settings.storeUrl = document.getElementById('cfg-store').value.trim();
+  var data = { settings: settings, products: products };
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'catalog-data.json'; a.click();
+  URL.revokeObjectURL(url);
+  toast('JSON exportado! Suba-o no GitHub para publicar.', 'success');
+}
+
+function importJSON(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = JSON.parse(e.target.result);
+      if (data.products) products = data.products;
+      if (data.settings) settings = data.settings;
+      document.getElementById('cfg-wpp').value = settings.whatsappNumber || '';
+      document.getElementById('cfg-store').value = settings.storeUrl || '';
+      markChanged();
+      renderProductList();
+      toast('JSON importado com sucesso!', 'success');
+    } catch(err) {
+      toast('Erro ao ler o arquivo. Verifique se é um JSON válido.', 'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ─── TOAST ────────────────────────────────────────────────
+var toastTimer;
+function toast(msg, type) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = type || 'success';
+  el.style.display = 'block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.style.display = 'none'; }, 3500);
+}
+</script>
+</body>
+</html>
