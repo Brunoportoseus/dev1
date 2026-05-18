@@ -16,6 +16,10 @@ mostra automaticamente a ilustração elegante (o catálogo nunca quebra).
 | Pipe Direcional      | ZP5780E / ZP5780D   | `pipe-direcional.jpg`    |
 | Plymouth             | ZP5420              | `plymouth.jpg`           |
 | Garage               | ZP1254              | `garage.jpg`             |
+| **Logo da empresa**  | —                   | `logo.png`               |
+
+> O **logo** (`logo.png`) aparece no topo do catálogo. Use uma imagem
+> **PNG com fundo transparente ou preto** (a home tem fundo escuro).
 
 ## Regras importantes
 

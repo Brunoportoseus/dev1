@@ -26,6 +26,11 @@
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;padding:2rem;position:relative;overflow:hidden;
     }
+    .hero-logo{
+      max-width:280px;width:75%;margin-bottom:1.8rem;position:relative;
+      filter:drop-shadow(0 4px 24px rgba(0,0,0,.5));
+    }
+    .hero-logo img{width:100%;height:auto;display:block;}
     .hero::before{
       content:'';position:absolute;inset:0;
       background:radial-gradient(ellipse 60% 40% at 30% 60%,rgba(201,169,110,.08) 0%,transparent 70%),
@@ -282,8 +287,11 @@
 
 <!-- ██ HERO ██ -->
 <section class="hero">
+  <div class="hero-logo">
+    <img src="images/logo.png" alt="Casa do Marceneiro – Desde 1986" onerror="this.closest('.hero-logo').remove()" />
+  </div>
   <div class="hero-badge">Novidades 2024 / 2025</div>
-  <p class="brand-name">Casa Marceneiro × ZEN Design</p>
+  <p class="brand-name">Casa do Marceneiro × ZEN Design</p>
   <h1 class="hero-title">Puxadores<br/><span>Exclusivos</span></h1>
   <div class="divider"></div>
   <p class="hero-sub">Detalhes que transformam móveis em obras de arte.<br/>
@@ -831,24 +839,12 @@
   }
   tick();setInterval(tick,1000);
 
-  // Flip por toque/clique SEM bloquear o scroll.
-  // Só vira o card se o dedo praticamente não se moveu (tap real).
+  // Flip ao clicar/tocar no card. O navegador só dispara 'click'
+  // num toque real (sem arrastar), então a rolagem não é bloqueada.
   document.querySelectorAll('.flip-card').forEach(card=>{
-    let sx=0, sy=0, moved=false;
-    card.addEventListener('touchstart',e=>{
-      const t=e.touches[0]; sx=t.clientX; sy=t.clientY; moved=false;
-    },{passive:true});
-    card.addEventListener('touchmove',e=>{
-      const t=e.touches[0];
-      if(Math.abs(t.clientX-sx)>10||Math.abs(t.clientY-sy)>10) moved=true;
-    },{passive:true});
-    card.addEventListener('touchend',()=>{
-      if(!moved) card.classList.toggle('flipped');
-    });
-    // Clique no desktop (não dispara junto com o touch)
     card.addEventListener('click',e=>{
-      if(e.pointerType==='touch') return;
-      if(window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+      // Não virar ao clicar nos botões WhatsApp / Loja Virtual
+      if(e.target.closest('a')) return;
       card.classList.toggle('flipped');
     });
   });
