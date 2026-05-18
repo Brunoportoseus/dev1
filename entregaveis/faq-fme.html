@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Base de conhecimento e perguntas frequentes sobre o Fundo Municipal de Esporte (FME) — programa O Esporte Que Queremos, Paraná.">
+<title>Base de Conhecimento — Fundo Municipal de Esporte (FME) | Paraná</title>
+<style>
+  :root{--verde:#1b8a5a;--verde-esc:#0f5c3a;--azul:#1f4e79;--azul-cl:#eaf2fb;
+    --amarelo:#f4b400;--cinza:#5b6770;--bg:#eef1f3;--borda:#dce3e9;--txt:#1d2733;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--txt);
+    background:var(--bg);line-height:1.6}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,var(--verde-esc),var(--verde));
+    color:#fff;padding:40px 0 34px}
+  header .tag{display:inline-block;background:rgba(255,255,255,.16);
+    padding:5px 14px;border-radius:18px;font-size:11.5px;letter-spacing:1.4px;
+    text-transform:uppercase;margin-bottom:14px}
+  header h1{font-size:30px;font-weight:800;line-height:1.2}
+  header p{margin-top:8px;font-size:15px;opacity:.92;max-width:680px}
+  .search{position:sticky;top:0;z-index:20;background:var(--bg);
+    padding:18px 0 10px;border-bottom:1px solid var(--borda)}
+  .search input{width:100%;padding:14px 18px;font-size:16px;border-radius:10px;
+    border:1px solid var(--borda)}
+  .search input:focus{outline:2px solid var(--verde);border-color:transparent}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{background:#fff;border:1px solid var(--borda);border-radius:16px;
+    padding:6px 13px;font-size:12.5px;cursor:pointer;color:var(--azul);
+    user-select:none}
+  .chip.active{background:var(--azul);color:#fff;border-color:var(--azul)}
+  .count{font-size:12.5px;color:var(--cinza);margin:14px 0 4px}
+  main{padding:8px 0 50px}
+  .cat{margin-top:26px}
+  .cat h2{font-size:15px;color:var(--azul);text-transform:uppercase;
+    letter-spacing:1px;border-bottom:2px solid var(--amarelo);
+    padding-bottom:6px;margin-bottom:12px}
+  details{background:#fff;border:1px solid var(--borda);border-radius:10px;
+    margin-bottom:10px;overflow:hidden}
+  details[open]{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  summary{padding:15px 18px;font-weight:700;font-size:15.5px;cursor:pointer;
+    list-style:none;display:flex;justify-content:space-between;gap:14px;
+    color:var(--verde-esc)}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--verde);font-weight:800;flex:none}
+  details[open] summary::after{content:"–"}
+  .ans{padding:0 18px 18px;font-size:14.5px;color:#33404b}
+  .ans p{margin-bottom:8px}
+  .ans ul{margin:6px 0 8px 20px}
+  .ans li{margin:3px 0}
+  .ref{display:inline-block;margin-top:6px;font-size:12px;color:var(--cinza);
+    background:var(--azul-cl);padding:3px 9px;border-radius:6px}
+  mark{background:#fff2b8;padding:0 2px;border-radius:3px}
+  .empty{text-align:center;color:var(--cinza);padding:50px 0;font-size:15px}
+  footer{background:#0c1722;color:#90a2b2;font-size:12px;padding:26px 0;
+    line-height:1.7}
+  footer strong{color:#cfdce7}
+  @media(max-width:680px){header h1{font-size:24px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="tag">Programa O Esporte Que Queremos · Paraná</span>
+    <h1>Base de Conhecimento — Fundo Municipal de Esporte</h1>
+    <p>Perguntas e respostas elaboradas a partir dos documentos oficiais.
+    Pesquise por palavra-chave ou navegue pelas categorias.</p>
+  </div>
+</header>
+
+<div class="search">
+  <div class="wrap">
+    <input id="q" type="search" placeholder="Pesquisar (ex.: repasse, conselho, minuta, prazo)..." autocomplete="off">
+    <div class="chips" id="chips"></div>
+    <div class="count" id="count"></div>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+
+<footer>
+  <div class="wrap">
+    <strong>Fontes:</strong> Documento Norteador (Vol. 5) e Guia Instrucional
+    (Vol. 6) — "Financiamento e Fundo Municipal para o Esporte", Coleção O
+    Esporte Que Queremos (Secretaria de Estado do Esporte do Paraná / IPIE-UFPR,
+    04/09/2023); Anexos (minuta de lei) e Modelo de entrega.<br>
+    <strong>Aviso:</strong> material informativo e de apoio à decisão. Prazos,
+    editais e canal de entrega vigentes devem ser confirmados no portal oficial
+    <strong>esporte.pr.gov.br</strong>. Não substitui parecer jurídico assinado
+    por profissional inscrito na OAB nem manifestação da procuradoria do município.
+  </div>
+</footer>
+
+<script>
+const FAQ = [
+ {c:"Conceitos básicos",
+  q:"O que é o Fundo Municipal de Esporte (FME)?",
+  a:"<p>É um <b>fundo especial</b>: um conjunto de receitas que, por lei, ficam vinculadas a finalidades específicas do esporte no município. Não é um órgão nem uma entidade — é uma unidade orçamentária que identifica receitas e despesas das atividades para as quais foi criado.</p><p>Serve para captar, gerir e aplicar recursos em programas, projetos, instalações e eventos esportivos, em sintonia com a Política Municipal de Esporte.</p>",
+  r:"Lei nº 4.320/1964; Documento Norteador, item 2.2"},
+
+ {c:"Conceitos básicos",
+  q:"Por que criar um FME é importante para o município?",
+  a:"<p>Porque a <b>Lei nº 21.405/2023</b> criou o Fundo Estadual do Esporte do Paraná (FEE/PR), que prevê <b>transferências automáticas fundo a fundo</b> aos municípios. <b>Sem um FME instituído por lei, o município não acessa esse repasse estadual.</b></p>",
+  r:"Lei nº 21.405/2023; Documento Norteador, item 2.2"},
+
+ {c:"Conceitos básicos",
+  q:"Qual a diferença entre financiamento orçamentário e extraorçamentário?",
+  a:"<p><b>Orçamentário:</b> recursos de impostos, taxas e contribuições, fixados na Lei Orçamentária Anual (LOA) — financiamento público direto.</p><p><b>Extraorçamentário:</b> recursos que não estão fixados na LOA, como repasses de loterias, incentivos fiscais e patrocínios. O FME é um instrumento orçamentário, pois integra a LOA e fica vinculado a um órgão.</p>",
+  r:"Documento Norteador, item 2.1; CF/1988 art. 165"},
+
+ {c:"Base legal",
+  q:"Quais leis embasam o Fundo Municipal de Esporte?",
+  a:"<ul><li><b>CF/1988, art. 217</b> — esporte como direito do cidadão e dever do Estado.</li><li><b>Lei nº 9.615/1998 (Lei Pelé), art. 56</b> — fontes de recursos para o desporto, incluindo fundos desportivos.</li><li><b>Lei nº 4.320/1964</b> — disciplina os fundos especiais e o controle pelo Tribunal de Contas.</li><li><b>Lei nº 21.405/2023 (PR)</b> — cria o FEE/PR e o repasse fundo a fundo.</li><li><b>Lei nº 14.597/2023</b> — Sistema Nacional do Esporte (SINESP).</li></ul>",
+  r:"Documento Norteador, itens 1 e 2; Referências"},
+
+ {c:"Base legal",
+  q:"O que diz o art. 56 da Lei Pelé sobre recursos para o esporte?",
+  a:"<p>Os recursos para o fomento das práticas desportivas (art. 217 da CF) são assegurados em programas dos orçamentos da União, Estados, Distrito Federal e Municípios, além de: fundos desportivos; receitas de loteria; doações, patrocínios e legados; incentivos fiscais previstos em lei; e outras fontes.</p>",
+  r:"Lei nº 9.615/1998, art. 56"},
+
+ {c:"Condições para o repasse (FEE/PR)",
+  q:"Quais são as 3 condições para o município receber o repasse automático do FEE/PR?",
+  a:"<p>Pela Lei nº 21.405/2023, cumulativamente:</p><ul><li><b>I</b> — instituição e funcionamento de (a) Conselho Municipal de Esporte, de forma <b>paritária</b>, e (b) Fundo Municipal do Esporte, orientado e acompanhado pelo Conselho;</li><li><b>II</b> — elaboração do <b>Plano Decenal Municipal de Esporte</b>;</li><li><b>III</b> — previsão de <b>recursos próprios</b> para o Fundo.</li></ul>",
+  r:"Lei nº 21.405/2023; Documento Norteador, item 2.2"},
+
+ {c:"Condições para o repasse (FEE/PR)",
+  q:"O que significa Conselho 'paritário'?",
+  a:"<p>É um conselho com representação equilibrada entre poder público e sociedade civil, permitindo a participação dos cidadãos e de representantes das diferentes áreas do setor esportivo na orientação e fiscalização das políticas públicas de esporte.</p>",
+  r:"Lei nº 21.405/2023; Documento Norteador do CME"},
+
+ {c:"Condições para o repasse (FEE/PR)",
+  q:"O que são 'recursos próprios' para o Fundo?",
+  a:"<p>É a previsão de recursos do próprio município destinados ao FME — tipicamente dotação orçamentária prevista na LOA/LDO/PPA — demonstrando contrapartida e sustentabilidade do Fundo, exigência da Lei nº 21.405/2023.</p>",
+  r:"Lei nº 21.405/2023; Documento Norteador, item 2.2"},
+
+ {c:"Conteúdo da lei do FME",
+  q:"Quais são os 4 elementos obrigatórios da lei do FME?",
+  a:"<ul><li><b>1) Receitas e despesas</b> do Fundo (com conta bancária específica em instituição financeira oficial).</li><li><b>2) Órgão gestor e executor</b> (sugere-se o CME como gestor; a secretaria do esporte como executor).</li><li><b>3) Plano de Ação e Aplicação</b> (alinhado à Política Municipal de Esporte).</li><li><b>4) Mecanismos de controle e prestação de contas</b> (competência do Tribunal de Contas).</li></ul>",
+  r:"Documento Norteador, item 2.2; Guia Instrucional, item 2.1"},
+
+ {c:"Conteúdo da lei do FME",
+  q:"Quais receitas podem ser vinculadas ao Fundo?",
+  a:"<ul><li>Dotações orçamentárias (LOA);</li><li>aluguel de espaços públicos esportivos;</li><li>bilheteria de eventos esportivos;</li><li>venda de espaços publicitários em eventos;</li><li>doações de instituições;</li><li>transferências governamentais (inclusive fundo a fundo);</li><li>convênios; multas da Justiça Desportiva; patrocínios.</li></ul>",
+  r:"Documento Norteador, item 2.2 (Receitas e Despesas)"},
+
+ {c:"Conteúdo da lei do FME",
+  q:"Em que os recursos do Fundo podem ser aplicados (despesas)?",
+  a:"<p>Em programas, projetos e ações esportivas de diferentes modalidades e níveis (formação esportiva, excelência esportiva e esporte para toda a vida), eventos esportivos, funcionamento de conselhos e comissões, e manutenção de instalações — em harmonia com a Política Municipal de Esporte.</p>",
+  r:"Documento Norteador, item 2.2; itens 13–16"},
+
+ {c:"Conteúdo da lei do FME",
+  q:"O Plano de Ação e Aplicação precisa constar na lei?",
+  a:"<p>Não. A lei <b>não</b> precisa apresentar o Plano de Ação e Aplicação, mas <b>deve indicar</b> sua elaboração e aprovação pelo órgão gestor (sugere-se o CME), com periodicidade definida e em conformidade com a Política Municipal de Esporte.</p>",
+  r:"Documento Norteador, item 2.2 (Plano de Ação e Aplicação)"},
+
+ {c:"Conteúdo da lei do FME",
+  q:"Quem controla as contas do Fundo?",
+  a:"<p>A competência de controle e tomada de contas do fundo especial é do <b>Tribunal de Contas</b>. A lei pode discriminar critérios adicionais de controle e fiscalização e as diretrizes de tomada, apreciação e aprovação das contas — sugere-se atribuir esse acompanhamento ao Conselho Municipal de Esporte.</p>",
+  r:"Lei nº 4.320/1964; Documento Norteador, item 2.2 (Controle)"},
+
+ {c:"Conteúdo da lei do FME",
+  q:"Como é a estrutura da minuta de lei do FME?",
+  a:"<ul><li><b>Cap. I — Do Fundo:</b> instituição, objetivo, receitas e conta específica.</li><li><b>Cap. II — Da Administração:</b> secretaria do esporte administra, observadas as diretrizes do CME.</li><li><b>Cap. III — Da Aplicação:</b> projetos/atividades e Plano de Ação e Aplicação pelo CME.</li><li><b>Cap. IV — Prestação de Contas:</b> CME fiscaliza e define critérios.</li><li><b>Cap. V — Disposições Finais:</b> vigência na publicação.</li></ul>",
+  r:"Anexos — Minuta de Lei (Capítulos I a V, arts. 1º a 9º)"},
+
+ {c:"Processo (5 etapas)",
+  q:"Quais são as 5 etapas para criar o FME?",
+  a:"<ul><li><b>1. Comissão Interna</b> — sistematizar o Quadro 1 (receitas, despesas, gestão, controle).</li><li><b>2. Debate</b> — consulta à comunidade e Quadro 2.</li><li><b>3. Anteprojeto de Lei</b> — minuta + justificativa.</li><li><b>4. Câmara Municipal</b> — tramitação, emendas, aprovação.</li><li><b>5. Lei Sancionada</b> — sanção, regulamentação e publicação no Diário Oficial.</li></ul>",
+  r:"Guia Instrucional, itens 2.1 a 2.5"},
+
+ {c:"Processo (5 etapas)",
+  q:"Quem deve coordenar o processo de criação da lei?",
+  a:"<p>Recomenda-se que seja coordenado pelo <b>Conselho Municipal de Esporte (CME)</b>. Se o município ainda não tiver CME, o processo deve ser conduzido pelo órgão responsável pela política esportiva municipal — sempre com participação ampliada da sociedade.</p>",
+  r:"Guia Instrucional, item 2 (introdução)"},
+
+ {c:"Processo (5 etapas)",
+  q:"O que são as abordagens 'top-down' e 'bottom-up' no debate?",
+  a:"<p><b>Top-down (de cima para baixo):</b> os gestores de nível máximo definem a proposta e repassam à equipe e interessados.</p><p><b>Bottom-up (de baixo para cima):</b> a proposta é debatida com a comunidade e a equipe antes de redigir a minuta — considerada mais democrática. As duas são válidas; registre o processo com atas e fotos.</p>",
+  r:"Guia Instrucional, item 2.2 (Debate)"},
+
+ {c:"Processo (5 etapas)",
+  q:"O que acontece na tramitação pela Câmara Municipal?",
+  a:"<p>Recebido o anteprojeto, a Câmara estuda a viabilidade, agenda discussão e votação. As discussões ocorrem nas comissões e no plenário, podendo haver emendas. Aprovado o texto final, segue ao Prefeito para sanção ou rejeição.</p>",
+  r:"Guia Instrucional, item 2.4"},
+
+ {c:"Processo (5 etapas)",
+  q:"Quando o FME está oficialmente instituído?",
+  a:"<p>Após a Câmara aprovar e o Prefeito sancionar a lei, que então é regulamentada e publicada no Diário Oficial. A partir da publicação, o FME está instituído.</p>",
+  r:"Guia Instrucional, item 2.5"},
+
+ {c:"Entrega ao programa",
+  q:"O que o município precisa entregar ao programa O Esporte Que Queremos?",
+  a:"<p>O dossiê no modelo oficial: <b>Declaração e Ficha Técnica</b>, <b>Apresentação</b> (cenário do município), <b>Comissão Interna</b> (Quadro 1), <b>Debate</b> (Quadro 2) e <b>Anteprojeto de Lei</b>.</p><p>Se o município já tiver lei de FME: <b>Apresentação + Lei</b> (anexar a lei vigente).</p>",
+  r:"Guia Instrucional, item 3; Modelo de entrega"},
+
+ {c:"Entrega ao programa",
+  q:"Precisa esperar a lei ser sancionada para entregar ao Estado?",
+  a:"<p><b>Não.</b> A entrega ao programa exige apenas até o <b>anteprojeto de lei</b> (etapa 3). A aprovação na Câmara e a sanção (etapas 4 e 5) são prerrogativas do município e não precisam ser apresentadas à Secretaria de Estado do Esporte — mas são indispensáveis para o repasse efetivo do recurso.</p>",
+  r:"Guia Instrucional, item 3 (Para concluir)"},
+
+ {c:"Entrega ao programa",
+  q:"O que a avaliação estadual verifica?",
+  a:"<p>O mérito do produto entregue e o cumprimento dos itens que devem compor o FME até a elaboração do anteprojeto de lei.</p>",
+  r:"Guia Instrucional, item 3"},
+
+ {c:"Dúvidas comuns",
+  q:"Nosso município já tem uma lei de FME antiga. Precisa refazer?",
+  a:"<p>Não necessariamente. Se já houver lei de FME sancionada, o caminho de entrega é <b>Apresentação + Lei</b>. Recomenda-se, porém, avaliar se a lei vigente atende às exigências da Lei nº 21.405/2023 (conselho paritário, recursos próprios, alinhamento ao Plano Decenal) e adequá-la se necessário.</p>",
+  r:"Modelo de entrega; Lei nº 21.405/2023"},
+
+ {c:"Dúvidas comuns",
+  q:"Precisamos criar uma estrutura nova para executar o Fundo?",
+  a:"<p>Não. Não é necessário instituir estrutura específica — recomenda-se otimizar a estrutura e os profissionais já existentes da administração pública (por exemplo, o órgão responsável pelo esporte como executor).</p>",
+  r:"Documento Norteador, item 2.2 (Órgão gestor e executor)"},
+
+ {c:"Dúvidas comuns",
+  q:"Quais são os prazos e o canal de entrega?",
+  a:"<p>Prazos, editais e o canal oficial de entrega podem mudar. <b>Confirme sempre no portal oficial</b> da Secretaria de Estado do Esporte: <b>esporte.pr.gov.br</b> (páginas do programa O Esporte Que Queremos, Cadastro Municipal e Política Municipal de Esporte). Este material não fixa prazos.</p>",
+  r:"Orientação geral — confirmar em esporte.pr.gov.br"},
+
+ {c:"Dúvidas comuns",
+  q:"Este material substitui parecer jurídico?",
+  a:"<p>Não. É material informativo e de apoio à decisão. A redação e validação da lei do FME devem contar com a assessoria/procuradoria jurídica do município e <b>não dispensam parecer assinado por profissional inscrito na OAB</b>.</p>",
+  r:"Aviso geral"}
+];
+
+const main=document.getElementById('main');
+const qIn=document.getElementById('q');
+const chipsEl=document.getElementById('chips');
+const countEl=document.getElementById('count');
+const cats=[...new Set(FAQ.map(f=>f.c))];
+let activeCat=null;
+
+const allChip=mkChip('Todas',null,true);
+chipsEl.appendChild(allChip);
+cats.forEach(c=>chipsEl.appendChild(mkChip(c,c,false)));
+
+function mkChip(label,val,active){
+  const d=document.createElement('div');
+  d.className='chip'+(active?' active':'');
+  d.textContent=label;
+  d.onclick=()=>{activeCat=val;[...chipsEl.children].forEach(x=>x.classList.remove('active'));
+    d.classList.add('active');render();};
+  return d;
+}
+function esc(s){return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+function hl(text,term){
+  if(!term)return text;
+  const re=new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig');
+  return text.replace(re,'<mark>$1</mark>');
+}
+function render(){
+  const term=qIn.value.trim().toLowerCase();
+  let list=FAQ.filter(f=>!activeCat||f.c===activeCat);
+  if(term){
+    list=list.filter(f=>(f.q+' '+f.a+' '+f.c).toLowerCase().includes(term));
+  }
+  countEl.textContent=list.length+(list.length===1?' resultado':' resultados');
+  main.innerHTML='';
+  if(list.length===0){
+    main.innerHTML='<div class="empty">Nenhum resultado. Tente outra palavra-chave ou consulte o agente consultor-fme-parana.</div>';
+    return;
+  }
+  const groups={};
+  list.forEach(f=>{(groups[f.c]=groups[f.c]||[]).push(f);});
+  Object.keys(groups).forEach(cat=>{
+    const sec=document.createElement('div');sec.className='cat';
+    sec.innerHTML='<h2>'+esc(cat)+'</h2>';
+    groups[cat].forEach(f=>{
+      const d=document.createElement('details');
+      if(term)d.open=true;
+      d.innerHTML='<summary>'+hl(esc(f.q),term)+'</summary>'+
+        '<div class="ans">'+ (term? hlBlock(f.a,term): f.a) +
+        '<span class="ref">Fonte: '+esc(f.r)+'</span></div>';
+      sec.appendChild(d);
+    });
+    main.appendChild(sec);
+  });
+}
+function hlBlock(html,term){
+  // realça apenas texto fora de tags
+  return html.replace(/>([^<]+)</g,(m,t)=>'>'+hl(esc(t),term)+'<')
+             .replace(/^([^<]+)/,(m,t)=>hl(esc(t),term));
+}
+qIn.addEventListener('input',render);
+render();
+</script>
+</body>
+</html>
