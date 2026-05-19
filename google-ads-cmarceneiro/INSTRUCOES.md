@@ -82,8 +82,8 @@ Estes itens o Editor não importa bem por arquivo — configure no Editor
 
 ## 3. Antes de publicar (Post)
 
-- O número de WhatsApp no site ainda é o **placeholder `5511999999999`**
-  (em `index.html`). Troque pelo número real antes de gastar verba.
+- WhatsApp do site configurado em `5549988261872` (`index.html`). Confirme
+  que o número está respondendo antes de gastar verba.
 - A landing page é o catálogo single-page (`cmarceneiro.com.br`). Os grupos
   de **MDF** e **Ferragens** apontam para a home — o ideal é ter páginas/
   seções dedicadas para esses produtos antes de escalar.
