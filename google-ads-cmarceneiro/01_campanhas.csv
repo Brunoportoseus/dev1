@@ -1,0 +1,5 @@
+Campaign,Campaign Type,Status,Campaign Daily Budget,Bid Strategy Type
+CMARCENEIRO | GG | SEARCH | PUXADORES | LEADS,Search,Paused,25,Manual CPC
+CMARCENEIRO | GG | SEARCH | MDF | LEADS,Search,Paused,20,Manual CPC
+CMARCENEIRO | GG | SEARCH | FERRAGENS | LEADS,Search,Paused,15,Manual CPC
+CMARCENEIRO | GG | SHOPPING | CATALOGO | VENDAS,Shopping,Paused,0,Manual CPC
