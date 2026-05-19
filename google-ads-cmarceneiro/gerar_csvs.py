@@ -21,15 +21,17 @@ STATUS = "Paused"          # importar pausado por seguranca; ativar na conta
 # ---------------------------------------------------------------------------
 # 1. CAMPANHAS  (cenario CONSERVADOR como padrao - ver INSTRUCOES.md)
 # ---------------------------------------------------------------------------
+PREFIXO = "[w] "  # identificacao da empresa em todo nome de campanha
+
 CAMPANHAS = [
     # nome, slug_utm, tipo, orcamento_diario
-    ("CMARCENEIRO | GG | SEARCH | PUXADORES | LEADS",
+    (PREFIXO + "CMARCENEIRO | GG | SEARCH | PUXADORES | LEADS",
      "cmarceneiro-search-puxadores-leads", "Search", "25"),
-    ("CMARCENEIRO | GG | SEARCH | MDF | LEADS",
+    (PREFIXO + "CMARCENEIRO | GG | SEARCH | MDF | LEADS",
      "cmarceneiro-search-mdf-leads", "Search", "20"),
-    ("CMARCENEIRO | GG | SEARCH | FERRAGENS | LEADS",
+    (PREFIXO + "CMARCENEIRO | GG | SEARCH | FERRAGENS | LEADS",
      "cmarceneiro-search-ferragens-leads", "Search", "15"),
-    ("CMARCENEIRO | GG | SHOPPING | CATALOGO | VENDAS",
+    (PREFIXO + "CMARCENEIRO | GG | SHOPPING | CATALOGO | VENDAS",
      "cmarceneiro-shopping-catalogo-vendas", "Shopping", "0"),
 ]
 CAMP_SLUG = {c[0]: c[1] for c in CAMPANHAS}
@@ -38,9 +40,9 @@ CAMP_SLUG = {c[0]: c[1] for c in CAMPANHAS}
 # 2. GRUPOS DE ANUNCIO + PALAVRAS-CHAVE
 #    estrutura: campanha -> { grupo: {"exact":[], "phrase":[], "broad":[]} }
 # ---------------------------------------------------------------------------
-P = "CMARCENEIRO | GG | SEARCH | PUXADORES | LEADS"
-M = "CMARCENEIRO | GG | SEARCH | MDF | LEADS"
-F = "CMARCENEIRO | GG | SEARCH | FERRAGENS | LEADS"
+P = PREFIXO + "CMARCENEIRO | GG | SEARCH | PUXADORES | LEADS"
+M = PREFIXO + "CMARCENEIRO | GG | SEARCH | MDF | LEADS"
+F = PREFIXO + "CMARCENEIRO | GG | SEARCH | FERRAGENS | LEADS"
 
 ESTRUTURA = {
     P: {
