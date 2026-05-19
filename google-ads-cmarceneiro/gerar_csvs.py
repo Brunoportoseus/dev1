@@ -428,6 +428,80 @@ def main():
     write_csv("07_snippets.csv",
               ["Campaign", "Header", "Values"], rows)
 
+    # ---- ARQUIVO COMBINADO: campanhas + grupos + KWs + RSAs + neg/camp ----
+    hdr = ["Campaign", "Campaign Type", "Campaign Daily Budget",
+           "Bid Strategy Type", "Ad Group", "Max CPC",
+           "Keyword", "Negative Keyword", "Match Type"]
+    hdr += [f"Headline {i}" for i in range(1, 16)]
+    hdr += [f"Description {i}" for i in range(1, 5)]
+    hdr += ["Path 1", "Path 2", "Final URL", "Status"]
+
+    def empty():
+        return [""] * len(hdr)
+
+    idx = {name: i for i, name in enumerate(hdr)}
+
+    def row(**kv):
+        r = empty()
+        for k, v in kv.items():
+            r[idx[k]] = v
+        return r
+
+    combined = []
+
+    # 1. Campanhas
+    for nome, _slugv, tipo, orc in CAMPANHAS:
+        combined.append(row(**{
+            "Campaign": nome, "Campaign Type": tipo,
+            "Campaign Daily Budget": orc,
+            "Bid Strategy Type": "Manual CPC", "Status": STATUS,
+        }))
+
+    # 2. Grupos de anuncio
+    for camp, grupos in ESTRUTURA.items():
+        for grupo in grupos:
+            combined.append(row(**{
+                "Campaign": camp, "Ad Group": grupo,
+                "Max CPC": MAX_CPC, "Status": STATUS,
+            }))
+
+    # 3. Palavras-chave
+    for camp, grupos in ESTRUTURA.items():
+        for grupo, kws in grupos.items():
+            url = final_url(camp, grupo)
+            for mt, lista in (("Exact", kws["exact"]),
+                              ("Phrase", kws["phrase"]),
+                              ("Broad", kws["broad"])):
+                for kw in lista:
+                    combined.append(row(**{
+                        "Campaign": camp, "Ad Group": grupo,
+                        "Keyword": kw, "Match Type": mt,
+                        "Final URL": url, "Status": STATUS,
+                    }))
+
+    # 4. RSAs
+    for camp, grupos in ESTRUTURA.items():
+        rsa = RSA[camp]
+        for grupo in grupos:
+            kv = {"Campaign": camp, "Ad Group": grupo, "Status": STATUS,
+                  "Path 1": rsa["paths"][0], "Path 2": rsa["paths"][1],
+                  "Final URL": final_url(camp, grupo)}
+            for i, h in enumerate(rsa["h"], 1):
+                kv[f"Headline {i}"] = h
+            for i, d in enumerate(rsa["d"], 1):
+                kv[f"Description {i}"] = d
+            combined.append(row(**kv))
+
+    # 5. Negativas por campanha
+    for camp, lista in NEG_POR_CAMPANHA.items():
+        for kw in lista:
+            combined.append(row(**{
+                "Campaign": camp, "Negative Keyword": kw,
+                "Match Type": "Phrase",
+            }))
+
+    write_csv("tudo_em_um.csv", hdr, combined)
+
     print("Concluido.")
 
 

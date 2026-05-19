@@ -20,10 +20,22 @@ prontos para importação em massa no **Google Ads Editor**.
 
 ---
 
-## 1. Ordem de importação (respeite a hierarquia)
+## 1. Opção rápida: arquivo único (recomendado)
 
-Importe **nesta ordem** — grupo depende de campanha, palavra-chave depende de
-grupo, etc.:
+Use **`tudo_em_um.csv`** para importar de uma vez **campanhas + grupos +
+palavras-chave + RSAs + negativas por campanha** (164 linhas, hierarquia já
+ordenada). No Editor: **Conta → Importar → De arquivo… → tudo_em_um.csv →
+Aplicar**.
+
+Depois aplique os 3 que não cabem num único CSV:
+
+- `04_negativas_conta.csv` → criar **lista compartilhada** (ver seção de
+  negativas abaixo).
+- `06_sitelinks.csv` e `07_snippets.csv` → telas de extensões/assets.
+
+## 1b. Opção alternativa: ordem por arquivo
+
+Se preferir importar separadamente (mais fácil de diagnosticar erros):
 
 | Passo | Arquivo | O que cria |
 |---|---|---|
