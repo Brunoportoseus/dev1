@@ -492,13 +492,11 @@ def main():
                 kv[f"Description {i}"] = d
             combined.append(row(**kv))
 
-    # 5. Negativas por campanha
-    for camp, lista in NEG_POR_CAMPANHA.items():
-        for kw in lista:
-            combined.append(row(**{
-                "Campaign": camp, "Negative Keyword": kw,
-                "Match Type": "Phrase",
-            }))
+    # 5. Negativas por campanha NAO entram no tudo_em_um.csv —
+    # quando o Ad Group esta vazio o Editor cria grupos "fantasma".
+    # Importe `04_negativas_por_campanha.csv` separado, via
+    # "Fazer varias alteracoes" na tela de Palavras-chave negativas
+    # de cada campanha.
 
     write_csv("tudo_em_um.csv", hdr, combined)
 

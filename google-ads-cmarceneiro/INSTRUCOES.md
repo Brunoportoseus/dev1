@@ -23,14 +23,21 @@ prontos para importação em massa no **Google Ads Editor**.
 ## 1. Opção rápida: arquivo único (recomendado)
 
 Use **`tudo_em_um.csv`** para importar de uma vez **campanhas + grupos +
-palavras-chave + RSAs + negativas por campanha** (164 linhas, hierarquia já
-ordenada). No Editor: **Conta → Importar → De arquivo… → tudo_em_um.csv →
-Aplicar**.
+palavras-chave + RSAs** (150 linhas, hierarquia já ordenada). No Editor:
+**Conta → Importar → De arquivo… → tudo_em_um.csv → Aplicar**.
 
-Depois aplique os 3 que não cabem num único CSV:
+Confira no resumo da importação se aparece:
+**Campanha 4 · Grupo de anúncios 10 · Palavra-chave 126 · Anúncio responsivo 10**.
+Se aparecerem grupos a mais ou palavras-chave ignoradas, clique em
+**Reverter e cancelar** — o CSV não deveria gerar nenhum aviso.
 
-- `04_negativas_conta.csv` → criar **lista compartilhada** (ver seção de
-  negativas abaixo).
+Depois aplique os 4 que não cabem num único CSV:
+
+- `04_negativas_por_campanha.csv` → em cada campanha, **Palavras-chave
+  negativas → Fazer várias alterações** → colar (não importar por arquivo,
+  senão o Editor cria grupos fantasma).
+- `04_negativas_conta.csv` → criar **lista compartilhada** e associar às
+  3 campanhas Search.
 - `06_sitelinks.csv` e `07_snippets.csv` → telas de extensões/assets.
 
 ## 1b. Opção alternativa: ordem por arquivo
