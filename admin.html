@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Painel Admin — Casa do Marceneiro</title>
+  <title>Painel Admin — Catálogo Casa do Marceneiro</title>
   <style>
     :root{
       --gold:#c9a96e;--gold-light:#e8d5a3;--gold-dark:#9a7940;
@@ -198,7 +198,7 @@
 <!-- ── ADMIN ── -->
 <div id="adminPanel">
   <div class="admin-header">
-    <h1>⚙ Painel Admin — Catálogo ZEN Design</h1>
+    <h1>⚙ Painel Admin — Catálogo Casa do Marceneiro</h1>
     <div class="hdr-btns">
       <button class="btn btn-gold" onclick="saveAll()">💾 Salvar</button>
       <button class="btn btn-green" id="btnPublish" onclick="publishToGitHub()">🚀 Publicar no GitHub</button>
@@ -457,7 +457,7 @@ var DEFAULT_SETTINGS = {
   whatsappNumber: '5511999999999',
   storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design'
 };
-var DEFAULT_GH = { token:'', owner:'brunoportoseus', repo:'dev1' };
+var DEFAULT_GH = { token:'', owner:'', repo:'dev1' };
 
 var DEFAULT_PRODUCTS = [
   {id:'kitten-64',svgStyle:'kitten',badgeNew:'✦ NEW IN',badgeOff:'15% OFF',imageFile:'kitten.jpg',category:'Conchas · Lançamento',name:'Kitten 64',code:'Cód. ZP5805 · Furação 64mm · 99,3mm',categoryBack:'Conchas · Lançamento 2024',priceOld:'R$ 99,90',priceCurrent:'R$ 84,90',priceInstallment:'ou 10× de R$ 8,49 sem juros',pricePix:'✓ R$ 80,66 no PIX (5% OFF)',specs:['Furação 64mm · Comprimento 99,3mm','Zamac de alta qualidade','Textura recartilhada exclusiva'],colors:['rose','gold','chrome','black'],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse no Puxador Kitten 64 (ZP5805). Podem me ajudar?'},
@@ -504,7 +504,7 @@ function loadData(){
   document.getElementById('cfg-wpp').value=settings.whatsappNumber||'';
   document.getElementById('cfg-store').value=settings.storeUrl||'';
   document.getElementById('cfg-ghtoken').value=ghCfg.token||'';
-  document.getElementById('cfg-ghowner').value=ghCfg.owner||'brunoportoseus';
+  document.getElementById('cfg-ghowner').value=ghCfg.owner||'';
   document.getElementById('cfg-ghrepo').value=ghCfg.repo||'dev1';
   updateGhStatusBadge();
   renderProductList();
@@ -538,7 +538,7 @@ function resetAll(){
 // ─── GITHUB SETTINGS ──────────────────────────────────────
 function saveGitHubSettings(){
   ghCfg.token=document.getElementById('cfg-ghtoken').value.trim();
-  ghCfg.owner=document.getElementById('cfg-ghowner').value.trim()||'brunoportoseus';
+  ghCfg.owner=document.getElementById('cfg-ghowner').value.trim();
   ghCfg.repo=document.getElementById('cfg-ghrepo').value.trim()||'dev1';
   localStorage.setItem('gh_config',JSON.stringify(ghCfg));
   updateGhStatusBadge();
