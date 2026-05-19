@@ -1,0 +1,241 @@
+{
+  "settings": {
+    "whatsappNumber": "5511999999999",
+    "storeUrl": "https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design"
+  },
+  "products": [
+    {
+      "id": "kitten-64",
+      "name": "Puxador Ken Cromado",
+      "code": "Cód. 10756-1 · 128mm/192mm/320mm/416mm/640mm Zen",
+      "category": "Zen Design",
+      "categoryBack": "Lançamento 2026",
+      "priceOld": "R$ 124,00",
+      "priceCurrent": "R$ 119,21",
+      "priceInstallment": "ou  10× R$ 12,55 sem juros",
+      "pricePix": "✓R$ 119,21 5% OFF",
+      "badgeNew": "✦ OFERTA",
+      "badgeOff": "15% OFF",
+      "imageFile": "kitten.jpg",
+      "svgStyle": "kitten",
+      "specs": [
+        "Linha: Puxadores para Móveis Zen Design",
+        "Material: Alumínio",
+        "Cor: Cromado; Dimensões Z",
+        "Marca: Zen Design"
+      ],
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Kitten 64 (ZP5805). Podem me ajudar?",
+      "colorLabel": "Cores:",
+      "colors": [
+        "rose",
+        "gold",
+        "chrome",
+        "black"
+      ]
+    },
+    {
+      "id": "paio-64",
+      "name": "Puxador Tecno Inox Polido/Escovado 128mm Zen Design",
+      "code": "Cód.6136-1 ·128mm Zen Design",
+      "category": "ZEN· Lançamento",
+      "categoryBack": "ZEN · 2026",
+      "priceOld": "R$ 169,90",
+      "priceCurrent": "R$ 144,42",
+      "priceInstallment": "ou 10× de R$ 14,44 sem juros",
+      "pricePix": "✓ R$ 137,20 no PIX (5% OFF)",
+      "badgeNew": "✦OFERTA",
+      "badgeOff": "15% OFF",
+      "imageFile": "paio.jpg",
+      "svgStyle": "paio",
+      "specs": [
+        "Linha: Puxadores para Móveis Zen Design",
+        "Material: Perfil- Aço Inox, Ponteira- Zamac (O Zamac é uma Liga de Zinco composto por quatro componentes metálicos básicos para sua formação: Alumínio, Cobre, Magnésio e Zinco)",
+        "Cor: Inox Polido / Escovado; Dimensões ZP0031: Altura: 29mm",
+        "Largura: 8mm",
+        "Comprimento: 145mm",
+        "Furação: 128mm Características: O Puxador Zen Design oferece design, modernidade e sofisticação ao seus móveis",
+        "Itens inclusos: Parafusos originais, facilitando assim sua montagem",
+        "Utilização: Este puxador é indicado para móveis em geral, conforme padrão desenvolvido pelo fabricante",
+        "Marca: Zen Design",
+        "Garantia: Conforme informação do fabricante, distribuidor e importador este produto possui a garantia de 1 ano",
+        "Atenção: Imagem meramente ilustrativa, podendo conter alguma diferença em sua tonalidade."
+      ],
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Puxador Tecno Inox Polido. Podem me ajudar?",
+      "colorLabel": "Cores:",
+      "colors": [
+        "brass",
+        "chrome",
+        "black"
+      ]
+    },
+    {
+      "id": "shell-64",
+      "name": "Puxador Ramp Cromado",
+      "code": "Cód. 9898-5 · 192mm/352mm/544mm Zen Design",
+      "category": "Zen · Clássico",
+      "categoryBack": "Zen",
+      "priceOld": "",
+      "priceCurrent": "R$ 94,90",
+      "priceInstallment": "ou 10× de R$ 9,49 sem juros",
+      "pricePix": "✓ R$ 90,16 no PIX (5% OFF)",
+      "badgeNew": "Novo: Ônix Escovado",
+      "badgeOff": "",
+      "imageFile": "shell-64.jpg",
+      "svgStyle": "shell64",
+      "specs": [
+        "Furação 64mm · 90mm × 45mm",
+        "Detalhe recartilhado no contorno",
+        "Ar nostálgico e industrial"
+      ],
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Shell 64 (ZP4318). Podem me ajudar?",
+      "colorLabel": "Cores:",
+      "colors": [
+        "rose",
+        "chrome",
+        "onix",
+        "black"
+      ]
+    },
+    {
+      "id": "shell-48",
+      "svgStyle": "shell48",
+      "imageFile": "shell-48.jpg",
+      "category": "Conchas · Compacto",
+      "name": "Shell 48",
+      "code": "Cód. ZP4319 · Furação 48mm · 65mm",
+      "categoryBack": "Conchas",
+      "priceCurrent": "R$ 79,90",
+      "priceInstallment": "ou 10× de R$ 7,99 sem juros",
+      "pricePix": "✓ R$ 75,91 no PIX (5% OFF)",
+      "specs": [
+        "Furação 48mm · 65mm × 34mm",
+        "Detalhe recartilhado no contorno",
+        "Ideal para gavetas menores"
+      ],
+      "colors": [
+        "rose",
+        "black",
+        "onix",
+        "chrome"
+      ],
+      "colorLabel": "Cores:",
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Shell 48 (ZP4319). Podem me ajudar?"
+    },
+    {
+      "id": "pipe-simetrico",
+      "svgStyle": "pipeS",
+      "imageFile": "pipe-simetrico.jpg",
+      "category": "Conchas · Moderno",
+      "name": "Pipe Simétrico",
+      "code": "Cód. ZP5780 · Furação 120mm · 130mm",
+      "categoryBack": "Conchas · Estilo Provençal",
+      "priceCurrent": "R$ 109,90",
+      "priceInstallment": "ou 10× de R$ 10,99 sem juros",
+      "pricePix": "✓ R$ 104,41 no PIX (5% OFF)",
+      "specs": [
+        "Furação 120mm · Comprimento 130mm",
+        "Altura 19mm · Profundidade 33mm",
+        "Charme provençal minimalista"
+      ],
+      "colors": [
+        "rose",
+        "black",
+        "brass"
+      ],
+      "colorLabel": "Cores:",
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Pipe Simétrico (ZP5780). Podem me ajudar?"
+    },
+    {
+      "id": "pipe-direcional",
+      "svgStyle": "pipeD",
+      "imageFile": "pipe-direcional.jpg",
+      "category": "Conchas · Direcional",
+      "name": "Pipe Direcional",
+      "code": "ZP5780E / ZP5780D · 120mm · 130mm",
+      "categoryBack": "Conchas · Esquerdo / Direito",
+      "priceCurrent": "R$ 109,90",
+      "priceInstallment": "ou 10× de R$ 10,99 sem juros",
+      "pricePix": "✓ R$ 104,41 no PIX (5% OFF)",
+      "specs": [
+        "Furação 120mm · Comprimento 130mm",
+        "Esquerdo ZP5780E · Direito ZP5780D",
+        "Design assimétrico exclusivo"
+      ],
+      "colors": [
+        "rose",
+        "black",
+        "brass"
+      ],
+      "colorLabel": "Cores:",
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Pipe Direcional (ZP5780E/ZP5780D). Podem me ajudar?"
+    },
+    {
+      "id": "plymouth",
+      "svgStyle": "plymouth",
+      "imageFile": "plymouth.jpg",
+      "category": "Conchas · Retrô",
+      "name": "Plymouth",
+      "code": "Cód. ZP5420 · Furação 80mm · 95mm",
+      "categoryBack": "Conchas · Retrô",
+      "priceCurrent": "R$ 74,90",
+      "priceInstallment": "ou 10× de R$ 7,49 sem juros",
+      "pricePix": "✓ R$ 71,16 no PIX (5% OFF)",
+      "specs": [
+        "Furação 80mm · Comprimento 95mm",
+        "Design clássico, acabamento moderno",
+        "Versátil para vários estilos"
+      ],
+      "colors": [
+        "rose",
+        "brass",
+        "chrome",
+        "black"
+      ],
+      "colorLabel": "Cores:",
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Plymouth (ZP5420). Podem me ajudar?"
+    },
+    {
+      "id": "garage",
+      "svgStyle": "garage",
+      "imageFile": "garage.jpg",
+      "category": "Alças · Couro Premium",
+      "name": "Garage",
+      "code": "ZP1254 / ZP1294 / ZP1295 · 3 tamanhos",
+      "categoryBack": "Alças · Couro & Metal",
+      "priceCurrent": "R$ 189,90",
+      "priceInstallment": "ou 10× sem juros",
+      "pricePix": "✓ 5% OFF no PIX",
+      "specs": [
+        "P · ZP1254 — furação 224mm",
+        "M · ZP1294 — furação 352mm",
+        "G · ZP1295 — furação 544mm"
+      ],
+      "colors": [
+        "chrome",
+        "rose",
+        "black"
+      ],
+      "colorLabel": "Metal:",
+      "whatsappMsg": "Olá! Tenho interesse no Puxador Garage (couro). Podem me ajudar?"
+    },
+    {
+      "id": "prod-1779224160225",
+      "name": "teste",
+      "code": "",
+      "category": "",
+      "categoryBack": "",
+      "priceOld": "",
+      "priceCurrent": "",
+      "priceInstallment": "ou 10× sem juros",
+      "pricePix": "✓ 5% OFF no PIX",
+      "badgeNew": "",
+      "badgeOff": "",
+      "imageFile": "teste.jpg",
+      "svgStyle": "generic",
+      "specs": [],
+      "whatsappMsg": "Olá! Tenho interesse neste produto. Podem me ajudar?",
+      "colorLabel": "Cores:",
+      "colors": []
+    }
+  ]
+}
