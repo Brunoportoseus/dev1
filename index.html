@@ -335,12 +335,12 @@
 </section>
 
 <!-- ██ DISCOUNT BANNER ██ -->
-<div class="discount-banner">
+<div class="discount-banner" id="discountBanner">
   <div class="inner">
-    <span class="discount-tag">15% OFF</span>
+    <span class="discount-tag" id="bannerDiscountTag">15% OFF</span>
     <div class="discount-text">
-      <strong>Lançamento Especial</strong>
-      Novos modelos KITTEN &amp; PAIO com desconto exclusivo de pré-lançamento
+      <strong id="bannerTitleEl">Descontos Especiais</strong>
+      <span id="bannerSubtitleEl">Ofertas exclusivas em produtos selecionados da coleção</span>
     </div>
     <div class="countdown" id="countdown">
       <div class="countdown-unit"><span class="num" id="cd-d">03</span><span class="lbl">Dias</span></div>
@@ -462,7 +462,12 @@ const SVG_STYLES = {
 
 const DEFAULT_SETTINGS = {
   whatsappNumber: '5511999999999',
-  storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design'
+  storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design',
+  bannerDiscount: '15% OFF',
+  bannerTitle: 'Descontos Especiais',
+  bannerSubtitle: 'Ofertas exclusivas em produtos selecionados da coleção',
+  bannerVisible: true,
+  countdownEnd: new Date(Date.now() + 1000*60*60*72).toISOString()
 };
 
 const DEFAULT_PRODUCTS = [
@@ -600,6 +605,16 @@ function renderCtaCard(settings) {
 }
 
 function renderCatalog(products, settings) {
+  // Banner
+  var banner = document.getElementById('discountBanner');
+  if (banner) banner.style.display = (settings.bannerVisible === false) ? 'none' : '';
+  var el = document.getElementById('bannerDiscountTag'); if (el && settings.bannerDiscount) el.textContent = settings.bannerDiscount;
+  el = document.getElementById('bannerTitleEl'); if (el && settings.bannerTitle) el.textContent = settings.bannerTitle;
+  el = document.getElementById('bannerSubtitleEl'); if (el && settings.bannerSubtitle) el.textContent = settings.bannerSubtitle;
+
+  // Countdown
+  if (settings.countdownEnd) { countdownEnd = new Date(settings.countdownEnd); tick(); }
+
   var grid = document.getElementById('catalogGrid');
   if (grid) grid.innerHTML = products.map(function(p){ return renderCard(p, settings); }).join('') + renderCtaCard(settings);
 
@@ -634,16 +649,17 @@ function initCatalog() {
     });
 }
 
-// Countdown 72h
-var end = new Date(Date.now() + 1000*60*60*72);
+// Countdown
+var countdownEnd = new Date(Date.now() + 1000*60*60*72);
 function tick(){
-  var diff = end - Date.now();
-  if(diff<=0){document.getElementById('countdown').textContent='Oferta encerrada';return;}
+  var diff = countdownEnd - Date.now();
+  if(diff<=0){var c=document.getElementById('countdown');if(c)c.innerHTML='<span style="font-weight:700;color:var(--black)">Oferta encerrada</span>';return;}
   var d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
-  document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
-  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  var ed=document.getElementById('cd-d'),eh=document.getElementById('cd-h'),em=document.getElementById('cd-m'),es=document.getElementById('cd-s');
+  if(ed)ed.textContent=String(d).padStart(2,'0');
+  if(eh)eh.textContent=String(h).padStart(2,'0');
+  if(em)em.textContent=String(m).padStart(2,'0');
+  if(es)es.textContent=String(s).padStart(2,'0');
 }
 tick(); setInterval(tick,1000);
 

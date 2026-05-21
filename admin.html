@@ -254,6 +254,34 @@
         </div>
 
         <hr class="divider"/>
+        <p class="section-title">Banner de Desconto &amp; Countdown</p>
+        <div class="form-group">
+          <label>Exibir banner?</label>
+          <select id="cfg-banner-visible">
+            <option value="true">Sim — exibir banner</option>
+            <option value="false">Não — ocultar banner</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tag de desconto (ex: 15% OFF, PROMOÇÃO)</label>
+          <input type="text" id="cfg-banner-discount" placeholder="15% OFF" maxlength="20"/>
+        </div>
+        <div class="form-group">
+          <label>Título do banner</label>
+          <input type="text" id="cfg-banner-title" placeholder="Descontos Especiais"/>
+        </div>
+        <div class="form-group">
+          <label>Subtítulo do banner</label>
+          <input type="text" id="cfg-banner-subtitle" placeholder="Ofertas exclusivas em produtos selecionados"/>
+        </div>
+        <div class="form-group">
+          <label>Countdown — data e hora de término</label>
+          <input type="datetime-local" id="cfg-countdown-end"/>
+          <p class="form-hint">Defina quando a oferta expira. Ao publicar, o countdown ficará correto para todos os visitantes.</p>
+        </div>
+        <button class="btn btn-gold" onclick="saveBannerSettings()">Salvar Banner &amp; Countdown</button>
+
+        <hr class="divider"/>
         <p class="section-title">Integração GitHub <span id="ghTokenStatus" class="gh-status none">não configurado</span></p>
         <div class="info-box" style="margin-bottom:1rem;">
           <h3>Para que serve?</h3>
@@ -455,7 +483,12 @@ var modalPendingB64 = null;    // base64 do arquivo
 
 var DEFAULT_SETTINGS = {
   whatsappNumber: '5511999999999',
-  storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design'
+  storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design',
+  bannerDiscount: '15% OFF',
+  bannerTitle: 'Descontos Especiais',
+  bannerSubtitle: 'Ofertas exclusivas em produtos selecionados da coleção',
+  bannerVisible: true,
+  countdownEnd: new Date(Date.now() + 1000*60*60*72).toISOString()
 };
 var DEFAULT_GH = { token:'', owner:'', repo:'dev1' };
 
@@ -503,6 +536,15 @@ function loadData(){
   try{ ghCfg=JSON.parse(localStorage.getItem('gh_config'))||Object.assign({},DEFAULT_GH); } catch(e){ ghCfg=Object.assign({},DEFAULT_GH); }
   document.getElementById('cfg-wpp').value=settings.whatsappNumber||'';
   document.getElementById('cfg-store').value=settings.storeUrl||'';
+  document.getElementById('cfg-banner-visible').value=settings.bannerVisible===false?'false':'true';
+  document.getElementById('cfg-banner-discount').value=settings.bannerDiscount||'15% OFF';
+  document.getElementById('cfg-banner-title').value=settings.bannerTitle||'Descontos Especiais';
+  document.getElementById('cfg-banner-subtitle').value=settings.bannerSubtitle||'';
+  if(settings.countdownEnd){
+    var dt=new Date(settings.countdownEnd);
+    var pad=function(n){return String(n).padStart(2,'0');};
+    document.getElementById('cfg-countdown-end').value=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+'T'+pad(dt.getHours())+':'+pad(dt.getMinutes());
+  }
   document.getElementById('cfg-ghtoken').value=ghCfg.token||'';
   document.getElementById('cfg-ghowner').value=ghCfg.owner||'';
   document.getElementById('cfg-ghrepo').value=ghCfg.repo||'dev1';
@@ -519,9 +561,26 @@ function updateGhStatusBadge(){
 
 function markChanged(){ hasChanges=true; document.getElementById('changedBadge').style.display=''; }
 
+function saveBannerSettings(){
+  settings.bannerVisible = document.getElementById('cfg-banner-visible').value !== 'false';
+  settings.bannerDiscount = document.getElementById('cfg-banner-discount').value.trim() || '15% OFF';
+  settings.bannerTitle = document.getElementById('cfg-banner-title').value.trim() || 'Descontos Especiais';
+  settings.bannerSubtitle = document.getElementById('cfg-banner-subtitle').value.trim();
+  var cdVal = document.getElementById('cfg-countdown-end').value;
+  if(cdVal) settings.countdownEnd = new Date(cdVal).toISOString();
+  localStorage.setItem('catalog_settings',JSON.stringify(settings));
+  toast('Banner e countdown salvos! Clique em Publicar para atualizar o site.','success');
+}
+
 function saveAll(){
   settings.whatsappNumber=document.getElementById('cfg-wpp').value.trim();
   settings.storeUrl=document.getElementById('cfg-store').value.trim();
+  settings.bannerVisible = document.getElementById('cfg-banner-visible').value !== 'false';
+  settings.bannerDiscount = document.getElementById('cfg-banner-discount').value.trim() || '15% OFF';
+  settings.bannerTitle = document.getElementById('cfg-banner-title').value.trim() || 'Descontos Especiais';
+  settings.bannerSubtitle = document.getElementById('cfg-banner-subtitle').value.trim();
+  var cdVal = document.getElementById('cfg-countdown-end').value;
+  if(cdVal) settings.countdownEnd = new Date(cdVal).toISOString();
   localStorage.setItem('catalog_settings',JSON.stringify(settings));
   localStorage.setItem('catalog_products',JSON.stringify(products));
   hasChanges=false;
