@@ -1,7 +1,11 @@
 {
   "settings": {
     "whatsappNumber": "5511999999999",
-    "storeUrl": "https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design"
+    "storeUrl": "https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design",
+    "bannerVisible": true,
+    "bannerDiscount": "OFERTAS ESPECIAIS",
+    "bannerTitle": "Mais de 4000 produtos",
+    "bannerSubtitle": ""
   },
   "products": [
     {
