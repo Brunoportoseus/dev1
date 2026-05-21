@@ -666,10 +666,20 @@ function ghPublishJSON(jsonContent){
 }
 
 // ─── PUBLICAR NO GITHUB ────────────────────────────────────
+function readAllSettingsFromForm(){
+  settings.whatsappNumber = document.getElementById('cfg-wpp').value.trim();
+  settings.storeUrl = document.getElementById('cfg-store').value.trim();
+  settings.bannerVisible = document.getElementById('cfg-banner-visible').value !== 'false';
+  settings.bannerDiscount = document.getElementById('cfg-banner-discount').value.trim() || '15% OFF';
+  settings.bannerTitle = document.getElementById('cfg-banner-title').value.trim() || 'Descontos Especiais';
+  settings.bannerSubtitle = document.getElementById('cfg-banner-subtitle').value.trim();
+  var cdVal = document.getElementById('cfg-countdown-end').value;
+  if(cdVal){ var dt = new Date(cdVal); if(!isNaN(dt)) settings.countdownEnd = dt.toISOString(); }
+}
+
 function publishToGitHub(){
   if(!ghCfg.token){ toast('Configure o Token do GitHub em Configurações primeiro.','error'); return; }
-  settings.whatsappNumber=document.getElementById('cfg-wpp').value.trim();
-  settings.storeUrl=document.getElementById('cfg-store').value.trim();
+  readAllSettingsFromForm();
   var data={settings:settings, products:products};
   var json=JSON.stringify(data,null,2);
   var btn=document.getElementById('btnPublish');
@@ -691,8 +701,7 @@ function publishToGitHub(){
 
 // ─── EXPORT / IMPORT ──────────────────────────────────────
 function exportJSON(){
-  settings.whatsappNumber=document.getElementById('cfg-wpp').value.trim();
-  settings.storeUrl=document.getElementById('cfg-store').value.trim();
+  readAllSettingsFromForm();
   var blob=new Blob([JSON.stringify({settings:settings,products:products},null,2)],{type:'application/json'});
   var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='catalog-data.json'; a.click();
   toast('JSON exportado!','success');

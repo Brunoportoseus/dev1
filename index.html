@@ -649,9 +649,10 @@ function initCatalog() {
     });
 }
 
-// Countdown
-var countdownEnd = new Date(Date.now() + 1000*60*60*72);
+// Countdown — end date set by settings after load
+var countdownEnd = null;
 function tick(){
+  if(!countdownEnd) return;
   var diff = countdownEnd - Date.now();
   if(diff<=0){var c=document.getElementById('countdown');if(c)c.innerHTML='<span style="font-weight:700;color:var(--black)">Oferta encerrada</span>';return;}
   var d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
@@ -661,7 +662,7 @@ function tick(){
   if(em)em.textContent=String(m).padStart(2,'0');
   if(es)es.textContent=String(s).padStart(2,'0');
 }
-tick(); setInterval(tick,1000);
+setInterval(tick,1000);
 
 initCatalog();
 </script>
