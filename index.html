@@ -584,7 +584,7 @@ function renderCard(p, settings) {
     '<div class="colors-row"><span class="color-label">' + (p.colorLabel||'Cores:') + '</span>' +
     p.colors.map(function(c){return '<span class="color-dot ' + c + '"></span>';}).join('') + '</div>' +
     '<a class="btn-whatsapp" href="' + wppUrl + '" target="_blank">' + WPP_ICON + ' Negociar no WhatsApp</a>' +
-    '<a class="btn-store" href="' + settings.storeUrl + '" target="_blank">Ver na Loja Virtual →</a>' +
+    '<a class="btn-store" href="' + (p.productUrl || settings.storeUrl) + '" target="_blank">Ver na Loja Virtual →</a>' +
     '</div></div></div>';
 }
 

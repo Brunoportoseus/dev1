@@ -446,6 +446,11 @@
         <textarea id="f-specs" rows="3" placeholder="Furação 64mm · Comprimento 99,3mm&#10;Zamac de alta qualidade&#10;Textura recartilhada"></textarea>
       </div>
       <div class="form-group modal-full">
+        <label>URL do Produto na Loja</label>
+        <input type="url" id="f-productUrl" placeholder="https://cmarceneiro.com.br/produto/..."/>
+        <p class="form-hint">Link direto para a página de compra deste produto. Se vazio, usa a URL geral da loja (Configurações).</p>
+      </div>
+      <div class="form-group modal-full">
         <label>Mensagem WhatsApp</label>
         <input type="text" id="f-whatsappMsg" placeholder="Olá! Tenho interesse no Puxador..."/>
       </div>
@@ -757,13 +762,13 @@ function openNewProduct(){
   editingIndex=-1;
   document.getElementById('modalTitle').textContent='Novo Produto';
   document.getElementById('btnDeleteProduct').style.display='none';
-  fillForm({name:'',code:'',category:'',categoryBack:'',imageFile:'novo-produto.jpg',svgStyle:'generic',badgeNew:'',badgeOff:'',priceOld:'',priceCurrent:'',priceInstallment:'ou 10× sem juros',pricePix:'✓ 5% OFF no PIX',specs:[],colors:[],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse neste produto. Podem me ajudar?'});
+  fillForm({name:'',code:'',category:'',categoryBack:'',imageFile:'novo-produto.jpg',svgStyle:'generic',badgeNew:'',badgeOff:'',priceOld:'',priceCurrent:'',priceInstallment:'ou 10× sem juros',pricePix:'✓ 5% OFF no PIX',specs:[],colors:[],colorLabel:'Cores:',productUrl:'',whatsappMsg:'Olá! Tenho interesse neste produto. Podem me ajudar?'});
   resetModalUpload();
   document.getElementById('modalOverlay').classList.add('open');
 }
 
 function fillForm(p){
-  ['name','code','category','categoryBack','priceOld','priceCurrent','priceInstallment','pricePix','badgeNew','badgeOff','imageFile','whatsappMsg','colorLabel'].forEach(function(k){ document.getElementById('f-'+k).value=p[k]||''; });
+  ['name','code','category','categoryBack','priceOld','priceCurrent','priceInstallment','pricePix','badgeNew','badgeOff','imageFile','productUrl','whatsappMsg','colorLabel'].forEach(function(k){ document.getElementById('f-'+k).value=p[k]||''; });
   document.getElementById('f-svgStyle').value=p.svgStyle||'generic';
   document.getElementById('f-specs').value=(p.specs||[]).join('\n');
   var sel=p.colors||[];
@@ -792,6 +797,7 @@ function saveProduct(){
     imageFile:document.getElementById('f-imageFile').value.trim(),
     svgStyle:document.getElementById('f-svgStyle').value,
     specs:document.getElementById('f-specs').value.split('\n').map(function(s){return s.trim();}).filter(Boolean),
+    productUrl:document.getElementById('f-productUrl').value.trim(),
     whatsappMsg:document.getElementById('f-whatsappMsg').value.trim(),
     colorLabel:document.getElementById('f-colorLabel').value.trim()||'Cores:',
     colors:colors
