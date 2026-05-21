@@ -238,6 +238,38 @@
     }
     .float-wpp:hover .float-wpp-tooltip{opacity:1;transform:translateX(0);}
 
+    /* ── CTA CARD NO GRID ── */
+    .cta-grid-card{
+      border-radius:14px;background:linear-gradient(160deg,#1a1007 0%,#2a1a05 60%,#1a1007 100%);
+      border:1px solid rgba(201,169,110,.35);display:flex;flex-direction:column;
+      align-items:center;justify-content:center;text-align:center;padding:2.5rem 2rem;gap:1.2rem;
+      height:520px;
+    }
+    .cta-grid-card .cta-icon{font-size:2.8rem;}
+    .cta-grid-card h3{
+      font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;
+      color:var(--white);line-height:1.15;
+    }
+    .cta-grid-card h3 em{color:var(--gold);font-style:italic;}
+    .cta-grid-card p{font-size:.75rem;color:var(--gray);letter-spacing:.05em;line-height:1.8;max-width:240px;}
+    .cta-grid-card .divider-small{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+    .cta-grid-card .btn-cta-wpp-sm{
+      display:inline-flex;align-items:center;gap:.6rem;
+      background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;text-decoration:none;
+      font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      padding:.8rem 1.4rem;border-radius:50px;width:100%;justify-content:center;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .cta-grid-card .btn-cta-wpp-sm:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.3);}
+    .cta-grid-card .btn-cta-wpp-sm svg{width:17px;height:17px;fill:currentColor;}
+    .cta-grid-card .btn-site-sm{
+      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+      background:transparent;border:1px solid var(--gold);color:var(--gold);text-decoration:none;
+      font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+      padding:.7rem 1.2rem;border-radius:50px;width:100%;transition:background .2s,color .2s;
+    }
+    .cta-grid-card .btn-site-sm:hover{background:var(--gold);color:var(--black);}
+
     @media (max-width:640px){
       .catalog-grid{grid-template-columns:1fr;}
       .flip-card{height:530px;}
@@ -293,7 +325,7 @@
 <section class="hero">
   <div class="hero-badge">Novidades 2024 / 2025</div>
   <p class="brand-name">Casa do Marceneiro</p>
-  <h1 class="hero-title">Puxadores<br/><span>Exclusivos</span></h1>
+  <h1 class="hero-title">Produtos<br/><span>Especiais</span></h1>
   <div class="divider"></div>
   <p class="hero-sub">Detalhes que transformam móveis em obras de arte.<br/>
     Coleção premium disponível com entrega para todo o Brasil.</p>
@@ -351,7 +383,7 @@
 <section id="catalogo">
   <div class="section-header">
     <p class="section-label">Coleção Completa</p>
-    <h2 class="section-title">Puxadores <em>ZEN Design</em></h2>
+    <h2 class="section-title">Seleção de <em>Produtos Especiais</em></h2>
     <div class="divider"></div>
     <p style="font-size:.75rem;color:var(--gray);letter-spacing:.08em;max-width:520px;margin:0 auto;line-height:1.8;">
       No computador, passe o mouse sobre o produto.<br/>
@@ -361,16 +393,6 @@
   <div class="catalog-grid" id="catalogGrid"></div>
 </section>
 
-<!-- ██ HIGHLIGHTS ██ -->
-<div class="highlight-section">
-  <div class="section-label">Por que escolher ZEN Design?</div>
-  <div class="highlight-grid">
-    <div class="highlight-item"><div class="highlight-icon">🏆</div><h3>Qualidade Premium</h3><p>Zamac de alta qualidade com acabamentos exclusivos. Resistência e elegância que duram décadas.</p></div>
-    <div class="highlight-item"><div class="highlight-icon">✦</div><h3>Design Exclusivo</h3><p>Coleções desenvolvidas por designers especializados. Cada detalhe transforma o ambiente.</p></div>
-    <div class="highlight-item"><div class="highlight-icon">🚚</div><h3>Entrega Rápida</h3><p>Estoque para pronta entrega. Enviamos para todo o Brasil com rastreamento.</p></div>
-    <div class="highlight-item"><div class="highlight-icon">💬</div><h3>Consultoria Grátis</h3><p>Nossa equipe orienta a escolha ideal para o seu projeto de marcenaria.</p></div>
-  </div>
-</div>
 
 <!-- ██ CTA FINAL ██ -->
 <section class="cta-section">
@@ -562,9 +584,24 @@ function renderCard(p, settings) {
     '</div></div></div>';
 }
 
+function renderCtaCard(settings) {
+  var num = settings.whatsappNumber;
+  var wppUrl = 'https://wa.me/' + num + '?text=' + encodeURIComponent('Olá! Gostaria de fazer um orçamento de produtos para meu projeto.');
+  var siteUrl = 'https://www.cmarceneiro.com.br/';
+  return '<div class="cta-grid-card">' +
+    '<div class="cta-icon">🛒</div>' +
+    '<h3>Precisa de <em>outros<br/>produtos?</em></h3>' +
+    '<div class="divider-small"></div>' +
+    '<p>Temos mais de <strong style="color:var(--gold-light)">4.000 produtos</strong> para atender você e seu projeto de marcenaria.</p>' +
+    '<p>Faça um orçamento agora com nossa equipe especializada.</p>' +
+    '<a class="btn-cta-wpp-sm" href="' + wppUrl + '" target="_blank">' + WPP_ICON + ' Solicitar Orçamento</a>' +
+    '<a class="btn-site-sm" href="' + siteUrl + '" target="_blank">Visitar Site Completo →</a>' +
+    '</div>';
+}
+
 function renderCatalog(products, settings) {
   var grid = document.getElementById('catalogGrid');
-  if (grid) grid.innerHTML = products.map(function(p){ return renderCard(p, settings); }).join('');
+  if (grid) grid.innerHTML = products.map(function(p){ return renderCard(p, settings); }).join('') + renderCtaCard(settings);
 
   var num = settings.whatsappNumber;
   ['ctaWpp','floatWpp','footerWpp'].forEach(function(id){
