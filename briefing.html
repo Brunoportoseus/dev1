@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Briefing — Campanha "Novo Site Casa Marceneiro"</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --gold:#c9a96e;--gold-light:#e8d5a3;--gold-dark:#9a7940;
+      --black:#0d0d0d;--dark:#1a1a1a;--dark2:#252525;
+      --white:#f5f3ef;--gray:#888;--rose:#c4957a;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'Montserrat',sans-serif;background:var(--black);
+      color:var(--white);overflow-x:hidden;-webkit-overflow-scrolling:touch;
+      line-height:1.7;
+    }
+
+    /* ── HERO ── */
+    .hero{
+      min-height:90vh;background:linear-gradient(135deg,#0d0d0d 0%,#1a1507 50%,#0d0d0d 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:3rem 2rem;position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 60% 40% at 30% 60%,rgba(201,169,110,.08) 0%,transparent 70%),
+                 radial-gradient(ellipse 40% 60% at 70% 30%,rgba(201,169,110,.05) 0%,transparent 70%);
+    }
+    .hero-logo{max-width:230px;width:55%;margin:0 auto 2.2rem;position:relative;display:block;}
+    .hero-logo svg{width:100%;height:auto;display:block;}
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--gold);
+      color:var(--gold);font-size:.62rem;font-weight:600;letter-spacing:.2em;
+      text-transform:uppercase;padding:.4rem 1.2rem;border-radius:2rem;margin-bottom:1.8rem;position:relative;
+    }
+    .hero-badge::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.5);}}
+    .brand-name{
+      font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,2.5vw,1.15rem);
+      font-weight:300;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;
+    }
+    .hero-title{
+      font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,6vw,4.6rem);
+      font-weight:300;line-height:1.05;letter-spacing:.03em;color:var(--white);margin-bottom:1.4rem;position:relative;
+    }
+    .hero-title em{color:var(--gold);font-style:italic;}
+    .divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;}
+    .hero-sub{
+      font-size:clamp(.72rem,1.5vw,.82rem);font-weight:300;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--gray);max-width:520px;line-height:1.9;
+    }
+
+    /* ── META STRIP ── */
+    .meta-strip{
+      background:var(--dark2);border-top:1px solid rgba(201,169,110,.15);
+      border-bottom:1px solid rgba(201,169,110,.15);padding:1.6rem 2rem;
+    }
+    .meta-strip .inner{
+      max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;
+      align-items:center;justify-content:center;gap:1.4rem 2.4rem;
+    }
+    .meta-item{display:flex;flex-direction:column;gap:.25rem;text-align:center;}
+    .meta-item .lbl{font-size:.58rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);}
+    .meta-item .val{font-size:.82rem;color:var(--gold-light);font-weight:400;letter-spacing:.03em;}
+    .meta-sep{width:1px;height:38px;background:rgba(201,169,110,.2);}
+
+    /* ── LAYOUT ── */
+    .wrap{max-width:980px;margin:0 auto;padding:3.5rem 1.6rem;}
+    .section{margin-bottom:4rem;}
+    .section:last-child{margin-bottom:0;}
+    .section-num{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:34px;height:34px;border-radius:50%;border:1px solid var(--gold);
+      color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+      font-weight:600;flex-shrink:0;
+    }
+    .section-head{display:flex;align-items:center;gap:1rem;margin-bottom:.4rem;}
+    .section-title{
+      font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,4vw,2.6rem);
+      font-weight:300;color:var(--white);line-height:1.15;
+    }
+    .section-title em{color:var(--gold);font-style:italic;}
+    .section-rule{
+      width:100%;height:1px;
+      background:linear-gradient(90deg,var(--gold),rgba(201,169,110,.05));
+      margin:.9rem 0 1.8rem;
+    }
+    p.lead{font-size:.92rem;color:#cfccc4;line-height:1.9;margin-bottom:1rem;}
+    p.lead strong{color:var(--gold-light);font-weight:600;}
+
+    /* ── CARD ── */
+    .card{
+      background:var(--dark2);border:1px solid rgba(201,169,110,.12);
+      border-radius:12px;padding:1.6rem 1.8rem;margin-bottom:1.2rem;
+      transition:border-color .3s,background .3s;
+    }
+    .card:hover{border-color:rgba(201,169,110,.3);}
+    .card-label{
+      font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:.6rem;
+    }
+
+    /* ── KPI CHIPS ── */
+    .chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem;}
+    .chip{
+      background:rgba(201,169,110,.06);border:1px solid rgba(201,169,110,.22);
+      color:var(--gold-light);font-size:.72rem;letter-spacing:.03em;
+      padding:.45rem 1rem;border-radius:2rem;
+    }
+
+    /* ── MESSAGE QUOTE ── */
+    .quote{
+      background:linear-gradient(160deg,#1a1507 0%,var(--dark2) 70%);
+      border:1px solid rgba(201,169,110,.25);border-left:3px solid var(--gold);
+      border-radius:12px;padding:2.4rem 2.2rem;text-align:center;
+    }
+    .quote .q-text{
+      font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3.4vw,2.1rem);
+      font-weight:300;font-style:italic;color:var(--white);line-height:1.4;
+    }
+    .quote .q-anchor{
+      font-size:.8rem;color:#cfccc4;line-height:1.8;margin-top:1.4rem;
+      padding-top:1.2rem;border-top:1px solid rgba(201,169,110,.15);
+    }
+    .quote .q-anchor strong{color:var(--gold);}
+
+    /* ── TABLE ── */
+    .table-wrap{overflow-x:auto;border-radius:12px;border:1px solid rgba(201,169,110,.14);}
+    table{width:100%;border-collapse:collapse;min-width:560px;}
+    thead th{
+      background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+      color:var(--black);font-size:.65rem;font-weight:700;letter-spacing:.12em;
+      text-transform:uppercase;padding:.9rem 1.1rem;text-align:left;
+    }
+    tbody td{
+      padding:1rem 1.1rem;font-size:.8rem;color:#cfccc4;
+      border-bottom:1px solid rgba(201,169,110,.08);vertical-align:top;line-height:1.7;
+    }
+    tbody tr{background:var(--dark2);transition:background .2s;}
+    tbody tr:nth-child(even){background:#2b2b2b;}
+    tbody tr:hover{background:#322d22;}
+    tbody tr:last-child td{border-bottom:none;}
+    td .t-strong{color:var(--gold-light);font-weight:600;display:block;margin-bottom:.2rem;}
+    td .t-num{
+      color:var(--gold);font-family:'Cormorant Garamond',serif;
+      font-size:1.4rem;font-weight:600;
+    }
+    td .t-format{color:var(--white);font-weight:500;}
+
+    /* ── PILLARS ── */
+    .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;}
+    .pillar{
+      background:var(--dark2);border:1px solid rgba(201,169,110,.12);
+      border-radius:12px;padding:1.6rem 1.5rem;position:relative;overflow:hidden;
+      transition:border-color .3s,transform .3s;
+    }
+    .pillar:hover{border-color:rgba(201,169,110,.32);transform:translateY(-3px);}
+    .pillar-num{
+      font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;
+      color:rgba(201,169,110,.18);line-height:1;position:absolute;top:.6rem;right:1rem;
+    }
+    .pillar h3{
+      font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;
+      color:var(--gold);margin-bottom:.5rem;position:relative;
+    }
+    .pillar p{font-size:.78rem;color:#bdb9b0;line-height:1.75;position:relative;}
+
+    /* ── LIST ── */
+    .clean-list{list-style:none;}
+    .clean-list li{
+      display:flex;gap:.7rem;font-size:.85rem;color:#cfccc4;
+      padding:.55rem 0;line-height:1.7;border-bottom:1px solid rgba(255,255,255,.05);
+    }
+    .clean-list li:last-child{border-bottom:none;}
+    .clean-list li::before{
+      content:'';width:6px;height:6px;background:var(--gold);
+      border-radius:50%;flex-shrink:0;margin-top:.55rem;
+    }
+    .clean-list li strong{color:var(--gold-light);font-weight:600;}
+
+    /* ── DO / DONT ── */
+    .dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
+    .dd-box{border-radius:12px;padding:1.4rem 1.5rem;}
+    .dd-do{background:rgba(111,207,151,.05);border:1px solid rgba(111,207,151,.25);}
+    .dd-dont{background:rgba(192,57,43,.05);border:1px solid rgba(192,57,43,.3);}
+    .dd-box h4{
+      font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem;
+    }
+    .dd-do h4{color:#6fcf97;}
+    .dd-dont h4{color:#e07a6e;}
+    .dd-box ul{list-style:none;}
+    .dd-box li{font-size:.78rem;color:#bdb9b0;padding:.35rem 0;line-height:1.65;}
+
+    /* ── WEEK TAG ── */
+    .week-tag{
+      display:inline-block;background:var(--gold);color:var(--black);
+      font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      padding:.4rem 1rem;border-radius:2rem;margin:1.6rem 0 .9rem;
+    }
+    .note{
+      font-size:.74rem;color:var(--gray);font-style:italic;
+      margin-top:1rem;line-height:1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer{
+      background:var(--dark2);border-top:1px solid rgba(201,169,110,.1);
+      padding:2.6rem 2rem;text-align:center;margin-top:2rem;
+    }
+    .footer-logo{max-width:170px;width:45%;margin:0 auto 1.2rem;display:block;}
+    .footer-logo svg{width:100%;height:auto;display:block;}
+    footer p{font-size:.66rem;color:var(--gray);letter-spacing:.06em;line-height:1.9;}
+    footer strong{color:var(--gold-light);letter-spacing:.1em;}
+
+    @media (max-width:680px){
+      .dd-grid{grid-template-columns:1fr;}
+      .meta-sep{display:none;}
+      .wrap{padding:2.6rem 1.2rem;}
+      .section{margin-bottom:3rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ██ HERO ██ -->
+<section class="hero">
+  <div class="hero-logo">
+    <svg viewBox="0 0 320 165" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="267" cy="50" r="44" fill="#f5821f"/>
+      <circle cx="278" cy="34" r="30" fill="#e8332a"/>
+      <circle cx="286" cy="48" r="21" fill="#252525"/>
+      <path d="M256 18 Q298 6 310 50 Q322 94 286 108" stroke="#252525" stroke-width="5" fill="none"/>
+      <text x="14" y="76" fill="#ffffff" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="34" letter-spacing="-1">CASA</text>
+      <text x="150" y="76" fill="#ffffff" font-family="Arial,sans-serif" font-weight="400" font-size="22">do</text>
+      <text x="14" y="118" fill="#ffffff" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="27" letter-spacing="-1">MARCENEIRO</text>
+      <text x="184" y="156" fill="#bfbfbf" font-family="Georgia,'Times New Roman',serif" font-style="italic" font-size="21">Desde 1986</text>
+    </svg>
+  </div>
+  <div class="hero-badge">Briefing de Campanha</div>
+  <p class="brand-name">Squad de Mídia</p>
+  <h1 class="hero-title">Novo Site<br/><em>Casa Marceneiro</em></h1>
+  <div class="divider"></div>
+  <p class="hero-sub">Lançamento do novo cmarceneiro.com.br · Instagram + Facebook</p>
+</section>
+
+<!-- ██ META STRIP ██ -->
+<div class="meta-strip">
+  <div class="inner">
+    <div class="meta-item">
+      <span class="lbl">Canais</span>
+      <span class="val">Instagram (feed, stories, reels) + Facebook (feed, stories)</span>
+    </div>
+    <div class="meta-sep"></div>
+    <div class="meta-item">
+      <span class="lbl">Duração sugerida</span>
+      <span class="val">2 semanas · 1 de teaser/lançamento + 1 de reforço</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ░ 1. OBJETIVO ░ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">1</span>
+      <h2 class="section-title">Objetivo</h2>
+    </div>
+    <div class="section-rule"></div>
+    <p class="lead">
+      Comunicar o lançamento do novo <strong>cmarceneiro.com.br</strong> aos clientes
+      atuais e atrair novos, posicionando a mudança como <strong>benefício prático para
+      quem compra</strong> — não como conquista interna da empresa.
+    </p>
+    <div class="card">
+      <p class="card-label">KPIs sugeridos</p>
+      <div class="chips">
+        <span class="chip">Tráfego direto/social ao site (GA4)</span>
+        <span class="chip">Alcance orgânico</span>
+        <span class="chip">Salvamentos</span>
+        <span class="chip">Cliques no link da bio</span>
+        <span class="chip">Mensagens no WhatsApp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░ 2. MENSAGEM CENTRAL ░ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">2</span>
+      <h2 class="section-title">Mensagem <em>central</em></h2>
+    </div>
+    <div class="section-rule"></div>
+    <div class="quote">
+      <p class="q-text">"Tudo o que você já confiava na Casa Marceneiro, agora mais fácil de achar."</p>
+      <p class="q-anchor">
+        <strong>Conceito-âncora:</strong> o site novo não é sobre nós, é sobre o cliente.
+        Continuidade de confiança + ganho de praticidade. Evitar tom "nos reinventamos" /
+        "estamos felizes em anunciar" — soa institucional e ninguém liga.
+      </p>
+    </div>
+  </section>
+
+  <!-- ░ 3. PÚBLICOS-ALVO ░ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">3</span>
+      <h2 class="section-title">Públicos-<em>alvo</em></h2>
+    </div>
+    <div class="section-rule"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Público</th>
+            <th>Dor principal</th>
+            <th>O que valoriza</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="t-strong">Marceneiro profissional</span></td>
+            <td>Tempo. Precisa achar ferragem/insumo rápido e ter certeza de disponibilidade.</td>
+            <td>Catálogo completo, preço bom em volume, atendimento via WhatsApp, entrega.</td>
+          </tr>
+          <tr>
+            <td><span class="t-strong">Cliente final / DIY</span></td>
+            <td>Insegurança técnica. Não sabe o nome certo da peça.</td>
+            <td>Busca que entende, fotos boas, descrição clara, atendimento humano.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      → A maioria dos posts deve falar com os dois ao mesmo tempo, mas reserve
+      2–3 peças específicas para cada perfil.
+    </p>
+  </section>
+
+  <!-- ░ 4. TOM E LINGUAGEM ░ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">4</span>
+      <h2 class="section-title">Tom e <em>linguagem</em></h2>
+    </div>
+    <div class="section-rule"></div>
+    <ul class="clean-list">
+      <li>Direto, prático, sem firula corporativa. <strong>"Beleza", "agora ficou", "achou rápido?"</strong></li>
+      <li>Português BR, regional sem ser caricato.</li>
+      <li>Sem superlativos vazios ("o melhor", "incrível"). Substitua por fato: <strong>"46 categorias organizadas"</strong>, <strong>"busca que entende erro de digitação"</strong>, etc.</li>
+      <li>Pode usar humor seco de quem vive no setor (piada de marceneiro com cliente que pede "aquela peça redondinha").</li>
+    </ul>
+    <div class="dd-grid" style="margin-top:1.4rem;">
+      <div class="dd-box dd-do">
+        <h4>✓ Usar</h4>
+        <ul>
+          <li>Fatos concretos e números</li>
+          <li>Linguagem do dia a dia do setor</li>
+          <li>Humor seco e regional</li>
+          <li>Foco no ganho do cliente</li>
+        </ul>
+      </div>
+      <div class="dd-box dd-dont">
+        <h4>✕ Evitar</h4>
+        <ul>
+          <li>"Nos reinventamos" / "estamos felizes em anunciar"</li>
+          <li>Superlativos vazios: "o melhor", "incrível"</li>
+          <li>Tom institucional sobre a empresa</li>
+          <li>Regionalismo caricato</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░ 5. PILARES DE CONTEÚDO ░ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">5</span>
+      <h2 class="section-title">Pilares de <em>conteúdo</em></h2>
+    </div>
+    <div class="section-rule"></div>
+    <p class="lead">5 ângulos para não repetir.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-num">1</span>
+        <h3>Achou rápido</h3>
+        <p>Antes vs depois da navegação, organização das categorias.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">2</span>
+        <h3>Bastidor</h3>
+        <p>Equipe da Casa Marceneiro, depósito, "quem está do outro lado do site".</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">3</span>
+        <h3>Curadoria</h3>
+        <p>Produtos que ganharam destaque na nova arquitetura (linha hidráulica, ferragens, EPI).</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">4</span>
+        <h3>Atalhos do site novo</h3>
+        <p>Micro-tutoriais (como filtrar, como pedir pelo WhatsApp direto do produto).</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">5</span>
+        <h3>Convite / prova social</h3>
+        <p>Depoimento de cliente, marceneiro mostrando que comprou.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░ 6. ROTEIRO ░ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">6</span>
+      <h2 class="section-title">Roteiro <em>sugerido</em></h2>
+    </div>
+    <div class="section-rule"></div>
+    <p class="lead">10 peças em 2 semanas.</p>
+
+    <span class="week-tag">Semana 1 — Lançamento</span>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Formato</th>
+            <th>Pilar</th>
+            <th>Ideia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="t-num">1</span></td>
+            <td><span class="t-format">Reel / Vídeo curto</span></td>
+            <td>Lançamento</td>
+            <td>Tela do celular abrindo o site novo. Texto: "Tá no ar. Bem mais fácil de achar o que você precisa." Trilha leve.</td>
+          </tr>
+          <tr>
+            <td><span class="t-num">2</span></td>
+            <td><span class="t-format">Carrossel feed (5 cards)</span></td>
+            <td>Achou rápido</td>
+            <td>"5 coisas que mudaram pra você no site novo" — busca, categorias, mobile, WhatsApp no produto, [a definir].</td>
+          </tr>
+          <tr>
+            <td><span class="t-num">3</span></td>
+            <td><span class="t-format">Story sequencial</span></td>
+            <td>Atalhos</td>
+            <td>Mini-tour: home → categoria → produto → WhatsApp. Com enquete "achou fácil?".</td>
+          </tr>
+          <tr>
+            <td><span class="t-num">4</span></td>
+            <td><span class="t-format">Post simples feed</span></td>
+            <td>Bastidor</td>
+            <td>Foto da equipe + texto curto: "Tem gente de verdade do outro lado. Site novo, mesmo time."</td>
+          </tr>
+          <tr>
+            <td><span class="t-num">5</span></td>
+            <td><span class="t-format">Reel</span></td>
+            <td>Curadoria</td>
+            <td>Marceneiro profissional usando a nova busca por categoria pra montar lista de compras.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <span class="week-tag">Semana 2 — Reforço</span>
+    <div class="card">
+      <p class="card-label">Peças 6 a 10</p>
+      <p style="font-size:.82rem;color:#bdb9b0;line-height:1.8;">
+        Detalhamento da semana de reforço a definir com o Squad de Mídia, mantendo
+        rotação entre os 5 pilares (prova social, atalhos, curadoria e convite),
+        sem repetir os ângulos já usados na Semana 1.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ██ FOOTER ██ -->
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="0 0 320 165" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="267" cy="50" r="44" fill="#f5821f"/>
+      <circle cx="278" cy="34" r="30" fill="#e8332a"/>
+      <circle cx="286" cy="48" r="21" fill="#252525"/>
+      <path d="M256 18 Q298 6 310 50 Q322 94 286 108" stroke="#252525" stroke-width="5" fill="none"/>
+      <text x="14" y="76" fill="#ffffff" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="34" letter-spacing="-1">CASA</text>
+      <text x="150" y="76" fill="#ffffff" font-family="Arial,sans-serif" font-weight="400" font-size="22">do</text>
+      <text x="14" y="118" fill="#ffffff" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="27" letter-spacing="-1">MARCENEIRO</text>
+      <text x="184" y="156" fill="#bfbfbf" font-family="Georgia,'Times New Roman',serif" font-style="italic" font-size="21">Desde 1986</text>
+    </svg>
+  </div>
+  <p>
+    <strong>BRIEFING — CAMPANHA "NOVO SITE CASA MARCENEIRO"</strong><br/>
+    Documento para o Squad de Mídia · cmarceneiro.com.br
+  </p>
+</footer>
+
+</body>
+</html>
