@@ -713,7 +713,12 @@ function ghPublishJSON(jsonContent){
       return fetch(url,{method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
     })
     .then(function(r){
-      if(!r.ok) return r.json().then(function(d){ throw new Error(d.message||'Erro ao publicar'); });
+      if(r.status===403 || r.status===401){
+        return r.json().then(function(d){
+          throw new Error((d.message||'Sem permissão')+' — o token precisa de permissão Contents: Read and write no GitHub.');
+        });
+      }
+      if(!r.ok) return r.json().then(function(d){ throw new Error(d.message||'Erro ao publicar (HTTP '+r.status+')'); });
       return r.json();
     });
 }
@@ -731,7 +736,14 @@ function readAllSettingsFromForm(){
 }
 
 function publishToGitHub(){
+  // Sync ghCfg from form so the user doesn't need to click "Salvar" first
+  ghCfg.token = document.getElementById('cfg-ghtoken').value.trim();
+  ghCfg.owner = document.getElementById('cfg-ghowner').value.trim();
+  ghCfg.repo  = document.getElementById('cfg-ghrepo').value.trim() || 'dev1';
+
   if(!ghCfg.token){ toast('Configure o Token do GitHub em Configurações primeiro.','error'); return; }
+  if(!ghCfg.owner){ toast('Informe o usuário/organização do GitHub em Configurações.','error'); return; }
+
   readAllSettingsFromForm();
   var data={settings:settings, products:products};
   var json=JSON.stringify(data,null,2);
@@ -740,6 +752,7 @@ function publishToGitHub(){
   ghPublishJSON(json)
     .then(function(){
       btn.disabled=false; btn.textContent='🚀 Publicar no GitHub';
+      localStorage.setItem('gh_config',JSON.stringify(ghCfg));
       localStorage.setItem('catalog_settings',JSON.stringify(settings));
       localStorage.setItem('catalog_products',JSON.stringify(products));
       hasChanges=false;
@@ -748,7 +761,12 @@ function publishToGitHub(){
     })
     .catch(function(err){
       btn.disabled=false; btn.textContent='🚀 Publicar no GitHub';
-      toast('Erro ao publicar: '+err.message,'error');
+      var msg = err.message || '';
+      if(msg === 'Failed to fetch' || msg.indexOf('NetworkError') !== -1 || msg === ''){
+        toast('Erro de rede ao publicar. Verifique se o token tem permissão de ESCRITA (Contents: Read and write) no GitHub.','error');
+      } else {
+        toast('Erro ao publicar: '+msg,'error');
+      }
     });
 }
 
