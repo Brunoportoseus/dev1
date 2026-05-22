@@ -19,8 +19,8 @@
       "priceCurrent": "R$ 78,45",
       "priceInstallment": "ou 7× sem juros",
       "pricePix": "R$ 74,53 (5% OFF no PIX)",
-      "badgeNew": "EM ESTOQUE",
-      "badgeOff": "ENTREGA IMEDIATA",
+      "badgeNew": "Entrega imediata",
+      "badgeOff": "",
       "imageFile": "rodap-santa-luzia-lev102-branco-240m-x-10cm-x-13cm-barra-.webp",
       "svgStyle": "generic",
       "specs": [
@@ -42,8 +42,8 @@
       "priceCurrent": "R$ 74,04",
       "priceInstallment": "ou 10× sem juros",
       "pricePix": "5% Off",
-      "badgeNew": "Em estoque",
-      "badgeOff": "Entrega imediata",
+      "badgeNew": "Entrega imediata",
+      "badgeOff": "",
       "imageFile": "piso-laminado-fit-girassol-m.webp",
       "svgStyle": "generic",
       "specs": [
