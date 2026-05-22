@@ -149,12 +149,7 @@
       "productUrl": "",
       "whatsappMsg": "Olá! Tenho interesse no Puxador PZ1098 Dourado Ponto. Podem me ajudar?",
       "colorLabel": "Cores: Dourado",
-      "colors": [
-        "rose",
-        "chrome",
-        "onix",
-        "black"
-      ]
+      "colors": []
     },
     {
       "id": "pipe-simetrico",
