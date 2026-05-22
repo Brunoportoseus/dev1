@@ -175,6 +175,7 @@
     <div class="pin-display" id="pinDisplay">
       <div class="pin-dot"></div><div class="pin-dot"></div>
       <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
     </div>
     <div class="pin-pad">
       <button class="pin-btn" onclick="pinPress('1')">1</button>
@@ -191,7 +192,6 @@
       <button class="pin-btn" onclick="pinDel()">⌫</button>
     </div>
     <p id="loginError"></p>
-    <p style="margin-top:1.2rem;font-size:.65rem;color:var(--gray);">PIN padrão: <strong style="color:var(--gold-light)">1234</strong></p>
   </div>
 </div>
 
@@ -212,6 +212,9 @@
 
   <div class="admin-body">
     <div id="toast"></div>
+    <div id="offlineBanner" style="display:none;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.4);border-radius:8px;padding:.8rem 1.2rem;margin-bottom:1rem;font-size:.78rem;color:#eb8b83;line-height:1.5;">
+      ⚠️ <strong>Modo offline</strong> — Não foi possível carregar os dados do servidor (<code>catalog-data.json</code>). Os dados exibidos são os salvos localmente ou o padrão do sistema. <strong>Não publique antes de verificar a conexão.</strong>
+    </div>
 
     <div class="tabs">
       <button class="tab active" onclick="showTab(event,'products')">Produtos</button>
@@ -254,6 +257,34 @@
         </div>
 
         <hr class="divider"/>
+        <p class="section-title">Banner de Desconto &amp; Countdown</p>
+        <div class="form-group">
+          <label>Exibir banner?</label>
+          <select id="cfg-banner-visible">
+            <option value="true">Sim — exibir banner</option>
+            <option value="false">Não — ocultar banner</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tag de desconto (ex: 15% OFF, PROMOÇÃO)</label>
+          <input type="text" id="cfg-banner-discount" placeholder="15% OFF" maxlength="20"/>
+        </div>
+        <div class="form-group">
+          <label>Título do banner</label>
+          <input type="text" id="cfg-banner-title" placeholder="Descontos Especiais"/>
+        </div>
+        <div class="form-group">
+          <label>Subtítulo do banner</label>
+          <input type="text" id="cfg-banner-subtitle" placeholder="Ofertas exclusivas em produtos selecionados"/>
+        </div>
+        <div class="form-group">
+          <label>Countdown — data e hora de término</label>
+          <input type="datetime-local" id="cfg-countdown-end"/>
+          <p class="form-hint">Defina quando a oferta expira. Ao publicar, o countdown ficará correto para todos os visitantes.</p>
+        </div>
+        <button class="btn btn-gold" onclick="saveBannerSettings()">Salvar Banner &amp; Countdown</button>
+
+        <hr class="divider"/>
         <p class="section-title">Integração GitHub <span id="ghTokenStatus" class="gh-status none">não configurado</span></p>
         <div class="info-box" style="margin-bottom:1rem;">
           <h3>Para que serve?</h3>
@@ -288,12 +319,12 @@
         <hr class="divider"/>
         <p class="section-title">Segurança</p>
         <div class="form-group">
-          <label>Novo PIN (4 dígitos)</label>
-          <input type="password" id="cfg-newpin" maxlength="4" placeholder="0000" style="max-width:120px;letter-spacing:.3em;text-align:center;"/>
+          <label>Novo PIN (6 dígitos)</label>
+          <input type="password" id="cfg-newpin" maxlength="6" placeholder="000000" style="max-width:140px;letter-spacing:.3em;text-align:center;"/>
         </div>
         <div class="form-group">
           <label>Confirmar Novo PIN</label>
-          <input type="password" id="cfg-confirmpin" maxlength="4" placeholder="0000" style="max-width:120px;letter-spacing:.3em;text-align:center;"/>
+          <input type="password" id="cfg-confirmpin" maxlength="6" placeholder="000000" style="max-width:140px;letter-spacing:.3em;text-align:center;"/>
         </div>
         <button class="btn btn-outline" onclick="changePin()">Alterar PIN</button>
 
@@ -418,6 +449,11 @@
         <textarea id="f-specs" rows="3" placeholder="Furação 64mm · Comprimento 99,3mm&#10;Zamac de alta qualidade&#10;Textura recartilhada"></textarea>
       </div>
       <div class="form-group modal-full">
+        <label>URL do Produto na Loja</label>
+        <input type="url" id="f-productUrl" placeholder="https://cmarceneiro.com.br/produto/..."/>
+        <p class="form-hint">Link direto para a página de compra deste produto. Se vazio, usa a URL geral da loja (Configurações).</p>
+      </div>
+      <div class="form-group modal-full">
         <label>Mensagem WhatsApp</label>
         <input type="text" id="f-whatsappMsg" placeholder="Olá! Tenho interesse no Puxador..."/>
       </div>
@@ -455,7 +491,12 @@ var modalPendingB64 = null;    // base64 do arquivo
 
 var DEFAULT_SETTINGS = {
   whatsappNumber: '5511999999999',
-  storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design'
+  storeUrl: 'https://cmarceneiro.com.br/categoria/puxadores/para-moveis?attr_marca=zen-design',
+  bannerDiscount: '15% OFF',
+  bannerTitle: 'Descontos Especiais',
+  bannerSubtitle: 'Ofertas exclusivas em produtos selecionados da coleção',
+  bannerVisible: true,
+  countdownEnd: new Date(Date.now() + 1000*60*60*72).toISOString()
 };
 var DEFAULT_GH = { token:'', owner:'', repo:'dev1' };
 
@@ -470,13 +511,19 @@ var DEFAULT_PRODUCTS = [
   {id:'garage',svgStyle:'garage',imageFile:'garage.jpg',category:'Alças · Couro Premium',name:'Garage',code:'ZP1254 / ZP1294 / ZP1295 · 3 tamanhos',categoryBack:'Alças · Couro & Metal',priceCurrent:'R$ 189,90',priceInstallment:'ou 10× sem juros',pricePix:'✓ 5% OFF no PIX',specs:['P · ZP1254 — furação 224mm','M · ZP1294 — furação 352mm','G · ZP1295 — furação 544mm'],colors:['chrome','rose','black'],colorLabel:'Metal:',whatsappMsg:'Olá! Tenho interesse no Puxador Garage (couro). Podem me ajudar?'}
 ];
 
+// ─── MIGRAÇÃO: PIN antigo de 4 dígitos → limpa para usar o novo padrão de 6 ──
+(function(){
+  var stored = localStorage.getItem('admin_pin');
+  if(stored && stored.length < 6) localStorage.removeItem('admin_pin');
+})();
+
 // ─── PIN ──────────────────────────────────────────────────
 var pinBuffer = '';
-function pinPress(d){ if(pinBuffer.length>=4) return; pinBuffer+=d; updatePinDots(); if(pinBuffer.length===4) setTimeout(checkPin,120); }
+function pinPress(d){ if(pinBuffer.length>=6) return; pinBuffer+=d; updatePinDots(); if(pinBuffer.length===6) setTimeout(checkPin,120); }
 function pinDel(){ pinBuffer=pinBuffer.slice(0,-1); updatePinDots(); document.getElementById('loginError').textContent=''; }
 function updatePinDots(){ document.querySelectorAll('.pin-dot').forEach(function(d,i){ d.classList.toggle('filled',i<pinBuffer.length); }); }
 function checkPin(){
-  if(pinBuffer===(localStorage.getItem('admin_pin')||'1234')){
+  if(pinBuffer===(localStorage.getItem('admin_pin')||'847293')){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('adminPanel').style.display='block';
     loadData();
@@ -497,17 +544,65 @@ function showTab(e,name){
 }
 
 // ─── DADOS ────────────────────────────────────────────────
-function loadData(){
-  try{ settings=JSON.parse(localStorage.getItem('catalog_settings'))||Object.assign({},DEFAULT_SETTINGS); } catch(e){ settings=Object.assign({},DEFAULT_SETTINGS); }
-  try{ products=JSON.parse(localStorage.getItem('catalog_products'))||JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); } catch(e){ products=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
-  try{ ghCfg=JSON.parse(localStorage.getItem('gh_config'))||Object.assign({},DEFAULT_GH); } catch(e){ ghCfg=Object.assign({},DEFAULT_GH); }
+function populateSettingsForm(){
   document.getElementById('cfg-wpp').value=settings.whatsappNumber||'';
   document.getElementById('cfg-store').value=settings.storeUrl||'';
+  document.getElementById('cfg-banner-visible').value=settings.bannerVisible===false?'false':'true';
+  document.getElementById('cfg-banner-discount').value=settings.bannerDiscount||'15% OFF';
+  document.getElementById('cfg-banner-title').value=settings.bannerTitle||'Descontos Especiais';
+  document.getElementById('cfg-banner-subtitle').value=settings.bannerSubtitle||'';
+  if(settings.countdownEnd){
+    var dt=new Date(settings.countdownEnd);
+    if(!isNaN(dt)){
+      var pad=function(n){return String(n).padStart(2,'0');};
+      document.getElementById('cfg-countdown-end').value=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+'T'+pad(dt.getHours())+':'+pad(dt.getMinutes());
+    }
+  }
   document.getElementById('cfg-ghtoken').value=ghCfg.token||'';
   document.getElementById('cfg-ghowner').value=ghCfg.owner||'';
   document.getElementById('cfg-ghrepo').value=ghCfg.repo||'dev1';
+}
+
+function applyOffline(fromLocalStorage){
+  var lsProducts=null, lsSettings=null;
+  try{ lsProducts=JSON.parse(localStorage.getItem('catalog_products')); } catch(e){}
+  try{ lsSettings=JSON.parse(localStorage.getItem('catalog_settings')); } catch(e){}
+  products = lsProducts || JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+  settings = lsSettings || Object.assign({},DEFAULT_SETTINGS);
+  document.getElementById('offlineBanner').style.display='block';
+  populateSettingsForm();
   updateGhStatusBadge();
   renderProductList();
+}
+
+function loadData(){
+  // gh_config é por dispositivo — sempre localStorage
+  try{ ghCfg=JSON.parse(localStorage.getItem('gh_config'))||Object.assign({},DEFAULT_GH); } catch(e){ ghCfg=Object.assign({},DEFAULT_GH); }
+
+  // Mostrar estado de carregamento
+  document.getElementById('productList').innerHTML='<p style="color:var(--gray);padding:1rem;font-size:.8rem;">⏳ Carregando dados do servidor…</p>';
+
+  // Servidor é fonte da verdade
+  fetch('catalog-data.json?_='+Date.now())
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(data){
+      if(!data || typeof data !== 'object') throw new Error('JSON inválido');
+      products = (Array.isArray(data.products) && data.products.length > 0)
+        ? data.products
+        : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+      settings = data.settings || Object.assign({},DEFAULT_SETTINGS);
+      // Sincroniza localStorage com dados do servidor
+      localStorage.setItem('catalog_products',JSON.stringify(products));
+      localStorage.setItem('catalog_settings',JSON.stringify(settings));
+      document.getElementById('offlineBanner').style.display='none';
+      populateSettingsForm();
+      updateGhStatusBadge();
+      renderProductList();
+      toast('Dados carregados do servidor ('+products.length+' produtos)','success');
+    })
+    .catch(function(){
+      applyOffline(true);
+    });
 }
 
 function updateGhStatusBadge(){
@@ -519,9 +614,26 @@ function updateGhStatusBadge(){
 
 function markChanged(){ hasChanges=true; document.getElementById('changedBadge').style.display=''; }
 
+function saveBannerSettings(){
+  settings.bannerVisible = document.getElementById('cfg-banner-visible').value !== 'false';
+  settings.bannerDiscount = document.getElementById('cfg-banner-discount').value.trim() || '15% OFF';
+  settings.bannerTitle = document.getElementById('cfg-banner-title').value.trim() || 'Descontos Especiais';
+  settings.bannerSubtitle = document.getElementById('cfg-banner-subtitle').value.trim();
+  var cdVal = document.getElementById('cfg-countdown-end').value;
+  if(cdVal) settings.countdownEnd = new Date(cdVal).toISOString();
+  localStorage.setItem('catalog_settings',JSON.stringify(settings));
+  toast('Banner e countdown salvos! Clique em Publicar para atualizar o site.','success');
+}
+
 function saveAll(){
   settings.whatsappNumber=document.getElementById('cfg-wpp').value.trim();
   settings.storeUrl=document.getElementById('cfg-store').value.trim();
+  settings.bannerVisible = document.getElementById('cfg-banner-visible').value !== 'false';
+  settings.bannerDiscount = document.getElementById('cfg-banner-discount').value.trim() || '15% OFF';
+  settings.bannerTitle = document.getElementById('cfg-banner-title').value.trim() || 'Descontos Especiais';
+  settings.bannerSubtitle = document.getElementById('cfg-banner-subtitle').value.trim();
+  var cdVal = document.getElementById('cfg-countdown-end').value;
+  if(cdVal) settings.countdownEnd = new Date(cdVal).toISOString();
   localStorage.setItem('catalog_settings',JSON.stringify(settings));
   localStorage.setItem('catalog_products',JSON.stringify(products));
   hasChanges=false;
@@ -562,7 +674,7 @@ function testGitHub(){
 function changePin(){
   var np=document.getElementById('cfg-newpin').value;
   var cp=document.getElementById('cfg-confirmpin').value;
-  if(!/^\d{4}$/.test(np)){ alert('PIN deve ter exatamente 4 dígitos.'); return; }
+  if(!/^\d{6}$/.test(np)){ alert('PIN deve ter exatamente 6 dígitos.'); return; }
   if(np!==cp){ alert('Os PINs não coincidem.'); return; }
   localStorage.setItem('admin_pin',np);
   document.getElementById('cfg-newpin').value=''; document.getElementById('cfg-confirmpin').value='';
@@ -607,10 +719,20 @@ function ghPublishJSON(jsonContent){
 }
 
 // ─── PUBLICAR NO GITHUB ────────────────────────────────────
+function readAllSettingsFromForm(){
+  settings.whatsappNumber = document.getElementById('cfg-wpp').value.trim();
+  settings.storeUrl = document.getElementById('cfg-store').value.trim();
+  settings.bannerVisible = document.getElementById('cfg-banner-visible').value !== 'false';
+  settings.bannerDiscount = document.getElementById('cfg-banner-discount').value.trim() || '15% OFF';
+  settings.bannerTitle = document.getElementById('cfg-banner-title').value.trim() || 'Descontos Especiais';
+  settings.bannerSubtitle = document.getElementById('cfg-banner-subtitle').value.trim();
+  var cdVal = document.getElementById('cfg-countdown-end').value;
+  if(cdVal){ var dt = new Date(cdVal); if(!isNaN(dt)) settings.countdownEnd = dt.toISOString(); }
+}
+
 function publishToGitHub(){
   if(!ghCfg.token){ toast('Configure o Token do GitHub em Configurações primeiro.','error'); return; }
-  settings.whatsappNumber=document.getElementById('cfg-wpp').value.trim();
-  settings.storeUrl=document.getElementById('cfg-store').value.trim();
+  readAllSettingsFromForm();
   var data={settings:settings, products:products};
   var json=JSON.stringify(data,null,2);
   var btn=document.getElementById('btnPublish');
@@ -632,8 +754,7 @@ function publishToGitHub(){
 
 // ─── EXPORT / IMPORT ──────────────────────────────────────
 function exportJSON(){
-  settings.whatsappNumber=document.getElementById('cfg-wpp').value.trim();
-  settings.storeUrl=document.getElementById('cfg-store').value.trim();
+  readAllSettingsFromForm();
   var blob=new Blob([JSON.stringify({settings:settings,products:products},null,2)],{type:'application/json'});
   var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='catalog-data.json'; a.click();
   toast('JSON exportado!','success');
@@ -689,13 +810,13 @@ function openNewProduct(){
   editingIndex=-1;
   document.getElementById('modalTitle').textContent='Novo Produto';
   document.getElementById('btnDeleteProduct').style.display='none';
-  fillForm({name:'',code:'',category:'',categoryBack:'',imageFile:'novo-produto.jpg',svgStyle:'generic',badgeNew:'',badgeOff:'',priceOld:'',priceCurrent:'',priceInstallment:'ou 10× sem juros',pricePix:'✓ 5% OFF no PIX',specs:[],colors:[],colorLabel:'Cores:',whatsappMsg:'Olá! Tenho interesse neste produto. Podem me ajudar?'});
+  fillForm({name:'',code:'',category:'',categoryBack:'',imageFile:'novo-produto.jpg',svgStyle:'generic',badgeNew:'',badgeOff:'',priceOld:'',priceCurrent:'',priceInstallment:'ou 10× sem juros',pricePix:'✓ 5% OFF no PIX',specs:[],colors:[],colorLabel:'Cores:',productUrl:'',whatsappMsg:'Olá! Tenho interesse neste produto. Podem me ajudar?'});
   resetModalUpload();
   document.getElementById('modalOverlay').classList.add('open');
 }
 
 function fillForm(p){
-  ['name','code','category','categoryBack','priceOld','priceCurrent','priceInstallment','pricePix','badgeNew','badgeOff','imageFile','whatsappMsg','colorLabel'].forEach(function(k){ document.getElementById('f-'+k).value=p[k]||''; });
+  ['name','code','category','categoryBack','priceOld','priceCurrent','priceInstallment','pricePix','badgeNew','badgeOff','imageFile','productUrl','whatsappMsg','colorLabel'].forEach(function(k){ document.getElementById('f-'+k).value=p[k]||''; });
   document.getElementById('f-svgStyle').value=p.svgStyle||'generic';
   document.getElementById('f-specs').value=(p.specs||[]).join('\n');
   var sel=p.colors||[];
@@ -724,6 +845,7 @@ function saveProduct(){
     imageFile:document.getElementById('f-imageFile').value.trim(),
     svgStyle:document.getElementById('f-svgStyle').value,
     specs:document.getElementById('f-specs').value.split('\n').map(function(s){return s.trim();}).filter(Boolean),
+    productUrl:document.getElementById('f-productUrl').value.trim(),
     whatsappMsg:document.getElementById('f-whatsappMsg').value.trim(),
     colorLabel:document.getElementById('f-colorLabel').value.trim()||'Cores:',
     colors:colors
