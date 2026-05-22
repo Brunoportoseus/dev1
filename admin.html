@@ -175,6 +175,7 @@
     <div class="pin-display" id="pinDisplay">
       <div class="pin-dot"></div><div class="pin-dot"></div>
       <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
     </div>
     <div class="pin-pad">
       <button class="pin-btn" onclick="pinPress('1')">1</button>
@@ -191,7 +192,6 @@
       <button class="pin-btn" onclick="pinDel()">⌫</button>
     </div>
     <p id="loginError"></p>
-    <p style="margin-top:1.2rem;font-size:.65rem;color:var(--gray);">PIN padrão: <strong style="color:var(--gold-light)">1234</strong></p>
   </div>
 </div>
 
@@ -212,6 +212,9 @@
 
   <div class="admin-body">
     <div id="toast"></div>
+    <div id="offlineBanner" style="display:none;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.4);border-radius:8px;padding:.8rem 1.2rem;margin-bottom:1rem;font-size:.78rem;color:#eb8b83;line-height:1.5;">
+      ⚠️ <strong>Modo offline</strong> — Não foi possível carregar os dados do servidor (<code>catalog-data.json</code>). Os dados exibidos são os salvos localmente ou o padrão do sistema. <strong>Não publique antes de verificar a conexão.</strong>
+    </div>
 
     <div class="tabs">
       <button class="tab active" onclick="showTab(event,'products')">Produtos</button>
@@ -316,12 +319,12 @@
         <hr class="divider"/>
         <p class="section-title">Segurança</p>
         <div class="form-group">
-          <label>Novo PIN (4 dígitos)</label>
-          <input type="password" id="cfg-newpin" maxlength="4" placeholder="0000" style="max-width:120px;letter-spacing:.3em;text-align:center;"/>
+          <label>Novo PIN (6 dígitos)</label>
+          <input type="password" id="cfg-newpin" maxlength="6" placeholder="000000" style="max-width:140px;letter-spacing:.3em;text-align:center;"/>
         </div>
         <div class="form-group">
           <label>Confirmar Novo PIN</label>
-          <input type="password" id="cfg-confirmpin" maxlength="4" placeholder="0000" style="max-width:120px;letter-spacing:.3em;text-align:center;"/>
+          <input type="password" id="cfg-confirmpin" maxlength="6" placeholder="000000" style="max-width:140px;letter-spacing:.3em;text-align:center;"/>
         </div>
         <button class="btn btn-outline" onclick="changePin()">Alterar PIN</button>
 
@@ -510,11 +513,11 @@ var DEFAULT_PRODUCTS = [
 
 // ─── PIN ──────────────────────────────────────────────────
 var pinBuffer = '';
-function pinPress(d){ if(pinBuffer.length>=4) return; pinBuffer+=d; updatePinDots(); if(pinBuffer.length===4) setTimeout(checkPin,120); }
+function pinPress(d){ if(pinBuffer.length>=6) return; pinBuffer+=d; updatePinDots(); if(pinBuffer.length===6) setTimeout(checkPin,120); }
 function pinDel(){ pinBuffer=pinBuffer.slice(0,-1); updatePinDots(); document.getElementById('loginError').textContent=''; }
 function updatePinDots(){ document.querySelectorAll('.pin-dot').forEach(function(d,i){ d.classList.toggle('filled',i<pinBuffer.length); }); }
 function checkPin(){
-  if(pinBuffer===(localStorage.getItem('admin_pin')||'1234')){
+  if(pinBuffer===(localStorage.getItem('admin_pin')||'847293')){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('adminPanel').style.display='block';
     loadData();
@@ -535,10 +538,7 @@ function showTab(e,name){
 }
 
 // ─── DADOS ────────────────────────────────────────────────
-function loadData(){
-  try{ settings=JSON.parse(localStorage.getItem('catalog_settings'))||Object.assign({},DEFAULT_SETTINGS); } catch(e){ settings=Object.assign({},DEFAULT_SETTINGS); }
-  try{ products=JSON.parse(localStorage.getItem('catalog_products'))||JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); } catch(e){ products=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
-  try{ ghCfg=JSON.parse(localStorage.getItem('gh_config'))||Object.assign({},DEFAULT_GH); } catch(e){ ghCfg=Object.assign({},DEFAULT_GH); }
+function populateSettingsForm(){
   document.getElementById('cfg-wpp').value=settings.whatsappNumber||'';
   document.getElementById('cfg-store').value=settings.storeUrl||'';
   document.getElementById('cfg-banner-visible').value=settings.bannerVisible===false?'false':'true';
@@ -547,14 +547,56 @@ function loadData(){
   document.getElementById('cfg-banner-subtitle').value=settings.bannerSubtitle||'';
   if(settings.countdownEnd){
     var dt=new Date(settings.countdownEnd);
-    var pad=function(n){return String(n).padStart(2,'0');};
-    document.getElementById('cfg-countdown-end').value=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+'T'+pad(dt.getHours())+':'+pad(dt.getMinutes());
+    if(!isNaN(dt)){
+      var pad=function(n){return String(n).padStart(2,'0');};
+      document.getElementById('cfg-countdown-end').value=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+'T'+pad(dt.getHours())+':'+pad(dt.getMinutes());
+    }
   }
   document.getElementById('cfg-ghtoken').value=ghCfg.token||'';
   document.getElementById('cfg-ghowner').value=ghCfg.owner||'';
   document.getElementById('cfg-ghrepo').value=ghCfg.repo||'dev1';
+}
+
+function applyOffline(fromLocalStorage){
+  var lsProducts=null, lsSettings=null;
+  try{ lsProducts=JSON.parse(localStorage.getItem('catalog_products')); } catch(e){}
+  try{ lsSettings=JSON.parse(localStorage.getItem('catalog_settings')); } catch(e){}
+  products = lsProducts || JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+  settings = lsSettings || Object.assign({},DEFAULT_SETTINGS);
+  document.getElementById('offlineBanner').style.display='block';
+  populateSettingsForm();
   updateGhStatusBadge();
   renderProductList();
+}
+
+function loadData(){
+  // gh_config é por dispositivo — sempre localStorage
+  try{ ghCfg=JSON.parse(localStorage.getItem('gh_config'))||Object.assign({},DEFAULT_GH); } catch(e){ ghCfg=Object.assign({},DEFAULT_GH); }
+
+  // Mostrar estado de carregamento
+  document.getElementById('productList').innerHTML='<p style="color:var(--gray);padding:1rem;font-size:.8rem;">⏳ Carregando dados do servidor…</p>';
+
+  // Servidor é fonte da verdade
+  fetch('catalog-data.json?_='+Date.now())
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(data){
+      if(!data || typeof data !== 'object') throw new Error('JSON inválido');
+      products = (Array.isArray(data.products) && data.products.length > 0)
+        ? data.products
+        : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+      settings = data.settings || Object.assign({},DEFAULT_SETTINGS);
+      // Sincroniza localStorage com dados do servidor
+      localStorage.setItem('catalog_products',JSON.stringify(products));
+      localStorage.setItem('catalog_settings',JSON.stringify(settings));
+      document.getElementById('offlineBanner').style.display='none';
+      populateSettingsForm();
+      updateGhStatusBadge();
+      renderProductList();
+      toast('Dados carregados do servidor ('+products.length+' produtos)','success');
+    })
+    .catch(function(){
+      applyOffline(true);
+    });
 }
 
 function updateGhStatusBadge(){
@@ -626,7 +668,7 @@ function testGitHub(){
 function changePin(){
   var np=document.getElementById('cfg-newpin').value;
   var cp=document.getElementById('cfg-confirmpin').value;
-  if(!/^\d{4}$/.test(np)){ alert('PIN deve ter exatamente 4 dígitos.'); return; }
+  if(!/^\d{6}$/.test(np)){ alert('PIN deve ter exatamente 6 dígitos.'); return; }
   if(np!==cp){ alert('Os PINs não coincidem.'); return; }
   localStorage.setItem('admin_pin',np);
   document.getElementById('cfg-newpin').value=''; document.getElementById('cfg-confirmpin').value='';
