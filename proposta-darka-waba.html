@@ -43,16 +43,19 @@
         var(--bg);
       padding:3.5rem 0 3rem;
     }
-    .logo-row{display:flex;align-items:center;gap:.7rem;margin-bottom:2.2rem;}
-    .logo-mark{
-      width:42px;height:42px;border-radius:11px;flex-shrink:0;
-      background:linear-gradient(135deg,var(--c-red),var(--c-orange));
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;
+    .logo-row{display:flex;align-items:center;gap:.85rem;margin-bottom:2.2rem;}
+    .logo-webstorm{display:flex;align-items:center;gap:.55rem;color:var(--ink);}
+    .logo-webstorm svg.mark{width:38px;height:38px;display:block;flex-shrink:0;}
+    .logo-webstorm .name{
+      font-family:'Sora',sans-serif;font-weight:800;font-size:1.55rem;
+      letter-spacing:-.02em;color:var(--ink);line-height:1;
     }
-    .logo-text{font-family:'Sora',sans-serif;font-weight:800;font-size:1.25rem;letter-spacing:.02em;}
-    .logo-text small{display:block;font-family:'Montserrat',sans-serif;font-weight:500;
-      font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:.1rem;}
+    .logo-byline{
+      padding-left:.85rem;margin-left:.2rem;border-left:1px solid var(--line);
+      font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:500;
+      letter-spacing:.22em;text-transform:uppercase;color:var(--muted);line-height:1.5;
+    }
+    .logo-byline b{display:block;color:var(--ink);font-weight:700;letter-spacing:.18em;}
     .hero-badge{
       display:inline-flex;align-items:center;gap:.5rem;
       background:rgba(255,61,77,.12);border:1px solid rgba(255,61,77,.35);
@@ -188,20 +191,6 @@
     .terms li::before{content:'';width:4px;align-self:stretch;border-radius:4px;
       background:linear-gradient(var(--c-red),var(--c-purple));flex-shrink:0;}
 
-    /* ── SIGN ── */
-    .sign{padding:3rem 0 3.5rem;border-top:1px solid var(--line);}
-    .sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:1.8rem;}
-    .sign-line{border-top:1px solid var(--muted);margin-top:2.6rem;padding-top:.5rem;
-      font-size:.74rem;color:var(--muted);text-align:center;}
-    .btn-print{
-      display:inline-flex;align-items:center;gap:.55rem;cursor:pointer;
-      font-family:'Sora',sans-serif;font-weight:700;font-size:.8rem;
-      color:#fff;background:linear-gradient(135deg,var(--c-red),var(--c-orange));
-      border:none;padding:.85rem 1.6rem;border-radius:10px;
-      transition:transform .2s,box-shadow .2s;
-    }
-    .btn-print:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,61,77,.3);}
-
     /* ── FOOTER ── */
     footer{background:var(--bg2);border-top:1px solid var(--line);
       padding:1.8rem 0;text-align:center;}
@@ -209,8 +198,8 @@
     footer a{color:var(--brand-2);text-decoration:none;}
 
     @media (max-width:560px){
-      .sign-grid{grid-template-columns:1fr;gap:1.6rem;}
       .tl-row{grid-template-columns:1fr;gap:.4rem;}
+      .logo-byline{padding-left:.7rem;}
     }
 
     /* ── PRINT ── */
@@ -218,8 +207,8 @@
       body{background:#fff;color:#15131a;}
       .hero,.invest,.squad-card,.meta-cell,.scope-item,.tl-row,.terms li,footer{
         background:#fff !important;}
-      .btn-print,.float-note{display:none !important;}
-      section,.sign{border-color:#ddd;}
+      .float-note{display:none !important;}
+      section{border-color:#ddd;}
       *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     }
   </style>
@@ -235,10 +224,14 @@
   <header class="hero">
     <div class="wrap">
       <div class="logo-row">
-        <div class="logo-mark">D</div>
-        <div class="logo-text">DARKA
-          <small>Seu mundo em cores</small>
+        <div class="logo-webstorm" aria-label="Webstorm">
+          <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="96" height="96" rx="18" ry="18" fill="#f4f2f7"/>
+            <path d="M58 10 L24 56 L46 56 L38 90 L76 42 L54 42 Z" fill="#15131a"/>
+          </svg>
+          <span class="name">webstorm</span>
         </div>
+        <div class="logo-byline">Proposta para<b>Tintas Darka</b></div>
       </div>
 
       <span class="hero-badge">Proposta Comercial · Serviço de Urgência</span>
@@ -395,27 +388,13 @@
       </ul>
     </section>
 
-    <!-- ── ACEITE ── -->
-    <section class="sign">
-      <div class="sec-label"><span class="sec-num">✓</span><h2>Aceite da proposta</h2></div>
-      <p class="sec-intro">
-        Para aprovar, assine abaixo ou responda formalmente confirmando o aceite das
-        condições descritas nesta proposta.
-      </p>
-      <button class="btn-print" onclick="window.print()">⤓ Imprimir / Salvar PDF</button>
-      <div class="sign-grid">
-        <div><div class="sign-line">Tintas Darka — Cliente</div></div>
-        <div><div class="sign-line">Squad de Mídia — Responsável técnico</div></div>
-      </div>
-    </section>
-
   </main>
 
   <footer>
     <div class="wrap">
       <p>
         Proposta WABA-2026-001 · Homologação Sistema Darka + Telefone WABA<br>
-        Tintas Darka — Seu mundo em cores · <a href="https://tintasdarka.wscommerce.com.br/">tintasdarka.wscommerce.com.br</a>
+        Apresentado por <strong>Webstorm</strong> para Tintas Darka · <a href="https://tintasdarka.wscommerce.com.br/">tintasdarka.wscommerce.com.br</a>
       </p>
     </div>
   </footer>
