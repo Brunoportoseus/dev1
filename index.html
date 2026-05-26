@@ -148,7 +148,18 @@
     .card-category{font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem;}
     .card-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--white);margin-bottom:.3rem;}
     .card-code{font-size:.65rem;color:var(--gray);letter-spacing:.08em;}
-    .card-hint{font-size:.6rem;color:var(--gold);letter-spacing:.08em;margin-top:.5rem;opacity:.75;display:flex;align-items:center;gap:.3rem;}
+    .card-hint{font-size:.65rem;color:#e74c3c;letter-spacing:.06em;margin-top:.5rem;font-weight:600;display:flex;align-items:center;gap:.3rem;animation:hint-pulse 2s ease-in-out infinite;}
+    @keyframes hint-pulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+    .hero-scroll-arrow{
+      display:flex;align-items:center;justify-content:center;
+      margin-top:2rem;color:var(--gold);text-decoration:none;
+      animation:bounce-arrow 1.6s ease-in-out infinite;
+    }
+    .hero-scroll-arrow svg{width:38px;height:38px;filter:drop-shadow(0 0 8px rgba(201,169,110,.5));}
+    @keyframes bounce-arrow{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(10px);}
+    }
 
     /* ── CARD BACK ── */
     .flip-card-back{
@@ -339,6 +350,11 @@
     Coleção premium disponível com entrega para todo o Brasil.</p>
   <a href="#catalogo" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--black);text-decoration:none;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 2rem;border-radius:50px;margin-top:1rem;">
     Ver Catálogo ↓
+  </a>
+  <a href="#catalogo" class="hero-scroll-arrow" aria-label="Role para o catálogo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
   </a>
 </section>
 
